@@ -342,4 +342,18 @@ a {
 }
 
 
+/* Hide Vercel Toolbar */
+vercel-live-feedback {
+  display: none !important;
+}
+.vercel-live-feedback {
+  display: none !important;
+}
 
+#vercel-toolbar {
+  display: none !important;
+}
+
+.vercel-toolbar {
+  display: none !important;
+}
