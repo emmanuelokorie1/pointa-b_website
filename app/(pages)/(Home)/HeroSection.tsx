@@ -4,13 +4,16 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/constants/route';
-import { icons, images } from '@/constants';
+import { images } from '@/constants';
 import DeliveryRouteAnimation from './DeliveryRouteAnimation';
+import DownloadAppButton from '@/components/ui/DownloadAppButton';
+
+import { useInView } from 'framer-motion';
 
 const marqueeColumns = [
     {
         id: 1,
-        containerClass: "flex-1 flex flex-col gap-4 md:gap-5 h-fit animate-marquee-down marquee-container hover:[animation-play-state:paused] cursor-pointer",
+        containerClass: "flex-1 flex flex-col gap-4 md:gap-5 h-fit animate-marquee-down marquee-container cursor-pointer",
         cards: [
             {
                 image: images.slide1,
@@ -33,7 +36,7 @@ const marqueeColumns = [
     },
     {
         id: 2,
-        containerClass: "flex-1 flex flex-col gap-4 md:gap-5 h-fit animate-marquee-up marquee-container hover:[animation-play-state:paused] cursor-pointer",
+        containerClass: "flex-1 flex flex-col gap-4 md:gap-5 h-fit animate-marquee-up marquee-container cursor-pointer",
         cards: [
             {
                 image: images.Landing3,
@@ -56,7 +59,7 @@ const marqueeColumns = [
     },
     {
         id: 3,
-        containerClass: "hidden sm:flex flex-1 flex-col gap-4 md:gap-5 h-fit animate-marquee-down marquee-container hover:[animation-play-state:paused] cursor-pointer",
+        containerClass: "hidden sm:flex flex-1 flex-col gap-4 md:gap-5 h-fit animate-marquee-down marquee-container cursor-pointer",
         cards: [
             {
                 image: images.Landing5,
@@ -81,15 +84,36 @@ const marqueeColumns = [
 
 const HeroSection = () => {
     const router = useRouter();
-    return (
-        <section className="relative min-h-screen bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] overflow-hidden flex flex-col lg:justify-center sm:pt-28 pt-[8rem] pb-12 lg:py-0">
+    const heroRef = React.useRef(null);
+    const isHeroInView = useInView(heroRef, { margin: "200px" });
 
-            <DeliveryRouteAnimation />
+    const [trackingId, setTrackingId] = React.useState("");
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [error, setError] = React.useState<string | null>(null);
+
+    const handleTrackSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!trackingId.trim()) {
+            setError("Please enter a valid tracking ID");
+            return;
+        }
+        setIsLoading(true);
+        setError(null);
+        setTimeout(() => {
+            setIsLoading(false);
+            router.push(`${routes.TRACK}?id=${encodeURIComponent(trackingId.trim())}`);
+        }, 800);
+    };
+
+    return (
+        <section ref={heroRef} className="relative min-h-screen bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] overflow-hidden flex flex-col lg:justify-center sm:pt-28 pt-[8rem] pb-12 lg:py-0">
+
+            {isHeroInView && <DeliveryRouteAnimation />}
 
             <div className="px-6 sm:px-8 lg:pl-[4rem] md:pl-[2rem] xl:pl-[6rem] 2xl:pl-[8rem] w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
                 {/* Left Column: Heading and Description */}
-                <div className="lg:col-span-5 flex flex-col justify-center text-left space-y-6 md:space-y-8 relative animate-fade-blur-in opacity-0 z-10">
+                <div className="lg:col-span-6 xl:col-span-5 flex flex-col justify-center text-left space-y-6 md:space-y-8 relative animate-fade-blur-in opacity-0 z-10">
 
                     {/* Heading */}
                     <h1 className="text-white text-[2.2rem] sm:text-[2.5rem] lg:text-[3rem] xl:text-[3.4rem] 2xl:text-[4rem] font-extrabold tracking-tight leading-[1.08] font-sans relative z-10">
@@ -102,22 +126,57 @@ const HeroSection = () => {
                         Order from local businesses near you or send anything across town, one app for every delivery moment in your day
                     </p>
 
-                    {/* CTA Buttons */}
-                    <div className="flex flex-wrap items-center gap-4 pt-6 relative z-10">
-                        {/* Primary: Premium White Download App Button */}
-                        <button
-                            id="hero-download-app-btn"
-                            onClick={() => router.push(routes.SERVICES)}
-                            className="flex bg-white hover:bg-white/95 text-[#3B007A] text-sm font-semibold px-6 py-3.5 rounded-full hover:scale-105 active:scale-95 transition-all duration-300 items-center justify-center gap-2.5 shadow-lg shadow-purple-950/20 group/btn w-full sm:w-auto"
-                        >
-                            <div className="flex items-center gap-1.5 opacity-90 group-hover/btn:opacity-100 transition-opacity">
-                                {/* Google Play Icon */}
-                                <img src={icons.GooglePlay.src} alt="Google Play" className="w-6 h-6" />
-                                {/* Apple Icon */}
-                                <img src={icons.AppStore.src} alt="Apple Store" className="w-6 h-6" />
+                    {/* Order Tracking Input / Status */}
+                    <div className="pt-4 space-y-4 relative z-10 w-full max-w-md">
+                        <form onSubmit={handleTrackSubmit} className="space-y-2.5">
+                            <label className="block text-white/70 text-xs font-bold uppercase tracking-wider pl-1">
+                                Track Your Order
+                            </label>
+                            <div className="relative flex items-center bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl p-1.5 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-300">
+                                {/* Left Icon (Map pin) */}
+                                <div className="pl-3.5 pr-2 text-white/50">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25a7.5 7.5 0 1115 0z" />
+                                    </svg>
+                                </div>
+                                {/* Input Field */}
+                                <input
+                                    type="text"
+                                    placeholder="Enter Tracking ID (e.g., PT-829-105)"
+                                    value={trackingId}
+                                    onChange={(e) => {
+                                        setTrackingId(e.target.value);
+                                        setError(null);
+                                    }}
+                                    className="flex-1 bg-transparent border-0 outline-none ring-0 text-white placeholder-white/40 text-sm py-2 px-1 focus:ring-0 focus:outline-none"
+                                />
+                                {/* Submit Button */}
+                                <button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="bg-[#D6FF38] hover:bg-[#c2e632] text-[#3B007A] text-sm font-extrabold px-5 py-2.5 rounded-xl hover:scale-102 active:scale-98 transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed shadow-[0_4px_16px_rgba(214,255,56,0.2)]"
+                                >
+                                    {isLoading ? (
+                                        <>
+                                            <svg className="animate-spin -ml-1 mr-1.5 h-4 w-4 text-[#3B007A]" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                            </svg>
+                                            <span>Tracking...</span>
+                                        </>
+                                    ) : (
+                                        <span>Track</span>
+                                    )}
+                                </button>
                             </div>
-                            <span className="text-md font-bold">Download App</span>
-                        </button>
+                            {error && (
+                                <p className="text-pink-500 text-xs pl-1 font-semibold">{error}</p>
+                            )}
+                            <p className="text-white/40 text-[11px] pl-1 font-medium">
+                                Try entering demo code: <span onClick={() => setTrackingId("PT-829-105")} className="text-[#D6FF38] underline cursor-pointer hover:text-[#c2e632] transition-colors">PT-829-105</span>
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -145,10 +204,11 @@ const HeroSection = () => {
                                         <div
                                             key={`${copyIndex}-${cardIndex}`}
                                             className="w-full aspect-[3/4] rounded-[1.8rem] overflow-hidden border border-white/[0.08] shadow-lg shadow-black/10 marquee-card relative group hover:border-purple-500/30 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500"
+                                            style={{ position: 'relative' }}
                                         >
-                                            {/* Floating Glass Badge */}
+                                            {/* Floating Glass Badge - Removed backdrop-blur-md to fix massive GPU lag while scrolling/animating */}
                                             {card.badge && (
-                                                <div className={`absolute ${card.badge.positionClass} bg-black/40 backdrop-blur-md border border-white/10 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md pointer-events-none z-10 group-hover:scale-105 transition-transform duration-300`}>
+                                                <div className={`absolute ${card.badge.positionClass} bg-black/60 border border-white/10 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md pointer-events-none z-10 group-hover:scale-105 transition-transform duration-300`}>
                                                     <span className={`w-1.5 h-1.5 rounded-full ${card.badge.dotColor} animate-pulse`}></span>
                                                     <span className="text-[10px] font-bold text-white/90 uppercase tracking-wider">{card.badge.text}</span>
                                                 </div>

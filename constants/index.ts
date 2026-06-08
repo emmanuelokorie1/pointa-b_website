@@ -13,17 +13,32 @@ import carPackage from "@/assets/images/carPackage.svg"
 import box2 from "@/assets/images/box2.svg"
 import packages from "@/assets/images/packages.svg"
 import iPhone from "@/assets/images/iPhone.svg"
+import howitworks from "@/assets/images/howitworks.svg"
 import Frame1 from "@/assets/images/Frame1.jpg"
+import merchant1 from "@/assets/images/merchant/merchant1.svg"
+import merchant2 from "@/assets/images/merchant/merchant2.svg"
+import merchant3 from "@/assets/images/merchant/merchant3.svg"
+import iPhone2 from "@/assets/images/iPhone2.svg"
+import iPhone3 from "@/assets/images/iPhone3.svg"
+
+//how its works
+import hiw1 from "@/assets/images/howitworks/step1.svg"
+import hiw2 from "@/assets/images/howitworks/step2.svg"
+import hiw3 from "@/assets/images/howitworks/step3.svg"
+import hiw4 from "@/assets/images/howitworks/step4.svg"
+
+//contact
+import contact from "@/assets/images/contact.svg"
+
 
 //slides
 import slide1 from "@/assets/images/home/slide1.jpg"
-
 
 //icons
 import GooglePlay from "@/assets/icons/google.svg"
 import AppStore from "@/assets/icons/apple.svg"
 import DeliveryBike from "@/assets/icons/delivery-bike.png"
-// import DeliveryBike from "@/assets/icons/bike.svg"
+import DeliveryBike1 from "@/assets/icons/bike.svg"
 
 //brands
 import Nine1 from "@/assets/icons/brands/91.jpg"
@@ -45,12 +60,28 @@ export const images = {
     Landing9,
     Landing10,
     DeliveryBike,
+    DeliveryBike1,
     slide1,
     carPackage,
     box2,
     packages,
     iPhone,
     Frame1,
+    howitworks,
+    merchant1,
+    merchant2,
+    merchant3,
+
+    contact,
+
+    iPhone2,
+    iPhone3,
+
+    //how its works
+    hiw1,
+    hiw2,
+    hiw3,
+    hiw4,
 }
 
 export const icons = {
@@ -63,4 +94,3 @@ export const icons = {
     clara,
     tuyaupay,
 }
-

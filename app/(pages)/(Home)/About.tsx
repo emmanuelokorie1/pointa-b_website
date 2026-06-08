@@ -57,66 +57,26 @@ const AnimatedCounter = ({ end, suffix = "", duration = 2000 }: { end: number; s
 // Premium, lightweight 3D hover tilt & cursor shine spot wrapper component
 const Card3D = ({ children, className, delay = 0, initialY = 40 }: { children: React.ReactNode; className: string; delay?: number; initialY?: number }) => {
     const cardRef = useRef<HTMLDivElement>(null);
-    const [rotateX, setRotateX] = useState(0);
-    const [rotateY, setRotateY] = useState(0);
-    const [glowStyle, setGlowStyle] = useState<{ background: string; opacity: number }>({ background: '', opacity: 0 });
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        const card = cardRef.current;
-        if (!card) return;
-        const rect = card.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-
-        // Calculate rotation angles (max 7 degrees for a sleek, ultra-subtle premium effect)
-        const rX = -((mouseY - height / 2) / (height / 2)) * 7;
-        const rY = ((mouseX - width / 2) / (width / 2)) * 7;
-
-        setRotateX(rX);
-        setRotateY(rY);
-
-        // Specular reflection glow spots (radial gradient overlay following the cursor)
-        setGlowStyle({
-            background: `radial-gradient(circle 140px at ${mouseX}px ${mouseY}px, rgba(255, 255, 255, 0.15), transparent)`,
-            opacity: 1
-        });
-    };
-
-    const handleMouseLeave = () => {
-        setRotateX(0);
-        setRotateY(0);
-        setGlowStyle({ background: '', opacity: 0 });
-    };
+    // We removed the expensive mousemove state tracking to dramatically improve performance
+    // and prevent severe lag caused by continuous React re-renders.
 
     return (
         <motion.div
             ref={cardRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
             initial={{ opacity: 0, y: initialY }}
             whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -6, scale: 1.01, transition: { duration: 0.3, ease: "easeOut" } }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{
-                default: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay },
-                rotateX: { type: "spring", stiffness: 180, damping: 22 },
-                rotateY: { type: "spring", stiffness: 180, damping: 22 }
-            }}
-            animate={{
-                rotateX: rotateX,
-                rotateY: rotateY,
-                transformPerspective: 1200
-            }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
             className={`${className} relative cursor-pointer`}
             style={{
                 transformStyle: "preserve-3d"
             }}
         >
-            {/* Radial shining specular reflection layer */}
+            {/* Static specular reflection layer on hover */}
             <div 
-                className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-30" 
-                style={glowStyle}
+                className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-30 opacity-0 group-hover:opacity-100" 
+                style={{ background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 70%)' }}
             />
             
             {/* 3D floating perspective inner container */}
@@ -141,7 +101,7 @@ const About = () => {
             </div>
 
             {/* Subtle premium ambient light glow */}
-            <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-purple-200/20 blur-[120px] rounded-full pointer-events-none z-0"></div>
+            <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(233, 213, 255, 0.2) 0%, transparent 70%)' }}></div>
 
             <div className="max-w-[90%] lg:max-w-[87%] xl:max-w-[87%] mx-auto relative z-10">
 
@@ -293,7 +253,7 @@ const About = () => {
                             delay={0.25}
                         >
                             {/* Subtle dark ambient glow inside card */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-2xl rounded-full pointer-events-none" style={{ transform: "translateZ(-5px)" }}></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 rounded-full pointer-events-none" style={{ transform: "translateZ(-5px)", background: 'radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)' }}></div>
 
                             <div className="relative z-10" style={{ transform: "translateZ(10px)" }}>
                                 <span className="text-[11px] sm:text-xs font-bold text-white/40 uppercase tracking-widest block">

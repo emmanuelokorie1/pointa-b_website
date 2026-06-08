@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Navbar from "@/components/layouts/navbar";
+import LoadingProvider from "@/components/providers/LoadingProvider";
 import "./globals.css";
 
 const trebuchet = localFont({
@@ -32,8 +33,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${trebuchet.variable}`} suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
-        <Navbar />
-        {children}
+        <LoadingProvider>
+          <Navbar />
+          {children}
+        </LoadingProvider>
       </body>
     </html>
   );

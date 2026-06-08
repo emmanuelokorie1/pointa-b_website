@@ -3,4 +3,5 @@ export const routes = {
     ABOUTUS: '/about-us',
     CONTACTUS: '/contact-us',
     SERVICES: '/services',
+    TRACK: '/track',
 }
