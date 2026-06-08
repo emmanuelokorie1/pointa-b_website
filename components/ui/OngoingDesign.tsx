@@ -8,6 +8,7 @@ interface OngoingDesignProps {
   pageName: string;
 }
 
+
 export default function OngoingDesign({ pageName }: OngoingDesignProps) {
   return (
     <div className="relative min-h-screen bg-white text-[#120024] flex flex-col justify-center items-center overflow-hidden px-6">
