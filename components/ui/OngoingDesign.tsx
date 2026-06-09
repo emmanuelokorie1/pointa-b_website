@@ -21,8 +21,8 @@ export default function OngoingDesign({ pageName }: OngoingDesignProps) {
         }
 
         @keyframes pulseGlow {
-          0%, 100% { transform: scale(1); opacity: 0.4; filter: blur(80px); }
-          50%       { transform: scale(1.15); opacity: 0.6; filter: blur(100px); }
+          0%, 100% { transform: scale(1); opacity: 0.35; }
+          50%       { transform: scale(1.12); opacity: 0.55; }
         }
 
         @keyframes spinSlow {
@@ -50,8 +50,8 @@ export default function OngoingDesign({ pageName }: OngoingDesignProps) {
         />
 
         {/* Ambient Glowing Orbs */}
-        <div className="ptab-glow-purple absolute w-[500px] h-[500px] rounded-full bg-[#8E24FF]/6 top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2" />
-        <div className="ptab-glow-blue absolute w-[600px] h-[600px] rounded-full bg-[#3B007A]/4 bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2" />
+        <div className="ptab-glow-purple absolute w-[500px] h-[500px] rounded-full bg-[#8E24FF]/6 top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 blur-[80px]" />
+        <div className="ptab-glow-blue absolute w-[600px] h-[600px] rounded-full bg-[#3B007A]/4 bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 blur-[100px]" />
 
         {/* Drift Particles */}
         <div className="ptab-float-1 absolute w-[300px] h-[300px] rounded-full bg-[#8E24FF]/4 blur-[80px] top-1/3 right-1/4" />
