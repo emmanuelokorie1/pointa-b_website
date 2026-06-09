@@ -108,7 +108,7 @@ const HeroSection = () => {
     return (
         <section ref={heroRef} className="relative min-h-screen bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] overflow-hidden flex flex-col lg:justify-center sm:pt-28 pt-[8rem] pb-12 lg:py-0">
 
-            {isHeroInView && <DeliveryRouteAnimation />}
+            {/* {isHeroInView && <DeliveryRouteAnimation />} */}
 
             <div className="px-6 sm:px-8 lg:pl-[4rem] md:pl-[2rem] xl:pl-[6rem] 2xl:pl-[8rem] w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
@@ -143,7 +143,7 @@ const HeroSection = () => {
                                 {/* Input Field */}
                                 <input
                                     type="text"
-                                    placeholder="Enter Tracking ID (e.g., PT-829-105)"
+                                    placeholder="Enter Tracking ID"
                                     value={trackingId}
                                     onChange={(e) => {
                                         setTrackingId(e.target.value);
@@ -177,6 +177,15 @@ const HeroSection = () => {
                                 Try entering demo code: <span onClick={() => setTrackingId("PT-829-105")} className="text-[#D6FF38] underline cursor-pointer hover:text-[#c2e632] transition-colors">PT-829-105</span>
                             </p>
                         </form>
+
+                        {/* Download App Button — shown on mobile only (md+ shows it in the navbar) */}
+                        <div className="md:hidden pt-2">
+                            <DownloadAppButton
+                                id="hero-download-app-btn-mobile"
+                                variant="primary"
+                                text="Download App"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

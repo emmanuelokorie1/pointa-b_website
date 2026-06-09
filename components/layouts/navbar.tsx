@@ -170,7 +170,7 @@ const Navbar = () => {
 
                     {/* Action Buttons & Mobile Menu Toggle */}
                     <div className="flex items-center gap-2.5">
-                        <div className="hidden xl:block">
+                        <div className="hidden md:block">
                             <DownloadAppButton id="nav-download-app-btn" className="!py-3" />
                         </div>
                         {/* Custom-Tinted Royal Purple Glass Merchant Button (Visible on md+) */}

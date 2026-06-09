@@ -18,6 +18,7 @@ const trebuchet = localFont({
     },
   ],
   variable: "--font-trebuchet",
+  preload: false,
 });
 
 export const metadata: Metadata = {
