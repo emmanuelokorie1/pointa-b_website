@@ -18,18 +18,18 @@ const marqueeColumns = [
             {
                 image: images.slide1,
                 alt: "Point A2B Dashboard",
-                badge: {
-                    text: "⚡ Live Dispatching",
-                    dotColor: "bg-[#D6FF38]",
-                    positionClass: "top-4 left-4"
-                }
+                // badge: {
+                //     text: "⚡ Live Dispatching",
+                //     dotColor: "bg-[#D6FF38]",
+                //     positionClass: "top-4 left-4"
+                // }
             },
             {
-                image: images.Landing7,
+                image: images.slide2,
                 alt: "Team collaboration",
             },
             {
-                image: images.Landing6,
+                image: images.slide3,
                 alt: "Meeting discussion",
             }
         ]
@@ -39,21 +39,21 @@ const marqueeColumns = [
         containerClass: "flex-1 flex flex-col gap-4 md:gap-5 h-fit animate-marquee-up marquee-container cursor-pointer",
         cards: [
             {
-                image: images.Landing3,
+                image: images.slide4,
                 alt: "Developer focus",
             },
             {
-                image: images.Landing4,
+                image: images.slide8,
                 alt: "SEO planning",
             },
             {
-                image: images.Landing8,
+                image: images.slide9,
                 alt: "Developer setup charts",
-                badge: {
-                    text: "📊 Route Analytics",
-                    dotColor: "bg-pink-500",
-                    positionClass: "top-4 right-4"
-                }
+                // badge: {
+                //     text: "📊 Route Analytics",
+                //     dotColor: "bg-pink-500",
+                //     positionClass: "top-4 right-4"
+                // }
             }
         ]
     },
@@ -62,20 +62,20 @@ const marqueeColumns = [
         containerClass: "hidden sm:flex flex-1 flex-col gap-4 md:gap-5 h-fit animate-marquee-down marquee-container cursor-pointer",
         cards: [
             {
-                image: images.Landing5,
+                image: images.slide5,
                 alt: "Office success celebration",
             },
             {
-                image: images.Landing9,
+                image: images.slide6,
                 alt: "Team brainstorming",
-                badge: {
-                    text: "👥 Multi-Agent Dispatch",
-                    dotColor: "bg-purple-500",
-                    positionClass: "bottom-4 left-4"
-                }
+                // badge: {
+                //     text: "👥 Multi-Agent Dispatch",
+                //     dotColor: "bg-purple-500",
+                //     positionClass: "bottom-4 left-4"
+                // }
             },
             {
-                image: images.Landing10,
+                image: images.slide7,
                 alt: "Group discussion workshop",
             }
         ]
@@ -216,12 +216,12 @@ const HeroSection = () => {
                                             style={{ position: 'relative' }}
                                         >
                                             {/* Floating Glass Badge - Removed backdrop-blur-md to fix massive GPU lag while scrolling/animating */}
-                                            {card.badge && (
+                                            {/* {card.badge && (
                                                 <div className={`absolute ${card.badge.positionClass} bg-black/60 border border-white/10 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md pointer-events-none z-10 group-hover:scale-105 transition-transform duration-300`}>
                                                     <span className={`w-1.5 h-1.5 rounded-full ${card.badge.dotColor} animate-pulse`}></span>
                                                     <span className="text-[10px] font-bold text-white/90 uppercase tracking-wider">{card.badge.text}</span>
                                                 </div>
-                                            )}
+                                            )} */}
                                             {/* Glass Specular Reflection Sweep Overlay */}
                                             <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.06] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none z-10"></div>
                                             <Image

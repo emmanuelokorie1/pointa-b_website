@@ -13,9 +13,9 @@ const Services = () => {
     const [isMobile, setIsMobile] = useState(false);
 
     // Highly curated widescreen corporate/lifestyle slide arrays
-    const slidesLeft = [images.Landing5, images.Landing1, images.Landing2];
-    const slidesMiddle = [images.Landing6, images.Landing3, images.Landing4];
-    const slidesRight = [images.Landing7, images.Landing9, images.Landing10];
+    const slidesLeft = [images.slide9, images.slide1, images.Landing2];
+    const slidesMiddle = [images.merchant1, images.Landing3, images.Landing4];
+    const slidesRight = [images.Landing1, images.Landing5, images.Landing6];
 
     useEffect(() => {
         const checkMobile = () => {
@@ -54,16 +54,7 @@ const Services = () => {
     ];
 
     return (
-        <section className="w-full bg-[#FDFDFD] py-20 sm:py-32 relative overflow-hidden select-none border-b border-black/[0.03] font-sans">
-            {/* Ambient Background Grid and Glows */}
-            <div className="absolute inset-0 bg-[#F4EAFF]/20 z-0"></div>
-            <div className="absolute inset-0 opacity-[0.3] pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(#8E24FF 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-[#FDFDFD] via-transparent to-[#FDFDFD] z-0 pointer-events-none"></div>
-            
-            {/* Glowing spot lamps */}
-            <div className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] rounded-full pointer-events-none z-0 bg-[#8E24FF]/10 blur-[120px]"></div>
-            <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full pointer-events-none z-0 bg-[#A655FF]/10 blur-[100px]"></div>
-
+        <section className="w-full bg-[#F4EAFF] py-20 sm:py-32 relative overflow-hidden select-none border-b border-black/[0.03] font-sans">
             <div className="max-w-[90%] lg:max-w-[85%] xl:max-w-[85%] mx-auto relative z-10">
                 {/* 1. Badge & Section Header */}
                 <motion.div
@@ -75,7 +66,6 @@ const Services = () => {
                 >
                     {/* Premium Glass Badge */}
                     <div className="bg-white/60 backdrop-blur-md border border-[#8E24FF]/20 text-[#8E24FF] text-[11px] sm:text-xs font-bold px-6 py-2.5 rounded-full shadow-sm uppercase tracking-[0.15em] inline-flex items-center gap-2.5 mb-6">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#8E24FF] animate-pulse"></span>
                         Premium Delivery Services
                     </div>
 
