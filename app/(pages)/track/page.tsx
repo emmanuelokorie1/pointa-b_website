@@ -170,7 +170,7 @@ const TrackPageContent = () => {
             </div>
 
             {/* FLOATING SIDEBAR / BOTTOM SHEET (Foreground layer) */}
-            <div className="absolute bottom-0 md:bottom-auto md:top-0 left-0 w-full md:w-[420px] lg:w-[480px] h-[55vh] md:h-full bg-white md:bg-white/95 md:backdrop-blur-xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl rounded-t-3xl md:rounded-none z-20 flex flex-col pt-6 md:pt-32 pb-8 overflow-y-auto overflow-x-hidden border-t md:border-t-0 md:border-r border-gray-200 transition-all duration-300">
+            <div className="absolute bottom-0 md:bottom-auto md:top-0 left-0 w-full md:w-[420px] lg:w-[480px] h-[55vh] md:h-full bg-white shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl rounded-t-3xl md:rounded-none z-20 flex flex-col pt-6 md:pt-32 pb-8 overflow-y-auto overflow-x-hidden border-t md:border-t-0 md:border-r border-gray-200 transition-all duration-300">
 
                 {/* Mobile Pull Indicator */}
                 <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-5 md:hidden shrink-0" />
@@ -203,7 +203,6 @@ const TrackPageContent = () => {
 
                     <AccordionItem
                         title="Order Timeline"
-                        badge={<span className="bg-[#8E24FF]/10 text-[#8E24FF] px-2 py-0.5 rounded-full text-[9px] font-bold">Live</span>}
                         defaultOpen
                     >
                         <div className="relative flex flex-col gap-6 ml-3 py-2 mt-3">

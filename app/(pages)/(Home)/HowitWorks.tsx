@@ -38,11 +38,11 @@ const HowitWorks = () => {
     const containerRef = useRef(null);
     const { scrollYProgress, scrollY } = useScroll({
         target: containerRef,
-        offset: ["start end", "start 30vh"]
+        offset: ["start end", "start 40vh"]
     });
     
     // Custom rotation value and spring for smooth turning
-    const bikeRotation = useMotionValue(150);
+    const bikeRotation = useMotionValue(160);
     const smoothRotation = useSpring(bikeRotation, { damping: 20, stiffness: 150 });
     const lastScrollY = useRef(0);
 
@@ -53,13 +53,13 @@ const HowitWorks = () => {
         
         if (progress < 1) {
             // Initial entry animation from bottom of screen
-            bikeRotation.set(150 - (progress * 180));
+            bikeRotation.set(140 - (progress * 180));
         } else {
             // Once sticky, face up or down based on scroll direction
             if (diff > 5) {
-                bikeRotation.set(-30); // Face down
+                bikeRotation.set(-40); // Face down
             } else if (diff < -5) {
-                bikeRotation.set(150); // Face up
+                bikeRotation.set(140); // Face up
             }
         }
         lastScrollY.current = latest;
@@ -134,7 +134,6 @@ const HowitWorks = () => {
                                         {/* Step Badge - Aligned near timeline */}
                                         <div className={`w-full flex justify-center md:justify-start mb-6 md:mb-10 lg:mb-12`}>
                                             <div className="bg-white/80 backdrop-blur-xl border border-white text-[#8E24FF] text-sm lg:text-[14px] font-extrabold px-6 py-2.5 rounded-full flex items-center justify-center gap-3 shadow-[0_8px_30px_rgba(142,36,255,0.12)] uppercase tracking-[0.15em] relative transition-transform hover:-translate-y-0.5">
-                                                <span className="w-1.5 h-1.5 rounded-full bg-[#8E24FF] animate-pulse"></span>
                                                 STEP {step.id} 
                                             </div>
                                         </div>

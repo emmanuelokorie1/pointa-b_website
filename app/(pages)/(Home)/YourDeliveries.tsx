@@ -54,6 +54,7 @@ const YourDeliveries = () => {
             </div>
           </div>
         </motion.div>
+        
 
         {/* Right Column - QR Code */}
         <motion.div 

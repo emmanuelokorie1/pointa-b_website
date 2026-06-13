@@ -274,7 +274,7 @@ const About = () => {
                                     {/* Circular Overlapping Avatar Stack */}
                                     <div className="flex -space-x-3">
                                         {[images.Landing1, images.Landing2, images.Landing3, images.Landing4].map((avatar, idx) => (
-                                            <div key={idx} className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#120024] shadow-md hover:scale-115 hover:z-20 transition-transform duration-300">
+                                            <div key={idx} className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#120024] shadow-md hover:scale-115 hover:z-20 transition-transform duration-300">
                                                 <Image
                                                     src={avatar}
                                                     alt={`Satisfied customer testimonial avatar ${idx + 1}`}
@@ -285,24 +285,24 @@ const About = () => {
                                             </div>
                                         ))}
                                         {/* Extra count pill */}
-                                        <div className="relative w-8 h-8 rounded-full bg-primary border-2 border-[#120024] flex items-center justify-center shadow-md text-[9px] font-extrabold text-white select-none transform hover:scale-110 transition-transform duration-300" style={{ transform: "translateZ(5px)" }}>
+                                        <div className="relative w-10 h-10 rounded-full bg-primary border-2 border-[#120024] flex items-center justify-center shadow-md text-[9px] font-extrabold text-white select-none transform hover:scale-110 transition-transform duration-300" style={{ transform: "translateZ(5px)" }}>
                                             +12k
                                         </div>
                                     </div>
 
                                     {/* Active Client / Rating Tag */}
-                                    <div className="flex items-center gap-1.5 bg-white/[0.06] border border-white/[0.08] rounded-full px-2.5 py-1 text-[10px] font-bold text-white/80 shadow-inner select-none" style={{ transform: "translateZ(10px)" }}>
+                                    {/* <div className="flex items-center gap-1.5 bg-white/[0.06] border border-white/[0.08] rounded-full px-2.5 py-1 text-[10px] font-bold text-white/80 shadow-inner select-none" style={{ transform: "translateZ(10px)" }}>
                                         <span className="w-1.5 h-1.5 rounded-full bg-[#D6FF38] animate-pulse"></span>
                                         <span>4.9/5 Rating</span>
-                                    </div>
+                                    </div> */}
 
                                     {/* Glowing Red Heart Circle Pill with dynamic nested ripple ring */}
-                                    <div className="relative flex items-center justify-center ml-auto">
+                                    {/* <div className="relative flex items-center justify-center ml-auto">
                                         <div className="absolute inset-0 rounded-full bg-red-500/35 animate-ping opacity-60 pointer-events-none scale-105"></div>
                                         <div className="relative w-8 h-8 rounded-full bg-red-500/15 border border-red-500/40 flex items-center justify-center shadow-[0_0_14px_rgba(239,68,68,0.35)] hover:scale-110 transition-transform cursor-pointer">
                                             <span className="text-red-500 text-xs select-none">❤️</span>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </Card3D>
