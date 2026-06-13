@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Navbar from "@/components/layouts/navbar";
 import LoadingProvider from "@/components/providers/LoadingProvider";
+import SmoothScrolling from "@/components/providers/SmoothScrolling";
 import "./globals.css";
 
 const trebuchet = localFont({
@@ -35,10 +36,13 @@ export default function RootLayout({
     <html lang="en" className={`${trebuchet.variable}`} suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
         <LoadingProvider>
-          <Navbar />
-          {children}
+          <SmoothScrolling>
+            <Navbar />
+            {children}
+          </SmoothScrolling>
         </LoadingProvider>
       </body>
     </html>
   );
 }
+
