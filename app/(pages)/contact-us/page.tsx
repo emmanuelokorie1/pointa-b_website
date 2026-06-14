@@ -1,8 +1,13 @@
 "use client";
 
-import React from 'react';
-import OngoingDesign from '@/components/ui/OngoingDesign';
+import ContactHero from './ContactHero';
+import ContactForm from './ContactForm';
 
 export default function ContactUsPage() {
-  return <OngoingDesign pageName="Contact Us" />;
+  return (
+    <main className="bg-white">
+      <ContactHero />
+      <ContactForm />
+    </main>
+  )
 }

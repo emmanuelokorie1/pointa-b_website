@@ -1,8 +1,8 @@
-import Landing1 from "@/assets/images/home/landing1.jpg"
-import Landing2 from "@/assets/images/home/landing2.jpg"
+import Landing1 from "@/assets/images/home/landing1.svg"
+import Landing2 from "@/assets/images/home/landing2.svg"
 import Landing3 from "@/assets/images/home/landing3.jpg"
-import Landing4 from "@/assets/images/home/landing4.jpg"
-import Landing5 from "@/assets/images/home/landing5.jpg"
+import Landing4 from "@/assets/images/home/landing4.svg"
+import Landing5 from "@/assets/images/home/landing5.svg"
 import Landing6 from "@/assets/images/home/landing6.jpg"
 
 import carPackage from "@/assets/images/carPackage.svg"
@@ -15,6 +15,7 @@ import merchant2 from "@/assets/images/merchant/merchant2.svg"
 import merchant3 from "@/assets/images/merchant/merchant3.svg"
 import iPhone2 from "@/assets/images/iPhone2.svg"
 import iPhone3 from "@/assets/images/iPhone3.svg"
+import contactCard from "@/assets/images/contacts/card.svg"
 
 //how its works
 import hiw1 from "@/assets/images/howitworks/step1.svg"
@@ -55,18 +56,37 @@ const mapToCloudinary = (staticImage: any, relativePath: string) => {
     if (!staticImage) return staticImage;
     const isSvg = relativePath.endsWith('.svg');
     const optimization = isSvg ? '' : 'f_auto,q_auto/';
+    
+    // Extract Next.js webpack/turbopack content hash from staticImage.src
+    // This is identical on both server and client, avoiding hydration mismatches.
+    let hash = '';
+    if (staticImage.src) {
+        const cleanSrc = staticImage.src.split('?')[0];
+        const filename = cleanSrc.substring(cleanSrc.lastIndexOf('/') + 1);
+        const baseFilename = relativePath.substring(relativePath.lastIndexOf('/') + 1);
+        const dotIndex = baseFilename.lastIndexOf('.');
+        if (dotIndex !== -1) {
+            const prefix = baseFilename.substring(0, dotIndex);
+            const ext = baseFilename.substring(dotIndex);
+            if (filename.startsWith(prefix + '.') && filename.endsWith(ext)) {
+                hash = filename.substring(prefix.length + 1, filename.length - ext.length);
+            }
+        }
+    }
+
+    const query = hash ? `?v=${hash}` : '';
     return {
         ...staticImage,
-        src: `https://res.cloudinary.com/dzyenrmzb/image/upload/${optimization}pointab-assets/${relativePath}`
+        src: `https://res.cloudinary.com/dzyenrmzb/image/upload/${optimization}pointab-assets/${relativePath}${query}`
     };
 };
 
 export const images = {
-    Landing1: mapToCloudinary(Landing1, "assets/images/home/landing1.jpg"),
-    Landing2: mapToCloudinary(Landing2, "assets/images/home/landing2.jpg"),
+    Landing1: mapToCloudinary(Landing1, "assets/images/home/landing1.svg"),
+    Landing2: mapToCloudinary(Landing2, "assets/images/home/landing2.svg"),
     Landing3: mapToCloudinary(Landing3, "assets/images/home/landing3.jpg"),
-    Landing4: mapToCloudinary(Landing4, "assets/images/home/landing4.jpg"),
-    Landing5: mapToCloudinary(Landing5, "assets/images/home/landing5.jpg"),
+    Landing4: mapToCloudinary(Landing4, "assets/images/home/landing4.svg"),
+    Landing5: mapToCloudinary(Landing5, "assets/images/home/landing5.svg"),
     Landing6: mapToCloudinary(Landing6, "assets/images/home/landing6.jpg"),
     DeliveryBike: mapToCloudinary(DeliveryBike, "assets/icons/delivery-bike.png"),
     DeliveryBike1: mapToCloudinary(DeliveryBike1, "assets/icons/bike.svg"),
@@ -89,6 +109,7 @@ export const images = {
     merchant3: mapToCloudinary(merchant3, "assets/images/merchant/merchant3.svg"),
 
     contact: mapToCloudinary(contact, "assets/images/contact.svg"),
+    contactCard: mapToCloudinary(contactCard, "assets/images/contacts/card.svg"),
 
     iPhone2: mapToCloudinary(iPhone2, "assets/images/iPhone2.svg"),
     iPhone3: mapToCloudinary(iPhone3, "assets/images/iPhone3.svg"),
