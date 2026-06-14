@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Navbar from "@/components/layouts/navbar";
 import LoadingProvider from "@/components/providers/LoadingProvider";
-import SmoothScrolling from "@/components/providers/SmoothScrolling";
 import "./globals.css";
 
 const trebuchet = localFont({
@@ -23,8 +22,26 @@ const trebuchet = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Pointab | Premium Web Experiences",
-  description: "Crafting beautiful, high-performance web applications with a focus on design and user experience.",
+  title: {
+    default: "Point A2B | On-Demand Delivery & Logistics Platform",
+    template: "%s | Point A2B"
+  },
+  description: "Point A2B is the ultimate local delivery and logistics platform. Send items across town, track packages in real-time, or get on-demand delivery for your business.",
+  keywords: ["Logistics", "On-Demand Delivery", "Local Delivery", "Courier Service", "Point A2B", "Package Tracking", "Merchant Delivery"],
+  authors: [{ name: "Point A2B" }],
+  openGraph: {
+    title: "Point A2B | On-Demand Delivery & Logistics Platform",
+    description: "Send anything across town or order from local merchants with fast, reliable, on-time logistics and real-time tracking.",
+    url: "https://pointab.com",
+    siteName: "Point A2B",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Point A2B | On-Demand Delivery & Logistics Platform",
+    description: "Send anything across town or order from local merchants with fast, reliable, on-time logistics and real-time tracking.",
+  }
 };
 
 export default function RootLayout({
@@ -34,15 +51,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${trebuchet.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Non-blocking async Google Fonts load — avoids render-blocking @import in CSS */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600;1,700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="antialiased" suppressHydrationWarning>
         <LoadingProvider>
-          <SmoothScrolling>
-            <Navbar />
-            {children}
-          </SmoothScrolling>
+          <Navbar />
+          {children}
         </LoadingProvider>
       </body>
     </html>
   );
 }
+
 
