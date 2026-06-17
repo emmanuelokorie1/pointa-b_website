@@ -126,6 +126,7 @@ const Services = () => {
                                             exit={{ x: "-100%", opacity: 0.9, scale: 0.98 }}
                                             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                                             className="absolute inset-0 w-full h-full"
+                                            style={{ position: 'absolute' }}
                                         >
                                             <Image
                                                 src={currentImage}

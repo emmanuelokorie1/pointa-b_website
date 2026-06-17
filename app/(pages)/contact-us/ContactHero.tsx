@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Badge from '@/components/ui/Badge';
 import { images } from '@/constants';
 
 export default function ContactHero() {
@@ -14,9 +15,7 @@ export default function ContactHero() {
       {/* Text Content — sits above the purple bg, below the navbar */}
       <div className="relative z-10 flex flex-col items-center text-center pt-36 md:pt-44 px-4 pb-14">
         {/* Badge */}
-        <div className="mb-6 bg-white/10 px-5 py-2 rounded-full text-white/90 text-xs font-semibold tracking-[0.1em] shadow-sm">
-          / CONTACT US
-        </div>
+        <Badge text="CONTACT US" variant="glass" className="mb-6" />
 
         {/* Title */}
         <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white mb-4 tracking-tight">

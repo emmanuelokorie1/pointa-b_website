@@ -343,7 +343,8 @@ const TrackPageContent = () => {
                             <div className="mt-1 pt-4 border-t border-gray-200 flex flex-col gap-2">
                                 <span className="text-gray-400 font-medium text-[10px]">Pick-up code</span>
                                 <div className="self-start px-3 py-1.5 bg-[#8E24FF]/10 border border-[#8E24FF]/20 rounded-lg">
-                                    <span className="text-[#8E24FF] font-black tracking-widest italic">{trackingData.securityPin}</span>
+                                    <span className="text-[#8E24FF] font-black tracking-widest italic">CHECK APP FOR CODE</span>
+                                    {/* <span className="text-[#8E24FF] font-black tracking-widest italic">{trackingData.securityPin}</span> */}
                                 </div>
                             </div>
                         </div>

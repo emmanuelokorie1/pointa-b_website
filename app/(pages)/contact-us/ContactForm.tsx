@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { images } from '@/constants';
+import { icons, images } from '@/constants';
 import { MessageSquare, Send, ChevronDown } from 'lucide-react';
 
 const COUNTRY_CODES = [
@@ -40,8 +40,8 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="bg-[#F7F7F7] px-6 relative z-10 pt-16 md:pt-20 pb-24">
-      <div className="grid lg:grid-cols-12 gap-8 sm:w-[90%] w-full mx-auto items-stretch">
+    <section className="bg-[#F7F7F7] px-4 sm:px-6 relative z-10 pt-16 md:pt-20 sm:pb-24 pb-14">
+      <div className="grid lg:grid-cols-12 gap-8 sm:w-[85%] w-full mx-auto items-stretch">
 
         {/* Contact Card Column — outer relative wrapper */}
         <div className="lg:col-span-5 relative flex flex-col">
@@ -100,17 +100,19 @@ export default function ContactForm() {
           </div>
 
           {/* White card — sits below, pill + email inside */}
-          <div className="relative z-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)] pt-32 pb-8 px-8 flex flex-col gap-6">
+          <div className="relative mt-[-14rem] pt-[20rem] z-10 bg-white sm:rounded-[2rem] rounded-[1rem] border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)] pb-8 px-8 flex flex-col gap-6">
 
             {/* Pill badge */}
-            <div className="bg-[#f0e6ff] rounded-full px-6 py-3 text-center">
-              <p className="text-sm font-bold text-[#5B0097] tracking-wide">Fill out the form by your right</p>
+            <div className="bg-gradient-to-r from-primary/10 to-white rounded-full px-6 py-3 text-center">
+              <p className="text-sm font-bold text-black tracking-wide">Fill out the form by your right</p>
             </div>
 
             {/* Email row */}
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">📨</span>
+                <span className="text-2xl flex items-center justify-center">
+                  <Image src={icons.MessageIcon} alt="Message" width={24} height={24} className="object-contain" />
+                </span>
                 <div>
                   <p className="text-sm font-bold text-[#0B0F19]">Prefer to email?</p>
                   <p className="text-sm text-gray-400">hello@pointA2B.co</p>
@@ -125,15 +127,11 @@ export default function ContactForm() {
                 </svg>
               </a>
             </div>
-
           </div>
-
         </div>
 
-
-
         {/* Form Card */}
-        <div className="lg:col-span-7 bg-white border border-gray-100 p-8 md:p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+        <div className="lg:col-span-7 bg-white border border-gray-100 sm:p-8 p-6 md:p-10 sm:rounded-[2rem] rounded-[1rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
           <form onSubmit={handleSubmit} className="space-y-6">
 
             {/* First name + Last name */}

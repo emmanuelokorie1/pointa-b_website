@@ -148,6 +148,7 @@ const AppProvides = () => {
                         viewport={{ once: true }}
                         transition={{ type: "spring", stiffness: 60, damping: 15 }}
                         className="relative w-[220px] h-[440px] sm:w-[300px] sm:h-[610px] lg:w-[340px] lg:h-[650px] xl:w-[400px] xl:h-[700px] select-none z-10 lg:flex lg:items-end lg:justify-end"
+                        style={{ position: 'relative' }}
                     >
                         <Image
                             src={images?.iPhone}

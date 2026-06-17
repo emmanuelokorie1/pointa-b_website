@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
+import Badge from '@/components/ui/Badge';
 import { images } from '@/constants';
 import { motion } from 'framer-motion';
 
@@ -115,9 +116,7 @@ const About = () => {
                 >
                     {/* Micro-badge */}
                     <div className="flex">
-                        <span className="text-primary bg-primary/8 px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold tracking-widest uppercase shadow-[0_2px_10px_hsla(var(--primary)/0.03)] border border-primary/10">
-                            / About Us
-                        </span>
+                        <Badge text="About Us" variant="outline" />
                     </div>
 
                     {/* Playfair Highlight Title */}
@@ -167,7 +166,7 @@ const About = () => {
                             {/* Van stacked with boxes asset */}
                             <div 
                                 className="absolute bottom-[-12%] xs:bottom-[-16%] sm:bottom-[-20%] right-[-6%] sm:right-[-5%] w-[48%] xs:w-[46%] sm:w-[44%] h-[68%] xs:h-[73%] sm:h-[78%] select-none pointer-events-none transform group-hover:scale-[1.04] group-hover:translate-x-1 transition-all duration-500 ease-out"
-                                style={{ transform: "translateZ(30px)" }}
+                                style={{ transform: "translateZ(30px)", position: 'absolute' }}
                             >
                                 <Image
                                     src={images.carPackage}
@@ -189,8 +188,8 @@ const About = () => {
                                 delay={0.1}
                             >
                                 <div 
-                                    className="relative w-full h-full transform group-hover:scale-[1.06] group-hover:rotate-2 transition-all duration-500 ease-out p-4 sm:p-5"
-                                    style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d" }}
+                                    className="relative w-full flex-1 transform group-hover:scale-[1.06] group-hover:rotate-2 transition-all duration-500 ease-out p-4 sm:p-5"
+                                    style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d", position: 'relative' }}
                                 >
                                     <Image
                                         src={images.box2}
@@ -233,8 +232,8 @@ const About = () => {
                             delay={0.15}
                         >
                             <div 
-                                className="relative w-full h-full transform group-hover:scale-[1.04] transition-all duration-500 ease-out p-4 sm:p-5"
-                                style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d" }}
+                                className="relative w-full flex-1 transform group-hover:scale-[1.04] transition-all duration-500 ease-out p-4 sm:p-5"
+                                style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d", position: 'relative' }}
                             >
                                 <Image
                                     src={images.packages}
@@ -274,7 +273,7 @@ const About = () => {
                                     {/* Circular Overlapping Avatar Stack */}
                                     <div className="flex -space-x-3">
                                         {[images.Landing1, images.Landing2, images.Landing3, images.Landing4].map((avatar, idx) => (
-                                            <div key={idx} className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#120024] shadow-md hover:scale-115 hover:z-20 transition-transform duration-300">
+                                            <div key={idx} className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#120024] shadow-md hover:scale-115 hover:z-20 transition-transform duration-300" style={{ position: 'relative' }}>
                                                 <Image
                                                     src={avatar}
                                                     alt={`Satisfied customer testimonial avatar ${idx + 1}`}

@@ -26,6 +26,33 @@ import hiw4 from "@/assets/images/howitworks/step4.svg"
 //contact
 import contact from "@/assets/images/contact.svg"
 
+//aboutUs
+import world from "@/assets/images/aboutUs/world.svg"
+import moreThanJust from "@/assets/images/aboutUs/morethan.svg"
+import aboutHero from "@/assets/images/aboutUs/aboutHero.svg"
+import ourMission from "@/assets/images/aboutUs/ourMission.svg"
+import ourValue1 from "@/assets/images/aboutUs/ourValue1.svg"
+import ourValue2 from "@/assets/images/aboutUs/ourValue2.svg"
+import ourValue3 from "@/assets/images/aboutUs/ourValue3.svg"
+import ourValue4 from "@/assets/images/aboutUs/ourValue4.svg"
+import team1 from "@/assets/images/aboutUs/team1.png"
+import team2 from "@/assets/images/aboutUs/team2.png"
+import team3 from "@/assets/images/aboutUs/team3.png"
+import team4 from "@/assets/images/aboutUs/team4.png"
+import team5 from "@/assets/images/aboutUs/team5.png"
+import team6 from "@/assets/images/aboutUs/team6.png"
+import serviceHero from "@/assets/images/services/serviceHero.svg"
+import foodDelivery from "@/assets/images/services/food_delivery.png"
+import packageDelivery from "@/assets/images/services/package_delivery.png"
+import merchantFulfillment from "@/assets/images/services/merchant_fulfillment.png"
+import sameDay from "@/assets/images/services/same_day.png"
+import smeLogistics from "@/assets/images/services/sme_logistics.png"
+import whyChoose from "@/assets/images/services/whyChoose.svg"
+import whyChoose2 from "@/assets/images/services/whyChoose2.svg"
+import whyChoose3 from "@/assets/images/services/whyChoose3.svg"
+import whyChoose4 from "@/assets/images/services/whyChoose4.svg"
+
+
 
 //slides
 import slide1 from "@/assets/images/home/slide1.jpg"
@@ -43,6 +70,8 @@ import GooglePlay from "@/assets/icons/google.svg"
 import AppStore from "@/assets/icons/apple.svg"
 import DeliveryBike from "@/assets/icons/delivery-bike.png"
 import DeliveryBike1 from "@/assets/icons/bike.svg"
+import MessageIcon from "@/assets/icons/message.jpg"
+import milestoneIcon from "@/assets/icons/tick.svg"
 
 //brands
 import Nine1 from "@/assets/icons/brands/91.jpg"
@@ -119,11 +148,38 @@ export const images = {
     hiw2: mapToCloudinary(hiw2, "assets/images/howitworks/step2.svg"),
     hiw3: mapToCloudinary(hiw3, "assets/images/howitworks/step3.svg"),
     hiw4: mapToCloudinary(hiw4, "assets/images/howitworks/step4.svg"),
+
+    world: mapToCloudinary(world, "assets/images/aboutUs/world.svg"),
+    milestoneIcon: mapToCloudinary(milestoneIcon, "assets/icons/tick.svg"),
+    moreThanJust: mapToCloudinary(moreThanJust, "assets/images/aboutUs/morethan.svg"),
+    aboutHero: mapToCloudinary(aboutHero, "assets/images/aboutUs/aboutHero.svg"),
+    ourMission: mapToCloudinary(ourMission, "assets/images/aboutUs/ourMission.svg"),
+    ourValue1: mapToCloudinary(ourValue1, "assets/images/aboutUs/ourValue1.svg"),
+    ourValue2: mapToCloudinary(ourValue2, "assets/images/aboutUs/ourValue2.svg"),
+    ourValue3: mapToCloudinary(ourValue3, "assets/images/aboutUs/ourValue3.svg"),
+    ourValue4: mapToCloudinary(ourValue4, "assets/images/aboutUs/ourValue4.svg"),
+    team1: mapToCloudinary(team1, "assets/images/aboutUs/team1.png"),
+    team2: mapToCloudinary(team2, "assets/images/aboutUs/team2.png"),
+    team3: mapToCloudinary(team3, "assets/images/aboutUs/team3.png"),
+    team4: mapToCloudinary(team4, "assets/images/aboutUs/team4.png"),
+    team5: mapToCloudinary(team5, "assets/images/aboutUs/team5.png"),
+    team6: mapToCloudinary(team6, "assets/images/aboutUs/team6.png"),
+    serviceHero: mapToCloudinary(serviceHero, "assets/images/services/serviceHero.svg"),
+    foodDelivery: mapToCloudinary(foodDelivery, "assets/images/services/food_delivery.png"),
+    packageDelivery: mapToCloudinary(packageDelivery, "assets/images/services/package_delivery.png"),
+    merchantFulfillment: mapToCloudinary(merchantFulfillment, "assets/images/services/merchant_fulfillment.png"),
+    sameDay: mapToCloudinary(sameDay, "assets/images/services/same_day.png"),
+    smeLogistics: mapToCloudinary(smeLogistics, "assets/images/services/sme_logistics.png"),
+    whyChoose: mapToCloudinary(whyChoose, "assets/images/services/whyChoose.svg"),
+    whyChoose2: mapToCloudinary(whyChoose2, "assets/images/services/whyChoose2.svg"),
+    whyChoose3: mapToCloudinary(whyChoose3, "assets/images/services/whyChoose3.svg"),
+    whyChoose4: mapToCloudinary(whyChoose4, "assets/images/services/whyChoose4.svg"),
 }
 
 export const icons = {
     GooglePlay: mapToCloudinary(GooglePlay, "assets/icons/google.svg"),
     AppStore: mapToCloudinary(AppStore, "assets/icons/apple.svg"),
+    MessageIcon: mapToCloudinary(MessageIcon, "assets/icons/message.jpg"),
 
     //brands
     Nine1: mapToCloudinary(Nine1, "assets/icons/brands/91.jpg"),
