@@ -148,7 +148,7 @@ const RealStory = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-4 flex flex-wrap items-center justify-center gap-3 bg-white/60 backdrop-blur-md py-2 px-4 lg:px-5 rounded-full border border-white mx-auto max-w-fit shadow-sm pointer-events-auto"
+            className="mt-4 flex flex-wrap items-center justify-center gap-3 bg-white/90 py-2 px-4 lg:px-5 rounded-full border border-white mx-auto max-w-fit shadow-sm pointer-events-auto"
           >
             <div className="flex -space-x-2">
               <img className="w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white object-cover relative z-30" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop" alt="Merchant" loading="lazy" />
@@ -192,17 +192,10 @@ const RealStory = () => {
                 <div 
                   className={`relative w-full h-full rounded-full overflow-hidden border-[3px] flex items-center justify-center bg-white transition-all duration-500 cursor-pointer ${
                     pos.glow 
-                      ? 'shadow-[0_0_50px_rgba(142,36,255,0.6)] border-white ring-4 ring-white/50' 
-                      : 'shadow-lg border-white/60 grayscale-[40%] opacity-80 hover:grayscale-0 hover:opacity-100 hover:scale-110 hover:border-white'
+                      ? 'shadow-[0_0_30px_rgba(142,36,255,0.4)] border-white ring-4 ring-white/40' 
+                      : 'shadow-md border-white/60 opacity-60 hover:opacity-100 hover:scale-105 hover:border-white'
                   }`}
                   onClick={() => setCurrentIndex(idx)}
-                  style={{ 
-                    animationName: isActive ? 'none' : 'float',
-                    animationDuration: '4s',
-                    animationTimingFunction: 'ease-in-out',
-                    animationIterationCount: 'infinite',
-                    animationDelay: `${idx * 0.4}s`
-                  }}
                 >
                   <img 
                     src={testimonial.avatar} 

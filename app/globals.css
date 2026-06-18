@@ -229,15 +229,128 @@ a {
   }
 }
 
+/* Alias used by CSS animation shorthand in components (e.g. OurValue) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .animate-fade-blur-in {
   animation: fade-slide-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Horizontal slide transitions — replaces Framer Motion AnimatePresence for Services slideshow */
+@keyframes slideEnterRight {
+  from { transform: translateX(100%); opacity: 0.9; }
+  to   { transform: translateX(0);    opacity: 1;   }
+}
+
+@keyframes slideExitLeft {
+  from { transform: translateX(0);     opacity: 1;   }
+  to   { transform: translateX(-100%); opacity: 0.9; }
+}
+
+/* ─── Float animations ─────────────────────────────────────────────────────
+   Replaces Framer Motion repeat:Infinity float loops (AppProvides panels).
+   CSS @keyframes on transform-only = compositor thread, zero JS per frame.
+   ──────────────────────────────────────────────────────────────────────── */
+@keyframes floatY-8 {
+  0%, 100% { transform: translateY(0);   }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes floatY6 {
+  0%, 100% { transform: translateY(0);  }
+  50%       { transform: translateY(6px); }
+}
+@keyframes floatY-6 {
+  0%, 100% { transform: translateY(0);   }
+  50%       { transform: translateY(-6px); }
+}
+
+.float-panel-left   { animation: floatY-8 6s ease-in-out infinite; }
+.float-panel-top    { animation: floatY6  8s ease-in-out infinite; }
+.float-panel-bottom { animation: floatY-6 7s ease-in-out infinite; }
+
 /* High-Performance card rendering optimization (avoids over-compositing) */
 .marquee-card {
-  contain: paint;
+  contain: layout style paint;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+
+/* Allow the browser to skip off-screen marquee content entirely */
+.marquee-container {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+/* ============================================================
+   IntersectionObserver-driven entrance animation
+   Usage: add .fade-in-up to element, then add .is-visible via
+   the useIntersectionObserver hook to trigger the animation.
+   ============================================================ */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered variant — apply --stagger-delay inline for each child */
+.fade-in-up-stagger {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay, 0ms),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay, 0ms);
+}
+
+.fade-in-up-stagger.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Slide-in from left/right variants */
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay, 0ms),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay, 0ms);
+}
+
+.fade-in-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay, 0ms),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay, 0ms);
+}
+
+.fade-in-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scroll-progress track fill for HowitWorks — driven by JS setting --scroll-progress on the element */
+.scroll-track-fill {
+  transform-origin: top;
+  transform: scaleY(var(--scroll-progress, 0));
+  transition: transform 0.05s linear;
+  will-change: transform;
 }
 
 /* Living Background Blob Animations */

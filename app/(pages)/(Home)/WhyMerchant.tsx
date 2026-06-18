@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { images } from '@/constants';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const features = [
   {
@@ -32,27 +32,75 @@ const features = [
   }
 ];
 
-const WhyMerchant = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  const scale0 = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
-  const scale1 = useTransform(scrollYProgress, [0.3, 1], [1, 0.96]);
-  const scale2 = useTransform(scrollYProgress, [0.6, 1], [1, 1]);
-  
-  const scales = [scale0, scale1, scale2];
+// Individual card — IntersectionObserver driven, no Framer Motion scroll APIs
+const MerchantCard = ({
+  feature,
+  idx,
+}: {
+  feature: typeof features[number];
+  idx: number;
+}) => {
+  const [ref, isVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-50px', once: true });
 
   return (
-    <section ref={containerRef} className="w-full bg-[#270B4B] py-20 lg:py-32 font-sans relative overflow-clip">
-      {/* Premium Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#8E24FF]/20 blur-[120px] rounded-full pointer-events-none"></div>
+    <div
+      ref={ref}
+      className="sticky w-full"
+      style={{
+        top: `calc(15vh + ${idx * 40}px)`,
+        contain: 'layout paint',
+      }}
+    >
+      <div
+        className={`group flex flex-col lg:flex-row rounded-[2rem] overflow-hidden p-8 sm:p-10 lg:p-12 gap-10 lg:gap-16 items-center shadow-[0_20px_45px_rgba(39,11,75,0.18)] border-[3px] border-white fade-in-up ${isVisible ? 'is-visible' : ''}`}
+        style={{
+          backgroundColor: feature.bg,
+          // Stagger each card slightly
+          transitionDelay: `${idx * 80}ms`,
+        }}
+      >
+        {/* Text Side */}
+        <div className="w-full lg:w-1/2 flex flex-col justify-center">
+          {/* Target Icon */}
+          <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#8E24FF] shadow-[0_8px_20px_rgba(142,36,255,0.3)] flex items-center justify-center mb-6 lg:mb-8 transform group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-500">
+            <div className="w-3.5 h-3.5 lg:w-4 lg:h-4 rounded-full bg-[#270B4B]"></div>
+          </div>
 
+          <h3 className="text-[1.8rem] sm:text-3xl lg:text-[2.5rem] font-bold text-[#0B0F19] tracking-tight mb-5 leading-tight">
+            {feature.title}
+          </h3>
+          <p className="text-[#475569] text-[15px] sm:text-[17px] leading-[1.8] font-medium">
+            {feature.desc}
+          </p>
+        </div>
+
+        {/* Image Side */}
+        <div className="w-full lg:w-1/2 h-[350px] sm:h-[400px] lg:h-[500px] relative rounded-2xl overflow-hidden">
+          <div className="absolute inset-0 bg-[#8E24FF]/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+          <Image
+            src={feature.image}
+            alt={feature.title}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const WhyMerchant = () => {
+  return (
+    <section 
+      className="w-full py-20 lg:py-32 font-sans relative overflow-clip"
+      style={{
+        backgroundColor: '#270B4B',
+        backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(142, 36, 255, 0.22) 0%, #270B4B 65%)'
+      }}
+    >
       <div className="w-[90%] md:w-[85%] lg:w-[80%] mx-auto relative z-10">
-        
+
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 lg:mb-24 gap-6 relative">
           <h2 className="text-white text-[2.5rem] sm:text-4xl lg:text-[3.2rem] font-bold leading-[1.15] max-w-2xl tracking-tight drop-shadow-lg">
@@ -63,51 +111,10 @@ const WhyMerchant = () => {
           </p>
         </div>
 
-        {/* Cards */}
+        {/* Cards — pure CSS sticky stacking, no JS scale transforms */}
         <div className="flex flex-col gap-8 md:gap-12 lg:gap-16">
           {features.map((feature, idx) => (
-            <motion.div 
-              key={feature.id}
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              style={{ 
-                top: `calc(15vh + ${idx * 40}px)`,
-                willChange: "transform, opacity",
-                backgroundColor: feature.bg,
-                scale: scales[idx] || 1,
-              }}
-              className={`sticky group flex flex-col ${feature.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} rounded-[2rem] overflow-hidden p-8 sm:p-10 lg:p-12 gap-10 lg:gap-16 items-center shadow-[0_30px_60px_rgba(0,0,0,0.3)] border-[3px] border-white`}
-            >
-              
-              {/* Text Side */}
-              <div className="w-full lg:w-1/2 flex flex-col justify-center">
-                {/* Target Icon */}
-                <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#8E24FF] shadow-[0_8px_20px_rgba(142,36,255,0.3)] flex items-center justify-center mb-6 lg:mb-8 transform group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-500">
-                  <div className="w-3.5 h-3.5 lg:w-4 lg:h-4 rounded-full bg-[#270B4B]"></div>
-                </div>
-
-                <h3 className="text-[1.8rem] sm:text-3xl lg:text-[2.5rem] font-bold text-[#0B0F19] tracking-tight mb-5 leading-tight">
-                  {feature.title}
-                </h3>
-                <p className="text-[#475569] text-[15px] sm:text-[17px] leading-[1.8] font-medium">
-                  {feature.desc}
-                </p>
-              </div>
-
-              {/* Image Side */}
-              <div className="w-full lg:w-1/2 h-[350px] sm:h-[400px] lg:h-[500px] relative rounded-2xl overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-[#8E24FF]/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
-                <Image 
-                  src={feature.image}
-                  alt={feature.title}
-                  fill
-                  className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-              </div>
-
-            </motion.div>
+            <MerchantCard key={feature.id} feature={feature} idx={idx} />
           ))}
         </div>
 

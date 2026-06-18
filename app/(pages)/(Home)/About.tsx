@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Badge from '@/components/ui/Badge';
 import { images } from '@/constants';
-import { motion } from 'framer-motion';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 // High-performance animated counter that triggers when in viewport
 const AnimatedCounter = ({ end, suffix = "", duration = 2000 }: { end: number; suffix?: string; duration?: number }) => {
@@ -55,36 +55,53 @@ const AnimatedCounter = ({ end, suffix = "", duration = 2000 }: { end: number; s
     );
 };
 
-// Premium, lightweight 3D hover tilt & cursor shine spot wrapper component
-const Card3D = ({ children, className, delay = 0, initialY = 40 }: { children: React.ReactNode; className: string; delay?: number; initialY?: number }) => {
-    const cardRef = useRef<HTMLDivElement>(null);
-    // We removed the expensive mousemove state tracking to dramatically improve performance
-    // and prevent severe lag caused by continuous React re-renders.
+// Lightweight entrance card — IntersectionObserver triggered, zero Framer Motion
+const Card3D = ({ children, className, delay = 0 }: { children: React.ReactNode; className: string; delay?: number }) => {
+    const [ref, isVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-60px', once: true });
 
     return (
-        <motion.div
-            ref={cardRef}
-            initial={{ opacity: 0, y: initialY }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -6, scale: 1.01, transition: { duration: 0.3, ease: "easeOut" } }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
-            className={`${className} relative cursor-pointer`}
-            style={{
-                transformStyle: "preserve-3d"
-            }}
+        <div
+            ref={ref}
+            className={`${className} relative cursor-pointer fade-in-up ${isVisible ? 'is-visible' : ''}`}
+            style={{ transitionDelay: `${delay * 1000}ms` } as React.CSSProperties}
         >
             {/* Static specular reflection layer on hover */}
-            <div 
-                className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-30 opacity-0 group-hover:opacity-100" 
+            <div
+                className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-30 opacity-0 group-hover:opacity-100"
                 style={{ background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 70%)' }}
             />
-            
-            {/* 3D floating perspective inner container */}
-            <div className="w-full h-full flex flex-col" style={{ transform: "translateZ(18px)", transformStyle: "preserve-3d" }}>
+
+            {/* Inner content container */}
+            <div className="w-full h-full flex flex-col">
                 {children}
             </div>
-        </motion.div>
+        </div>
+    );
+};
+
+// Section heading with IntersectionObserver-driven fade-in
+const AboutHeader = () => {
+    const [ref, isVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-100px', once: true });
+    return (
+        <div
+            ref={ref}
+            className={`flex flex-col text-left space-y-5 mb-10 sm:mb-16 fade-in-up ${isVisible ? 'is-visible' : ''}`}
+        >
+            {/* Micro-badge */}
+            <div className="flex">
+                <Badge text="About Us" variant="outline" />
+            </div>
+
+            {/* Playfair Highlight Title */}
+            <h2 className="text-[#120024] text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] font-semibold tracking-tight font-sans leading-[1.12]">
+                We Are The <span className="font-['Playfair_Display'] italic font-medium text-primary inline">Bridge</span> Between Your Business And Your Customer.
+            </h2>
+
+            {/* Mission Paragraph */}
+            <p className="text-[#120024]/70 text-sm sm:text-base md:text-[1.25rem] leading-relaxed tracking-wide font-sans pt-1">
+                <strong className="text-[#120024] font-semibold">Point A2B</strong> Logistics was built on one simple belief, that every delivery matters. We started as a small team with big ambitions, and today we move hundreds of packages daily across cities, connecting businesses to their customers with speed, precision and care. We don&apos;t just deliver goods, we deliver trust.
+            </p>
+        </div>
     );
 };
 
@@ -106,29 +123,8 @@ const About = () => {
 
             <div className="max-w-[90%] lg:max-w-[87%] xl:max-w-[87%] mx-auto relative z-10">
 
-                {/* 1. Badge & Headings (Slide up & Fade in) */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex flex-col text-left space-y-5 mb-10 sm:mb-16"
-                >
-                    {/* Micro-badge */}
-                    <div className="flex">
-                        <Badge text="About Us" variant="outline" />
-                    </div>
-
-                    {/* Playfair Highlight Title */}
-                    <h2 className="text-[#120024] text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] font-semibold tracking-tight font-sans leading-[1.12]">
-                        We Are The <span className="font-['Playfair_Display'] italic font-medium text-primary inline">Bridge</span> Between Your Business And Your Customer.
-                    </h2>
-
-                    {/* Mission Paragraph */}
-                    <p className="text-[#120024]/70 text-sm sm:text-base md:text-[1.25rem] leading-relaxed tracking-wide font-sans pt-1">
-                        <strong className="text-[#120024] font-semibold">Point A2B</strong> Logistics was built on one simple belief, that every delivery matters. We started as a small team with big ambitions, and today we move hundreds of packages daily across cities, connecting businesses to their customers with speed, precision and care. We don't just deliver goods, we deliver trust.
-                    </p>
-                </motion.div>
+                {/* 1. Badge & Headings (Slide up & Fade in via CSS) */}
+                <AboutHeader />
 
                 {/* 2. Bento Grid System */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
@@ -142,14 +138,14 @@ const About = () => {
                             delay={0}
                         >
                             {/* Dotted curve design vector overlay in the background */}
-                            <div className="absolute -top-20 left-56 w-64 h-64 opacity-25 pointer-events-none" style={{ transform: "translateZ(-10px)" }}>
+                            <div className="absolute -top-20 left-56 w-64 h-64 opacity-25 pointer-events-none">
                                 <svg className="w-full h-full text-[#120024]/40" viewBox="0 0 100 100">
                                     <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" />
                                 </svg>
                             </div>
 
                             {/* Stat details */}
-                            <div className="relative z-10 flex flex-col gap-1 sm:gap-2 justify-between h-full max-w-[62%] xs:max-w-[60%] sm:max-w-[55%]" style={{ transform: "translateZ(25px)" }}>
+                            <div className="relative z-10 flex flex-col gap-1 sm:gap-2 justify-between h-full max-w-[62%] xs:max-w-[60%] sm:max-w-[55%]">
                                 <span className="text-[10px] sm:text-xs font-bold text-[#000000] uppercase tracking-widest">
                                     Moves completed
                                 </span>
@@ -164,9 +160,8 @@ const About = () => {
                             </div>
 
                             {/* Van stacked with boxes asset */}
-                            <div 
-                                className="absolute bottom-[-12%] xs:bottom-[-16%] sm:bottom-[-20%] right-[-6%] sm:right-[-5%] w-[48%] xs:w-[46%] sm:w-[44%] h-[68%] xs:h-[73%] sm:h-[78%] select-none pointer-events-none transform group-hover:scale-[1.04] group-hover:translate-x-1 transition-all duration-500 ease-out"
-                                style={{ transform: "translateZ(30px)", position: 'absolute' }}
+                            <div
+                                className="absolute bottom-[-12%] xs:bottom-[-16%] sm:bottom-[-20%] right-[-6%] sm:right-[-5%] w-[48%] xs:w-[46%] sm:w-[44%] h-[68%] xs:h-[73%] sm:h-[78%] select-none pointer-events-none group-hover:scale-[1.04] group-hover:translate-x-1 transition-all duration-500 ease-out"
                             >
                                 <Image
                                     src={images.carPackage}
@@ -187,9 +182,8 @@ const About = () => {
                                 className="overflow-hidden rounded-[2rem] bg-[#FAF7F2] border border-[#120024]/[0.02] flex items-center justify-center min-h-[300px] lg:h-full group hover:-translate-y-1.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.06)] transition-all duration-500 ease-out"
                                 delay={0.1}
                             >
-                                <div 
+                                <div
                                     className="relative w-full flex-1 transform group-hover:scale-[1.06] group-hover:rotate-2 transition-all duration-500 ease-out p-4 sm:p-5"
-                                    style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d", position: 'relative' }}
                                 >
                                     <Image
                                         src={images.box2}
@@ -206,12 +200,12 @@ const About = () => {
                                 className="overflow-hidden rounded-[2rem] bg-white border border-[#120024]/[0.04] p-8 flex flex-col justify-between min-h-[300px] lg:h-full group hover:-translate-y-1.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.06)] transition-all duration-500 ease-out shadow-[0_8px_32px_rgba(0,0,0,0.01)]"
                                 delay={0.2}
                             >
-                                <div style={{ transform: "translateZ(10px)" }}>
+                                <div>
                                     <span className="text-[11px] sm:text-xs font-bold text-[#120024]/40 uppercase tracking-widest block">
                                         Industry experience
                                     </span>
                                 </div>
-                                <div className="flex flex-col gap-1 mt-auto" style={{ transform: "translateZ(25px)" }}>
+                                <div className="flex flex-col gap-1 mt-auto">
                                     <h3 className="text-3xl sm:text-4xl font-extrabold text-[#120024] tracking-tight">
                                         <AnimatedCounter end={10} suffix="+ Years" />
                                     </h3>
@@ -231,9 +225,8 @@ const About = () => {
                             className="overflow-hidden rounded-[2rem] bg-[#EBECEC] border border-black/[0.02] flex items-center justify-center min-h-[360px] sm:min-h-[400px] lg:flex-1 group hover:-translate-y-1.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.06)] transition-all duration-500 ease-out"
                             delay={0.15}
                         >
-                            <div 
+                            <div
                                 className="relative w-full flex-1 transform group-hover:scale-[1.04] transition-all duration-500 ease-out p-4 sm:p-5"
-                                style={{ transform: "translateZ(20px)", transformStyle: "preserve-3d", position: 'relative' }}
                             >
                                 <Image
                                     src={images.packages}
@@ -252,15 +245,15 @@ const About = () => {
                             delay={0.25}
                         >
                             {/* Subtle dark ambient glow inside card */}
-                            <div className="absolute top-0 right-0 w-32 h-32 rounded-full pointer-events-none" style={{ transform: "translateZ(-5px)", background: 'radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)' }}></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)' }}></div>
 
-                            <div className="relative z-10" style={{ transform: "translateZ(10px)" }}>
+                            <div className="relative z-10">
                                 <span className="text-[11px] sm:text-xs font-bold text-white/40 uppercase tracking-widest block">
                                     Customer satisfaction
                                 </span>
                             </div>
 
-                            <div className="mt-auto relative z-10 flex flex-col gap-1" style={{ transform: "translateZ(25px)", transformStyle: "preserve-3d" }}>
+                            <div className="mt-auto relative z-10 flex flex-col gap-1">
                                 <h3 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
                                     <AnimatedCounter end={99} suffix="%" />
                                 </h3>
@@ -269,7 +262,7 @@ const About = () => {
                                 </p>
 
                                 {/* Avatars & Pulse Pill row */}
-                                <div className="flex flex-wrap items-center gap-3 mt-4" style={{ transform: "translateZ(15px)" }}>
+                                <div className="flex flex-wrap items-center gap-3 mt-4">
                                     {/* Circular Overlapping Avatar Stack */}
                                     <div className="flex -space-x-3">
                                         {[images.Landing1, images.Landing2, images.Landing3, images.Landing4].map((avatar, idx) => (
@@ -284,7 +277,7 @@ const About = () => {
                                             </div>
                                         ))}
                                         {/* Extra count pill */}
-                                        <div className="relative w-10 h-10 rounded-full bg-primary border-2 border-[#120024] flex items-center justify-center shadow-md text-[9px] font-extrabold text-white select-none transform hover:scale-110 transition-transform duration-300" style={{ transform: "translateZ(5px)" }}>
+                                        <div className="relative w-10 h-10 rounded-full bg-primary border-2 border-[#120024] flex items-center justify-center shadow-md text-[9px] font-extrabold text-white select-none transform hover:scale-110 transition-transform duration-300">
                                             +12k
                                         </div>
                                     </div>

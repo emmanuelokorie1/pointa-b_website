@@ -83,7 +83,7 @@ const Services = () => {
                 {/* 2. Panoramic Widescreen Synchronized Sliding Grid System */}
                 <div
                     className="grid grid-cols-1 md:grid-cols-3 gap-3.5 xs:gap-4 sm:gap-4 md:gap-3 lg:gap-4 xl:gap-5 items-center"
-                    style={{ perspective: "1500px", transformStyle: "preserve-3d" }}
+                    style={{ perspective: "1500px" }}
                 >
                     {serviceCards.map((card, index) => {
                         const isHovered = hoveredIndex === index;
@@ -112,8 +112,7 @@ const Services = () => {
                                             : isAnyHovered
                                                 ? `${card.defaultTransform} scale(0.96) opacity(0.85)`
                                                 : card.defaultTransform),
-                                    transformStyle: isMobile ? "flat" : "preserve-3d",
-                                    willChange: "transform, opacity",
+                                    contain: "layout paint",
                                 }}
                             >
                                 {/* Autoplay Slideshow Layer with Premium Horizontal Slide Transitions */}
