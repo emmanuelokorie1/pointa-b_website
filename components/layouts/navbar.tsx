@@ -240,7 +240,7 @@ const Navbar = () => {
                             animate={{ x: 0 }}
                             exit={{ x: "100%" }}
                             transition={{ type: "spring", damping: 25, stiffness: 220 }}
-                            className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[380px] bg-gradient-to-b from-[#120024] to-[#110026] border-l border-white/[0.08] shadow-[0_0_60px_rgba(0,0,0,0.6)] backdrop-blur-3xl z-[100] flex flex-col p-6 sm:p-8 lg:hidden overflow-hidden"
+                            className="fixed top-0 right-0 bottom-0 w-full bg-gradient-to-b from-[#120024] to-[#110026] border-l border-white/[0.08] shadow-[0_0_60px_rgba(0,0,0,0.6)] backdrop-blur-3xl z-[100] flex flex-col p-6 sm:p-8 lg:hidden overflow-hidden"
                         >
                             {/* Ambient Glows */}
                             <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-[#8E24FF]/15 blur-[80px] pointer-events-none -z-10 animate-pulse" style={{ animationDuration: '6s' }} />
@@ -306,52 +306,27 @@ const Navbar = () => {
                             </div>
 
                             {/* Middle Links (Scrollable to prevent content overflow) */}
-                            <div className="flex-1 overflow-y-auto py-4 pr-1 -mr-2 flex flex-col gap-4 scrollbar-thin">
+                            <div className="flex-1 overflow-y-auto py-4 pr-1 -mr-2 flex flex-col gap-4 scrollbar-thin mt-12">
                                 {navItems.map((item, index) => {
                                     const isActive = pathname === item.href;
                                     return (
-                                        <div
+                                        <motion.div
                                             key={index}
                                             onClick={() => {
                                                 router.push(item.href);
                                                 setIsOpen(false);
                                             }}
-                                            className={`group flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 cursor-pointer select-none ${isActive
-                                                ? "bg-gradient-to-r from-white/[0.08] to-white/[0.03] border-[#8E24FF]/40 shadow-[0_8px_32px_-8px_rgba(142,36,255,0.4)]"
-                                                : "bg-white/[0.02] border-white/5 hover:border-[#8E24FF]/30 hover:bg-white/[0.06] hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)]"
-                                                }`}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            className="group flex items-center justify-center py-3.5 cursor-pointer select-none"
                                         >
-                                            <div className="flex items-center gap-3.5">
-                                                {/* Icon Badge */}
-                                                <div className={`p-2.5 rounded-xl border transition-all duration-300 ${isActive
-                                                    ? "bg-[#8E24FF] border-[#8E24FF]/20 text-[#D6FF38] shadow-[0_4px_12px_rgba(142,36,255,0.25)]"
-                                                    : "bg-gradient-to-br from-white/5 to-white/[0.01] border-white/10 text-white/50 group-hover:from-[#8E24FF]/25 group-hover:to-[#8E24FF]/5 group-hover:border-[#8E24FF]/50 group-hover:text-[#D6FF38]"
-                                                    }`}>
-                                                    {item.icon}
-                                                </div>
-                                                
-                                                {/* Text content */}
-                                                <div className="flex flex-col gap-0.5">
-                                                    <span className={`text-base font-bold tracking-tight transition-colors duration-300 ${isActive
-                                                        ? "text-[#D6FF38]"
-                                                        : "text-white/90 group-hover:text-[#D6FF38]"
-                                                        }`}>
-                                                        {item.label}
-                                                    </span>
-                                                    <span className="text-xs text-white/40 font-medium group-hover:text-white/60 transition-colors duration-300">
-                                                        {item.description}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            {/* Arrow icon */}
-                                            <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 group-hover:bg-[#8E24FF] group-hover:border-[#8E24FF] group-hover:text-white transition-all duration-300">
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                                    <line x1="7" y1="17" x2="17" y2="7"></line>
-                                                    <polyline points="7 7 17 7 17 17"></polyline>
-                                                </svg>
-                                            </div>
-                                        </div>
+                                            <span className={`text-3xl sm:text-4xl font-extrabold tracking-tight transition-colors duration-300 ${isActive
+                                                ? "text-[#D6FF38]"
+                                                : "text-white/95 group-hover:text-[#D6FF38]"
+                                                }`}>
+                                                {item.label}
+                                            </span>
+                                        </motion.div>
                                     );
                                 })}
                             </div>
@@ -366,13 +341,13 @@ const Navbar = () => {
                                         router.push(routes.CONTACTUS);
                                         setIsOpen(false);
                                     }}
-                                    className="bg-gradient-to-r from-primary to-[#9B51E0] hover:from-primary/95 hover:to-[#9B51E0]/95 text-white text-sm font-bold py-4 rounded-xl shadow-[0_8px_32px_0_hsla(var(--primary)/0.3)] border border-primary/50 w-full text-center cursor-pointer font-sans"
+                                    className="bg-gradient-to-r from-primary to-[#9B51E0] hover:from-primary/95 hover:to-[#9B51E0]/95 text-white text-base font-extrabold py-4 rounded-2xl shadow-[0_8px_32px_0_hsla(var(--primary)/0.3)] border border-primary/50 w-full text-center cursor-pointer"
                                 >
                                     Get started as Merchant
                                 </motion.button>
 
                                 {/* Translucent App Pill */}
-                                <DownloadAppButton id="nav-download-app-btn" variant="navbar" />
+                                <DownloadAppButton id="nav-download-app-btn" variant="navbar" className="!py-4 !text-sm sm:!text-md !font-black !tracking-widest !rounded-2xl" />
                             </div>
                         </motion.div>
                     </>

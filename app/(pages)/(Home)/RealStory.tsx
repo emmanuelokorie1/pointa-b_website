@@ -118,8 +118,8 @@ const RealStory = () => {
       ></div>
 
       {/* Main Container - Removed backdrop-blur to fix lag */}
-      <div className="w-[95%] lg:w-[90%] max-w-[1500px] mx-auto relative z-10 bg-[#F4E6FF] rounded-[2rem] lg:rounded-[3rem] shadow-[0_20px_50px_rgba(142,36,255,0.15)] border border-white flex flex-col items-center justify-center py-6 lg:py-8 overflow-hidden">
-        
+      <div className="w-[95%] lg:w-[90%] max-w-[1500px] mx-auto relative z-10 flex flex-col items-center justify-center py-6 lg:py-8 overflow-hidden">
+        {/* bg-[#F4E6FF] rounded-[2rem] lg:rounded-[3rem] shadow-[0_20px_50px_rgba(142,36,255,0.15)] border border-white */}
         {/* Headings */}
         <div className="text-center mb-2 lg:mb-3 relative z-10 pointer-events-none">
           {/* <motion.h3 
@@ -137,8 +137,10 @@ const RealStory = () => {
             transition={{ delay: 0.1 }}
             className="text-[#1A1A1A] text-4xl sm:text-5xl lg:text-[4.5rem] font-medium tracking-tight"
           >
-            Real <span className="font-['Playfair_Display'] italic text-transparent bg-clip-text bg-gradient-to-r from-[#8E24FF] to-[#D494FF]">results</span>
+            Real 
+            <span className="font-['Playfair_Display'] italic text-white pl-4">Results</span>
           </motion.h2>
+          {/* text-transparent bg-clip-text bg-gradient-to-r from-[#8E24FF] to-[#D494FF] */}
 
           {/* Social Proof / Abundance Indicator */}
           <motion.div 
