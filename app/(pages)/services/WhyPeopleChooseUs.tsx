@@ -28,7 +28,7 @@ const WhyPeopleChooseUs = () => {
       {/* Main Feature Cards Grid */}
       <div className="flex flex-col gap-6 sm:gap-8 w-full">
         {/* Top Card: Transparency (with text overlaid on whyChoose.svg) */}
-        <div className="relative w-full h-[450px] sm:h-[550px] lg:h-[650px] xl:h-[650px] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden shadow-md">
+        <div className="relative w-full h-[580px] sm:h-[550px] lg:h-[650px] xl:h-[650px] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden shadow-md">
           {/* Background Graphic */}
           <Image
             src={images.whyChoose}
@@ -53,10 +53,10 @@ const WhyPeopleChooseUs = () => {
             </div>
 
             {/* Footer Content: QR & Downloads */}
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 w-full">
+            <div className="flex flex-col items-center sm:flex-row sm:items-end sm:justify-between gap-6 w-full">
               {/* QR Code Segment */}
-              <div className="flex flex-col gap-2">
-                <span className="text-white/70 text-[9px] sm:text-[10px] font-bold tracking-widest uppercase">
+              <div className="flex flex-col items-center sm:items-start gap-2">
+                <span className="text-white/70 text-[9px] sm:text-[10px] font-bold tracking-widest uppercase text-center sm:text-left">
                   Scan to download app
                 </span>
 

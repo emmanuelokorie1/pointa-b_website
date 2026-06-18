@@ -29,6 +29,11 @@ import contact from "@/assets/images/contact.svg"
 //aboutUs
 import world from "@/assets/images/aboutUs/world.svg"
 import moreThanJust from "@/assets/images/aboutUs/morethan.svg"
+import morethan1 from "@/assets/images/aboutUs/morethan1.svg"
+import morethan1Background from "@/assets/images/aboutUs/morethan1Background.svg"
+import morethan2 from "@/assets/images/aboutUs/morethan2.svg"
+import morethan3 from "@/assets/images/aboutUs/morethan3.svg"
+import morethan4 from "@/assets/images/aboutUs/morethan4.svg"
 import aboutHero from "@/assets/images/aboutUs/aboutHero.svg"
 import ourMission from "@/assets/images/aboutUs/ourMission.svg"
 import ourValue1 from "@/assets/images/aboutUs/ourValue1.svg"
@@ -151,7 +156,12 @@ export const images = {
 
     world: mapToCloudinary(world, "assets/images/aboutUs/world.svg"),
     milestoneIcon: mapToCloudinary(milestoneIcon, "assets/icons/tick.svg"),
-    moreThanJust: mapToCloudinary(moreThanJust, "assets/images/aboutUs/morethan.svg"),
+    moreThanJust: moreThanJust,
+    moreThan1: morethan1,
+    moreThan1Background: morethan1Background,
+    moreThan2: morethan2,
+    moreThan3: morethan3,
+    moreThan4: morethan4,
     aboutHero: mapToCloudinary(aboutHero, "assets/images/aboutUs/aboutHero.svg"),
     ourMission: mapToCloudinary(ourMission, "assets/images/aboutUs/ourMission.svg"),
     ourValue1: mapToCloudinary(ourValue1, "assets/images/aboutUs/ourValue1.svg"),

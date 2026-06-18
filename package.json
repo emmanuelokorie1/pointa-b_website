@@ -10,6 +10,8 @@
     "upload-assets": "node scripts/upload-to-cloudinary.js"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.101.0",
+    "axios": "^1.18.0",
     "framer-motion": "^12.38.0",
     "lenis": "^1.3.23",
     "lucide-react": "^0.577.0",
