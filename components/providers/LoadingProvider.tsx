@@ -1,11 +1,19 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
 export default function LoadingProvider({ children }: { children: React.ReactNode }) {
-  const [showLoader, setShowLoader] = useState(false);
-  const [fade, setFade] = useState(true);
+  const pathname = usePathname();
+  const [showLoader, setShowLoader] = useState(true);
+  const [fade, setFade] = useState(false);
+
+  // Reset loader on page changes (client-side navigation)
+  useEffect(() => {
+    setShowLoader(true);
+    setFade(false);
+  }, [pathname]);
 
   const handleComplete = () => {
     setFade(true);
