@@ -3,26 +3,33 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Tightened positions for Desktop (beautifully clustered)
+// Positions now expressed as x/y pixel offsets from dead-center, instead of
+// top/left percentage strings. Framer Motion compiles x/y to
+// `transform: translate()`, which is GPU-composited and never triggers a
+// layout recalculation — unlike animating top/left, which forces the browser
+// to recompute position against the parent on every frame, for every avatar,
+// simultaneously.
+//
+// Offsets below approximate the original arc shape against the carousel's
+// h-[170px] desktop / h-[140px] mobile container.
 const desktopPositions = [
-  { left: "50%", top: "50%", scale: 1.5, opacity: 1, zIndex: 30, glow: true },
-  { left: "60%", top: "45%", scale: 0.9, opacity: 0.8, zIndex: 20, glow: false },
-  { left: "70%", top: "35%", scale: 0.6, opacity: 0.4, zIndex: 15, glow: false },
-  { left: "80%", top: "25%", scale: 0.4, opacity: 0, zIndex: 5, glow: false },
-  { left: "20%", top: "25%", scale: 0.4, opacity: 0, zIndex: 5, glow: false },
-  { left: "30%", top: "35%", scale: 0.6, opacity: 0.4, zIndex: 15, glow: false },
-  { left: "40%", top: "45%", scale: 0.9, opacity: 0.8, zIndex: 20, glow: false },
+  { x: 0,    y: 0,    scale: 1.5, opacity: 1,   zIndex: 30, glow: true },
+  { x: 130,  y: -10,  scale: 0.9, opacity: 0.8, zIndex: 20, glow: false },
+  { x: 250,  y: -25,  scale: 0.6, opacity: 0.4, zIndex: 15, glow: false },
+  { x: 360,  y: -40,  scale: 0.4, opacity: 0,   zIndex: 5,  glow: false },
+  { x: -360, y: -40,  scale: 0.4, opacity: 0,   zIndex: 5,  glow: false },
+  { x: -250, y: -25,  scale: 0.6, opacity: 0.4, zIndex: 15, glow: false },
+  { x: -130, y: -10,  scale: 0.9, opacity: 0.8, zIndex: 20, glow: false },
 ];
 
-// Widened positions for Mobile (prevents overlapping on narrow screens)
 const mobilePositions = [
-  { left: "50%", top: "50%", scale: 1.5, opacity: 1, zIndex: 30, glow: true },
-  { left: "72%", top: "45%", scale: 0.85, opacity: 0.8, zIndex: 20, glow: false },
-  { left: "90%", top: "35%", scale: 0.6, opacity: 0.4, zIndex: 15, glow: false },
-  { left: "105%", top: "25%", scale: 0.4, opacity: 0, zIndex: 5, glow: false },
-  { left: "-5%", top: "25%", scale: 0.4, opacity: 0, zIndex: 5, glow: false },
-  { left: "10%", top: "35%", scale: 0.6, opacity: 0.4, zIndex: 15, glow: false },
-  { left: "28%", top: "45%", scale: 0.85, opacity: 0.8, zIndex: 20, glow: false },
+  { x: 0,    y: 0,    scale: 1.5, opacity: 1,   zIndex: 30, glow: true },
+  { x: 120,  y: -10,  scale: 0.85, opacity: 0.8, zIndex: 20, glow: false },
+  { x: 220,  y: -25,  scale: 0.6,  opacity: 0.4, zIndex: 15, glow: false },
+  { x: 310,  y: -40,  scale: 0.4,  opacity: 0,   zIndex: 5,  glow: false },
+  { x: -310, y: -40,  scale: 0.4,  opacity: 0,   zIndex: 5,  glow: false },
+  { x: -220, y: -25,  scale: 0.6,  opacity: 0.4, zIndex: 15, glow: false },
+  { x: -120, y: -10,  scale: 0.85, opacity: 0.8, zIndex: 20, glow: false },
 ];
 
 const testimonials = [
@@ -31,7 +38,7 @@ const testimonials = [
     quote: "A2B has completely changed how I send packages to my family. The tracking is so accurate, and the riders are always polite and on time.",
     name: "Amaka Omah",
     role: "Regular User",
-    avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1bf98c?q=80&w=256&auto=format&fit=crop"
+    avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=256&auto=format&fit=crop"
   },
   {
     id: 2,
@@ -89,13 +96,18 @@ const RealStory = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Auto-play timer for the progress bar
+  // Auto-play timer for the progress bar.
+  // Fixed: previously had `currentIndex` in the dependency array, which tore
+  // down and recreated this interval every single tick (every 10s). Since
+  // we already use the functional `(prev) => ...` update form, the effect
+  // never needs to depend on currentIndex at all — it's created once and
+  // left alone for the lifetime of the component.
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     }, 10000);
     return () => clearInterval(timer);
-  }, [currentIndex]);
+  }, []);
 
   const carouselPositions = isMobile ? mobilePositions : desktopPositions;
 
@@ -119,17 +131,8 @@ const RealStory = () => {
 
       {/* Main Container - Removed backdrop-blur to fix lag */}
       <div className="w-[95%] lg:w-[90%] max-w-[1500px] mx-auto relative z-10 flex flex-col items-center justify-center py-6 lg:py-8 overflow-hidden">
-        {/* bg-[#F4E6FF] rounded-[2rem] lg:rounded-[3rem] shadow-[0_20px_50px_rgba(142,36,255,0.15)] border border-white */}
         {/* Headings */}
         <div className="text-center mb-2 lg:mb-3 relative z-10 pointer-events-none">
-          {/* <motion.h3 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[#8E24FF] text-xl lg:text-2xl font-bold tracking-widest uppercase mb-1"
-          >
-            Real stories
-          </motion.h3> */}
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -140,7 +143,6 @@ const RealStory = () => {
             Real 
             <span className="font-['Playfair_Display'] italic text-white pl-4">Results</span>
           </motion.h2>
-          {/* text-transparent bg-clip-text bg-gradient-to-r from-[#8E24FF] to-[#D494FF] */}
 
           {/* Social Proof / Abundance Indicator */}
           <motion.div 
@@ -169,26 +171,25 @@ const RealStory = () => {
           {testimonials.map((testimonial, idx) => {
             const relativeIndex = (idx - currentIndex + testimonials.length) % testimonials.length;
             const pos = carouselPositions[relativeIndex];
-            const isActive = relativeIndex === 0;
 
             return (
               <motion.div
                 key={testimonial.id}
                 initial={false}
                 animate={{
-                  top: pos.top,
-                  left: pos.left,
+                  x: pos.x,
+                  y: pos.y,
                   scale: pos.scale,
                   opacity: pos.opacity,
                   zIndex: pos.zIndex,
-                  x: "-50%",
-                  y: "-50%"
                 }}
                 transition={{ type: "spring", stiffness: 70, damping: 14 }}
-                className="absolute w-16 h-16 sm:w-20 sm:h-20 pointer-events-auto"
+                // Fixed centering via left/top + negative margin — these never
+                // animate, so they cost nothing. Only x/y/scale/opacity animate,
+                // all of which are transform/opacity and GPU-composited.
+                className="absolute w-16 h-16 sm:w-20 sm:h-20 pointer-events-auto -ml-8 -mt-8 sm:-ml-10 sm:-mt-10"
+                style={{ left: "50%", top: "50%", willChange: "transform, opacity" }}
               >
-                {/* Active avatar highlighted by its styling in the child div below, no extra waves needed */}
-
                 <div 
                   className={`relative w-full h-full rounded-full overflow-hidden border-[3px] flex items-center justify-center bg-white transition-all duration-500 cursor-pointer ${
                     pos.glow 

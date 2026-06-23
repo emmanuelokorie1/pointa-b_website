@@ -17,7 +17,7 @@ const AppProvides = () => {
     const [botPanelRef, botPanelVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-40px', once: true });
 
     return (
-        <section className="relative bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] py-16 sm:py-24 lg:py-0 lg:h-fit overflow-hidden select-none">
+        <section className="relative bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] pt-16 pb-0 sm:pt-24 sm:pb-0 lg:py-0 lg:h-fit overflow-hidden select-none">
 
             {/* Ambient Background Spot Lamps */}
             <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full pointer-events-none z-0" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 70%)' }}></div>
@@ -26,7 +26,7 @@ const AppProvides = () => {
             <div className="max-w-[90%] lg:max-w-[85%] xl:max-w-[85%] mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center lg:items-stretch">
 
                 {/* LEFT COLUMN: Narrative, CTAs, and Features */}
-                <div className="lg:col-span-6 flex flex-col justify-center lg:justify-between text-left pt-12 pb-6 lg:py-20 gap-10 lg:gap-0">
+                <div className="lg:col-span-6 flex flex-col justify-center lg:justify-between text-left pt-12 sm:pb-6 lg:py-20 gap-10 lg:gap-0">
 
                     {/* Top block: Heading + CTA */}
                     <div className="space-y-8">
@@ -92,7 +92,7 @@ const AppProvides = () => {
                 </div>
 
                 {/* RIGHT COLUMN: Device Stage featuring iPhone SVG & Floating Glass Panels */}
-                <div className="lg:col-span-6 relative flex items-center justify-center w-full min-h-[350px] sm:min-h-[450px] lg:min-h-[660px] xl:min-h-[720px] lg:h-full pb-10 lg:pb-0">
+                <div className="lg:col-span-6 relative flex items-end justify-center w-full min-h-[350px] sm:min-h-[450px] lg:min-h-[660px] xl:min-h-[720px] lg:h-full pb-0">
 
                     {/* Ambient Glow immediately behind phone */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, transparent 70%)' }}></div>
@@ -121,14 +121,14 @@ const AppProvides = () => {
                     {/* iPhone device mockup — entrance only, no repeat animation */}
                     <div
                         ref={phoneRef}
-                        className={`relative w-[220px] h-[440px] sm:w-[300px] sm:h-[610px] lg:w-[340px] lg:h-[650px] xl:w-[400px] xl:h-[700px] select-none z-10 lg:flex lg:items-end lg:justify-end fade-in-up ${phoneVisible ? 'is-visible' : ''}`}
+                        className={`relative w-[220px] h-[440px] sm:w-[300px] sm:h-[610px] lg:w-[340px] lg:h-[650px] xl:w-[400px] xl:h-[700px] select-none z-10 flex items-end justify-center lg:justify-end fade-in-up ${phoneVisible ? 'is-visible' : ''}`}
                     >
                         <Image
                             src={images?.iPhone}
                             alt="Point A2B Mobile App Mockup Screen showing live order tracking"
                             fill
                             sizes="(max-width: 640px) 220px, (max-width: 1024px) 300px, 400px"
-                            className="object-contain"
+                            className="object-contain object-bottom"
                             priority
                         />
                     </div>

@@ -179,8 +179,11 @@ const TrackMap = ({ progress, points }: TrackMapProps) => {
             riderEl.appendChild(pingSpan);
             riderEl.appendChild(centerSpan);
 
+            const riderIndex = points.findIndex(pt => pt.label === "Rider Current Location");
+            const initialRiderPos = riderIndex !== -1 ? points[riderIndex] : points[Math.min(progress, points.length - 1)];
+
             const riderMarker = new mapboxgl.Marker(riderEl)
-                .setLngLat([points[progress]?.lng || 0, points[progress]?.lat || 0])
+                .setLngLat([initialRiderPos?.lng || 0, initialRiderPos?.lat || 0])
                 .setPopup(new mapboxgl.Popup({ offset: 15 }).setHTML('<strong class="text-black">Current Rider Location</strong>'))
                 .addTo(map);
 
@@ -241,7 +244,8 @@ const TrackMap = ({ progress, points }: TrackMapProps) => {
     useEffect(() => {
         if (!riderMarkerRef.current || points.length === 0) return;
 
-        const currentPos = points[progress];
+        const riderIndex = points.findIndex(pt => pt.label === "Rider Current Location");
+        const currentPos = riderIndex !== -1 ? points[riderIndex] : points[Math.min(progress, points.length - 1)];
         if (currentPos) {
             riderMarkerRef.current.setLngLat([currentPos.lng, currentPos.lat]);
         }
