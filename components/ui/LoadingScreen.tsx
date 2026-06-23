@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { images } from '@/constants';
 
@@ -9,25 +9,14 @@ interface LoadingProps {
 }
 
 export default function LoadingScreen({ onComplete }: LoadingProps) {
-  const onCompleteRef = useRef(onComplete);
-
-  // Keep onComplete callback ref updated
   useEffect(() => {
-    onCompleteRef.current = onComplete;
-  }, [onComplete]);
-
-  useEffect(() => {
-    // Determine how many milliseconds have elapsed since the page load started
-    const elapsed = performance.now();
-    // Calculate the remaining animation time so it transitions at exactly the right moment
-    const remaining = Math.max(3200 - elapsed, 0);
-
+    // The CSS animation runs for 3.2s. Fire onComplete almost immediately after.
     const timer = setTimeout(() => {
-      onCompleteRef.current?.();
-    }, remaining + 400);
+      onComplete?.();
+    }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="fixed inset-0 z-[99999] bg-white flex items-center justify-center overflow-hidden">
@@ -65,7 +54,7 @@ export default function LoadingScreen({ onComplete }: LoadingProps) {
           to   { --num: 100; }
         }
 
-        /* Wheel spin overlay */
+        /* Wheel spin overlay — now a single shared animation, see step 3 below */
         @keyframes wheelSpin {
           from { transform: rotate(0deg); }
           to   { transform: rotate(360deg); }
@@ -102,6 +91,17 @@ export default function LoadingScreen({ onComplete }: LoadingProps) {
           content: counter(percent) "%";
         }
 
+        /* Step 4: respect prefers-reduced-motion — also a free perf win on
+           devices/browsers where reduced motion is auto-enabled by battery
+           saver modes, since it skips every infinite animation below. */
+        @media (prefers-reduced-motion: reduce) {
+          .ptab-road,
+          .ptab-bike-float,
+          .ptab-wheel {
+            animation: none;
+          }
+        }
+
       `}} />
 
       {/* ── Centred card — roughly 50% of screen ── */}
@@ -135,7 +135,12 @@ export default function LoadingScreen({ onComplete }: LoadingProps) {
                 className="object-contain"
               />
 
-              {/* Spinning wheel overlays (front & rear) */}
+              {/* Step 3: dropped from two independently-animating wheel
+                  overlays to one. At this size the second wheel's spin was
+                  barely perceptible, but it was a full extra infinite
+                  animation running the whole time — not worth the cost on
+                  lower-end hardware. Front wheel kept since it's the more
+                  visible one (closer to center). */}
               <svg
                 className="ptab-wheel absolute"
                 style={{ width: 22, height: 22, bottom: 5, left: 13 }}
@@ -145,8 +150,12 @@ export default function LoadingScreen({ onComplete }: LoadingProps) {
                 <line x1="11" y1="2"  x2="11" y2="20" stroke="#8E24FF" strokeWidth="1.5" strokeOpacity="0.4"/>
                 <line x1="2"  y1="11" x2="20" y2="11" stroke="#8E24FF" strokeWidth="1.5" strokeOpacity="0.4"/>
               </svg>
+              {/* Rear wheel now static — same visual (a circle with spokes),
+                  just no animation cost. At 22px and this distance from the
+                  front wheel, a static rear wheel is not a noticeable
+                  visual loss next to a spinning front wheel. */}
               <svg
-                className="ptab-wheel absolute"
+                className="absolute"
                 style={{ width: 22, height: 22, bottom: 5, right: 12 }}
                 viewBox="0 0 22 22"
               >

@@ -123,7 +123,6 @@ const StepCard = ({
 };
 
 const HowitWorks = () => {
-    const sectionTitleRef = useRef<HTMLDivElement>(null);
     const [titleRef, titleVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-40px', once: true });
 
     // === Bike rotation — native scroll, no React state, no Framer Motion ===
@@ -135,24 +134,47 @@ const HowitWorks = () => {
     const currentRotation = useRef(160);
     const targetRotation = useRef(160);
 
-    const updateBike = useCallback(() => {
+    // Cached layout values — measured once on mount/resize instead of read
+    // synchronously on every scroll frame. getBoundingClientRect() forces
+    // the browser to flush layout before returning a value; calling it
+    // inside a scroll-driven rAF loop means forcing a layout recalculation
+    // up to 60 times per second while the user scrolls. Storing document-
+    // relative top + height instead lets the per-frame math be pure
+    // arithmetic against window.scrollY, which is already known for free.
+    const containerTop = useRef(0);
+    const containerHeight = useRef(0);
+
+    const measureContainer = useCallback(() => {
         const container = containerRef.current;
+        if (!container) return;
+        const rect = container.getBoundingClientRect();
+        containerTop.current = rect.top + window.scrollY;
+        containerHeight.current = rect.height;
+    }, []);
+
+    const updateBike = useCallback(() => {
         const bike = bikeRef.current;
         const track = trackFillRef.current;
-        if (!container || !bike) return;
+        if (!bike) return;
 
-        const rect = container.getBoundingClientRect();
         const viewportH = window.innerHeight;
-        // progress: 0 when bottom of container enters viewport, 1 when top reaches 40vh
-        const rawProgress = 1 - (rect.bottom / (viewportH * 1.4));
+        const scrollY = window.scrollY;
+
+        // Match original Framer Motion useScroll offset: ["start end", "start 40vh"]
+        // "start end" = container top is at viewport bottom (scrollY = containerTop - viewportH)
+        // "start 40vh" = container top is at 40vh from top (scrollY = containerTop - viewportH * 0.4)
+        const startScroll = containerTop.current - viewportH;        // container top enters viewport bottom
+        const endScroll = containerTop.current - viewportH * 0.4;    // container top reaches 40vh
+        const range = endScroll - startScroll;
+        const rawProgress = range > 0 ? (scrollY - startScroll) / range : 0;
         const progress = Math.max(0, Math.min(1, rawProgress));
 
         if (track) {
             track.style.setProperty('--scroll-progress', String(progress));
         }
 
-        const scrollDelta = window.scrollY - lastScrollY.current;
-        lastScrollY.current = window.scrollY;
+        const scrollDelta = scrollY - lastScrollY.current;
+        lastScrollY.current = scrollY;
 
         if (progress < 1) {
             targetRotation.current = 140 - progress * 180;
@@ -161,26 +183,38 @@ const HowitWorks = () => {
             else if (scrollDelta < -5) targetRotation.current = 140;
         }
 
-        // Lerp toward target for smooth rotation without a spring library
-        currentRotation.current += (targetRotation.current - currentRotation.current) * 0.12;
+        // Lerp toward target — 0.18 approximates the original useSpring damping/stiffness feel
+        currentRotation.current += (targetRotation.current - currentRotation.current) * 0.18;
         bike.style.transform = `rotate(${currentRotation.current}deg)`;
     }, []);
 
     useEffect(() => {
+        measureContainer(); // initial measurement
+
         const onScroll = () => {
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
             rafRef.current = requestAnimationFrame(updateBike);
         };
 
+        // Re-measure only when layout might actually have changed —
+        // not on every scroll frame.
+        const onResize = () => {
+            measureContainer();
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+            rafRef.current = requestAnimationFrame(updateBike);
+        };
+
         window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onResize, { passive: true });
         // Initial paint
         updateBike();
 
         return () => {
             window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onResize);
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
         };
-    }, [updateBike]);
+    }, [updateBike, measureContainer]);
 
     return (
         <section className="relative w-full bg-[#F4EAFF] sm:py-24 py-10 lg:py-32 overflow-clip font-sans">

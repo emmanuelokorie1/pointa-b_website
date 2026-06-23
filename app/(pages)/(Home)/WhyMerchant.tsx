@@ -45,14 +45,13 @@ const MerchantCard = ({
   return (
     <div
       ref={ref}
-      className="sticky w-full"
+      className="lg:sticky w-full"
       style={{
         top: `calc(15vh + ${idx * 40}px)`,
-        contain: 'layout paint',
       }}
     >
       <div
-        className={`group flex flex-col lg:flex-row rounded-[2rem] overflow-hidden p-8 sm:p-10 lg:p-12 gap-10 lg:gap-16 items-center shadow-[0_20px_45px_rgba(39,11,75,0.18)] border-[3px] border-white fade-in-up ${isVisible ? 'is-visible' : ''}`}
+        className={`group flex flex-col lg:flex-row rounded-[2rem] p-8 sm:p-10 lg:p-12 gap-10 lg:gap-16 items-center shadow-[0_12px_32px_rgba(39,11,75,0.08)] border-[3px] border-white fade-in-up ${isVisible ? 'is-visible' : ''}`}
         style={{
           backgroundColor: feature.bg,
           // Stagger each card slightly
@@ -75,14 +74,15 @@ const MerchantCard = ({
         </div>
 
         {/* Image Side */}
-        <div className="w-full lg:w-1/2 h-[350px] sm:h-[400px] lg:h-[500px] relative rounded-2xl overflow-hidden">
-          <div className="absolute inset-0 bg-[#8E24FF]/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+        <div className="w-full lg:w-1/2 h-[350px] sm:h-[400px] lg:h-[500px] relative">
+          <div className="absolute inset-0 bg-[#8E24FF]/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none rounded-2xl"></div>
           <Image
             src={feature.image}
             alt={feature.title}
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+            className="object-cover rounded-2xl transition-transform duration-700 ease-out group-hover:scale-105"
+            style={{ willChange: 'transform' }}
           />
         </div>
       </div>
@@ -92,13 +92,16 @@ const MerchantCard = ({
 
 const WhyMerchant = () => {
   return (
-    <section 
-      className="w-full py-20 lg:py-32 font-sans relative overflow-clip"
-      style={{
-        backgroundColor: '#270B4B',
-        backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(142, 36, 255, 0.22) 0%, #270B4B 65%)'
-      }}
-    >
+    <section className="w-full py-20 lg:py-32 font-sans relative overflow-clip bg-[#270B4B]">
+      {/* Composited background radial gradient to prevent scroll repaints */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(142, 36, 255, 0.22) 0%, transparent 65%)',
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+        }}
+      />
       <div className="w-[90%] md:w-[85%] lg:w-[80%] mx-auto relative z-10">
 
         {/* Header */}
@@ -112,7 +115,7 @@ const WhyMerchant = () => {
         </div>
 
         {/* Cards — pure CSS sticky stacking, no JS scale transforms */}
-        <div className="flex flex-col gap-8 md:gap-12 lg:gap-16">
+        <div className="space-y-8 md:space-y-12 lg:space-y-16">
           {features.map((feature, idx) => (
             <MerchantCard key={feature.id} feature={feature} idx={idx} />
           ))}

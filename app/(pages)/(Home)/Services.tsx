@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { images } from '@/constants';
 
 const Services = () => {
@@ -12,10 +12,34 @@ const Services = () => {
     const [slideIndex, setSlideIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
 
-    // Highly curated widescreen corporate/lifestyle slide arrays
-    const slidesLeft = [images.slide9, images.slide1, images.Landing2];
-    const slidesMiddle = [images.merchant1, images.Landing3, images.Landing4];
-    const slidesRight = [images.Landing1, images.Landing5, images.Landing6];
+    const sectionRef = useRef<HTMLElement>(null);
+    // Only run the slideshow interval while the section is actually visible
+    const isInView = useInView(sectionRef, { margin: "200px" });
+
+    // Memoized so these arrays/objects aren't recreated on every render
+    const serviceCards = useMemo(() => {
+        const slidesLeft = [images.slide9, images.slide1, images.Landing2];
+        const slidesMiddle = [images.merchant1, images.Landing3, images.Landing4];
+        const slidesRight = [images.Landing1, images.Landing5, images.Landing6];
+
+        return [
+            {
+                slides: slidesLeft,
+                clipPathId: "url(#clip-left)",
+                defaultTransform: "perspective(1200px) rotateY(10deg) rotateZ(1.5deg) translateY(4px) translateZ(-10px)"
+            },
+            {
+                slides: slidesMiddle,
+                clipPathId: "url(#clip-middle)",
+                defaultTransform: "perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(0px) translateZ(10px)"
+            },
+            {
+                slides: slidesRight,
+                clipPathId: "url(#clip-right)",
+                defaultTransform: "perspective(1200px) rotateY(-10deg) rotateZ(-1.5deg) translateY(4px) translateZ(-10px)"
+            }
+        ];
+    }, []);
 
     useEffect(() => {
         const checkMobile = () => {
@@ -23,38 +47,25 @@ const Services = () => {
         };
         checkMobile();
         window.addEventListener("resize", checkMobile);
-
-        // Master interval to sync horizontal sliding across all three windows
-        const interval = setInterval(() => {
-            setSlideIndex((prev) => prev + 1);
-        }, 5000); // Seamless sweeps every 5 seconds
-
-        return () => {
-            window.removeEventListener("resize", checkMobile);
-            clearInterval(interval);
-        };
+        return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-    const serviceCards = [
-        {
-            slides: slidesLeft,
-            clipPathId: "url(#clip-left)",
-            defaultTransform: "perspective(1200px) rotateY(10deg) rotateZ(1.5deg) translateY(4px) translateZ(-10px)"
-        },
-        {
-            slides: slidesMiddle,
-            clipPathId: "url(#clip-middle)",
-            defaultTransform: "perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(0px) translateZ(10px)"
-        },
-        {
-            slides: slidesRight,
-            clipPathId: "url(#clip-right)",
-            defaultTransform: "perspective(1200px) rotateY(-10deg) rotateZ(-1.5deg) translateY(4px) translateZ(-10px)"
-        }
-    ];
+    useEffect(() => {
+        // Don't burn cycles animating a slideshow nobody can see
+        if (!isInView) return;
+
+        const interval = setInterval(() => {
+            setSlideIndex((prev) => prev + 1);
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [isInView]);
 
     return (
-        <section className="w-full bg-[#F4EAFF] py-20 sm:py-32 relative overflow-hidden select-none border-b border-black/[0.03] font-sans">
+        <section
+            ref={sectionRef}
+            className="w-full bg-[#F4EAFF] py-20 sm:py-32 relative overflow-hidden select-none border-b border-black/[0.03] font-sans"
+        >
             <div className="max-w-[90%] lg:max-w-[85%] xl:max-w-[85%] mx-auto relative z-10">
                 {/* 1. Badge & Section Header */}
                 <motion.div
@@ -93,6 +104,10 @@ const Services = () => {
                         const imageIndex = slideIndex % card.slides.length;
                         const currentImage = card.slides[imageIndex];
 
+                        // Only the very first paint of the very first card gets priority —
+                        // every other rotation is a normal eager (non-preloaded) load
+                        const isFirstPaint = slideIndex === 0 && index === 0;
+
                         return (
                             <motion.div
                                 key={index}
@@ -113,19 +128,23 @@ const Services = () => {
                                                 ? `${card.defaultTransform} scale(0.96) opacity(0.85)`
                                                 : card.defaultTransform),
                                     contain: "layout paint",
+                                    willChange: "transform",
                                 }}
                             >
-                                {/* Autoplay Slideshow Layer with Premium Horizontal Slide Transitions */}
+                                {/* Autoplay Slideshow Layer — lightweight opacity crossfade only.
+                                    No x-translate, no popLayout: those were the heaviest part
+                                    of the original implementation and cost far more than they
+                                    added visually. */}
                                 <div className="absolute inset-0 w-full h-full overflow-hidden">
-                                    <AnimatePresence mode="popLayout" initial={false}>
+                                    <AnimatePresence initial={false}>
                                         <motion.div
                                             key={`${slideIndex}-${index}`}
-                                            initial={{ x: "100%", opacity: 0.9, scale: 1.02 }}
-                                            animate={{ x: 0, opacity: 1, scale: 1 }}
-                                            exit={{ x: "-100%", opacity: 0.9, scale: 0.98 }}
-                                            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            transition={{ duration: 0.6, ease: "easeOut" }}
                                             className="absolute inset-0 w-full h-full"
-                                            style={{ position: 'absolute' }}
+                                            style={{ willChange: "opacity" }}
                                         >
                                             <Image
                                                 src={currentImage}
@@ -133,7 +152,7 @@ const Services = () => {
                                                 fill
                                                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 400px"
-                                                priority
+                                                priority={isFirstPaint}
                                             />
 
                                             {/* Specular Reflective Light Sweep attached to entering slide */}
@@ -144,7 +163,7 @@ const Services = () => {
 
                                 {/* Soft Ambient Vignette Overlay Gradient */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#270B4B]/60 via-transparent to-transparent z-10 transition-opacity duration-700 group-hover:opacity-0" />
-                                
+
                                 {/* Dynamic Glowing Border on Hover */}
                                 <div className="absolute inset-0 border-2 border-[#8E24FF]/0 group-hover:border-[#8E24FF]/30 transition-colors duration-700 z-30 pointer-events-none rounded-[1.25rem] md:rounded-none" />
                             </motion.div>
