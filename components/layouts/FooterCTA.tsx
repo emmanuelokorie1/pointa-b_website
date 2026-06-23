@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import GooglePlay from '@/assets/icons/google.svg';
-import AppStore from '@/assets/icons/apple.svg';
+import { icons } from '@/constants';
 
 const FooterCTA = () => {
   return (
@@ -49,10 +48,10 @@ const FooterCTA = () => {
           {/* App Store Icons */}
           <div className="flex flex-col gap-2">
             <button className="bg-white hover:bg-gray-200 p-2 rounded-xl text-black transition-colors flex items-center justify-center w-[42px] h-[42px]">
-              <Image src={AppStore} alt="App Store" className="h-5 w-auto object-contain" />
+              <Image src={icons.AppStore} alt="App Store" className="h-5 w-auto object-contain" />
             </button>
             <button className="bg-white hover:bg-gray-200 p-2 rounded-xl text-black transition-colors flex items-center justify-center w-[42px] h-[42px]">
-              <Image src={GooglePlay} alt="Google Play" className="h-5 w-auto object-contain" />
+              <Image src={icons.GooglePlay} alt="Google Play" className="h-5 w-auto object-contain" />
             </button>
           </div>
         </div>

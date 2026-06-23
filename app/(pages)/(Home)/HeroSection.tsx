@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/constants/route';
 import { images } from '@/constants';
-import DeliveryRouteAnimation from './DeliveryRouteAnimation';
 import DownloadAppButton from '@/components/ui/DownloadAppButton';
 
 import { useInView } from 'framer-motion';
@@ -108,7 +107,6 @@ const HeroSection = () => {
     return (
         <section ref={heroRef} className="relative min-h-screen bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] overflow-hidden flex flex-col lg:justify-center sm:pt-28 pt-[8rem] pb-12 lg:py-0">
 
-            {/* {isHeroInView && <DeliveryRouteAnimation />} */}
 
             <div className="px-6 sm:px-8 lg:pl-[4rem] md:pl-[2rem] xl:pl-[6rem] 2xl:pl-[8rem] w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 

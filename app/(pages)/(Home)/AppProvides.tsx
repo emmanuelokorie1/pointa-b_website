@@ -113,7 +113,6 @@ const AppProvides = () => {
                                 width={200}
                                 height={240}
                                 className="w-full h-auto object-cover"
-                                priority
                             />
                         </div>
                     </div>
@@ -129,7 +128,6 @@ const AppProvides = () => {
                             fill
                             sizes="(max-width: 640px) 220px, (max-width: 1024px) 300px, 400px"
                             className="object-contain object-bottom"
-                            priority
                         />
                     </div>
 

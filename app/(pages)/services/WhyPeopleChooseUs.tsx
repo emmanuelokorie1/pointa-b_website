@@ -36,7 +36,6 @@ const WhyPeopleChooseUs = () => {
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 85vw"
             className="object-cover pointer-events-none select-none"
-            priority
           />
 
           {/* Text and Badges Overlay */}
@@ -103,7 +102,6 @@ const WhyPeopleChooseUs = () => {
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 85vw"
               className="object-contain"
-              priority
             />
           </div>
           {/* Bottom Card: Speed, Support, Coverage (using whyChoose3.svg directly) */}
@@ -114,7 +112,6 @@ const WhyPeopleChooseUs = () => {
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 85vw"
               className="object-contain"
-              priority
             />
           </div>
           {/* Bottom Card: Speed, Support, Coverage (using whyChoose4.svg directly) */}
@@ -125,7 +122,6 @@ const WhyPeopleChooseUs = () => {
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 85vw"
               className="object-contain"
-              priority
             />
           </div>
         </section>
