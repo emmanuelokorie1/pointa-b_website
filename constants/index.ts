@@ -88,8 +88,18 @@ import tuyaupay from "@/assets/icons/brands/tuyaupay.jpg"
 
 const mapToCloudinary = (staticImage: any, relativePath: string) => {
     if (!staticImage) return staticImage;
-    const isSvg = relativePath.endsWith('.svg');
-    const optimization = isSvg ? '' : 'f_auto,q_auto/';
+    // We only rasterize specific massive SVGs in howitworks and merchant folders to prevent CPU/GPU scroll lag.
+    // Other SVGs (including clipping-sensitive ones like aboutUs/morethan1.svg or small icons) are left as raw vectors.
+    let optimization = 'f_auto,q_auto/';
+    let optimizedPath = relativePath;
+    if (relativePath.endsWith('.svg')) {
+        if (relativePath.includes('assets/images/howitworks/') || relativePath.includes('assets/images/merchant/')) {
+            optimizedPath = relativePath.slice(0, -4) + '.png';
+            optimization = 'f_auto,q_auto,w_2000/';
+        } else {
+            optimization = ''; // Keep vector SVGs as raw XML and preserve transparency
+        }
+    }
     
     // Extract Next.js webpack/turbopack content hash from staticImage.src
     // This is identical on both server and client, avoiding hydration mismatches.
@@ -111,7 +121,7 @@ const mapToCloudinary = (staticImage: any, relativePath: string) => {
     const query = hash ? `?v=${hash}` : '';
     return {
         ...staticImage,
-        src: `https://res.cloudinary.com/dzyenrmzb/image/upload/${optimization}pointab-assets/${relativePath}${query}`
+        src: `https://res.cloudinary.com/dzyenrmzb/image/upload/${optimization}pointab-assets/${optimizedPath}${query}`
     };
 };
 
@@ -156,12 +166,12 @@ export const images = {
 
     world: mapToCloudinary(world, "assets/images/aboutUs/world.svg"),
     milestoneIcon: mapToCloudinary(milestoneIcon, "assets/icons/tick.svg"),
-    moreThanJust: moreThanJust,
-    moreThan1: morethan1,
-    moreThan1Background: morethan1Background,
-    moreThan2: morethan2,
-    moreThan3: morethan3,
-    moreThan4: morethan4,
+    moreThanJust: mapToCloudinary(moreThanJust, "assets/images/aboutUs/morethan.svg"),
+    moreThan1: mapToCloudinary(morethan1, "assets/images/aboutUs/morethan1.svg"),
+    moreThan1Background: mapToCloudinary(morethan1Background, "assets/images/aboutUs/morethan1Background.svg"),
+    moreThan2: mapToCloudinary(morethan2, "assets/images/aboutUs/morethan2.svg"),
+    moreThan3: mapToCloudinary(morethan3, "assets/images/aboutUs/morethan3.svg"),
+    moreThan4: mapToCloudinary(morethan4, "assets/images/aboutUs/morethan4.svg"),
     aboutHero: mapToCloudinary(aboutHero, "assets/images/aboutUs/aboutHero.svg"),
     ourMission: mapToCloudinary(ourMission, "assets/images/aboutUs/ourMission.svg"),
     ourValue1: mapToCloudinary(ourValue1, "assets/images/aboutUs/ourValue1.svg"),

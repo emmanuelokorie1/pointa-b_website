@@ -18,7 +18,12 @@ const OurValue = () => {
   const rafRef = useRef<number | null>(null);
   const [xTranslation, setXTranslation] = useState(0);
 
-  // Calculate max horizontal translation once (and on resize)
+  // Cached layout values — measured once on mount/resize instead of read
+  // synchronously on every scroll frame.
+  const sectionTop = useRef(0);
+  const sectionHeight = useRef(0);
+
+  // Calculate max horizontal translation and section bounds once (and on resize)
   useEffect(() => {
     const calc = () => {
       if (cardsContainerRef.current) {
@@ -26,24 +31,39 @@ const OurValue = () => {
         const containerWidth = cardsContainerRef.current.offsetWidth;
         setXTranslation(-(scrollWidth - containerWidth));
       }
+      
+      const section = sectionRef.current;
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        sectionTop.current = rect.top + window.scrollY;
+        sectionHeight.current = rect.height || section.offsetHeight;
+      }
     };
-    calc();
+    
+    // Allow a microtask tick for the DOM to settle layout before measuring
+    const timer = setTimeout(calc, 50);
+    
     window.addEventListener('resize', calc, { passive: true });
-    return () => window.removeEventListener('resize', calc);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', calc);
+    };
   }, []);
 
   // Native passive scroll listener — directly mutates transform, zero React re-renders
   const updateX = useCallback(() => {
-    const section = sectionRef.current;
     const container = cardsContainerRef.current;
-    if (!section || !container || xTranslation === 0) return;
+    if (!container || xTranslation === 0 || sectionHeight.current === 0) return;
 
-    const rect = section.getBoundingClientRect();
-    const sectionH = section.offsetHeight;
+    const scrollY = window.scrollY;
     const viewportH = window.innerHeight;
 
-    // progress: 0 when section top hits viewport bottom, 1 when section bottom hits viewport top
-    const progress = Math.max(0, Math.min(1, -rect.top / (sectionH - viewportH)));
+    // progress: 0 when section top hits viewport top (scrollY = sectionTop), 
+    // 1 when section bottom hits viewport top (scrollY = sectionTop + sectionHeight - viewportH)
+    const range = sectionHeight.current - viewportH;
+    const rawProgress = range > 0 ? (scrollY - sectionTop.current) / range : 0;
+    const progress = Math.max(0, Math.min(1, rawProgress));
+    
     const x = progress * xTranslation;
     container.style.transform = `translateX(${x}px)`;
   }, [xTranslation]);

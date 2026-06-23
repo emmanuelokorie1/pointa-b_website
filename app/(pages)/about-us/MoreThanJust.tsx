@@ -55,7 +55,6 @@ const MoreThanJust = () => {
                 src={images.moreThanJust}
                 alt="Point A2B Live Map Tracking Feature"
                 fill
-                priority
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-contain"
               />
@@ -73,7 +72,6 @@ const MoreThanJust = () => {
                 fill
                 sizes="(max-width: 640px) 100vw, 60vw"
                 className="object-cover pointer-events-none select-none z-0"
-                priority
               />
 
               {/* Background Rider Image */}
@@ -137,7 +135,6 @@ const MoreThanJust = () => {
                 src={images.moreThan2}
                 alt="Point A2B Merchant Sales Feature"
                 fill
-                priority
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-contain"
               />
@@ -152,7 +149,6 @@ const MoreThanJust = () => {
                 src={images.moreThan3}
                 alt="Point A2B Rider Delivery Feature"
                 fill
-                priority
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-contain"
               />
@@ -167,7 +163,6 @@ const MoreThanJust = () => {
                 src={images.moreThan4}
                 alt="Point A2B Notifications Feature"
                 fill
-                priority
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-contain"
               />

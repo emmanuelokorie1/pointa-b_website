@@ -216,8 +216,6 @@ a {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
-
-/* Premium Fade-Slide-in Entrance Animation (CPU/GPU Friendly) */
 @keyframes fade-slide-in {
   0% {
     opacity: 0;
@@ -284,11 +282,7 @@ a {
   -webkit-backface-visibility: hidden;
 }
 
-/* Allow the browser to skip off-screen marquee content entirely */
-.marquee-container {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
-}
+
 
 /* ============================================================
    IntersectionObserver-driven entrance animation
