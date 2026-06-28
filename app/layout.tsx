@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Navbar from "@/components/layouts/navbar";
-import LoadingProvider from "@/components/providers/LoadingProvider";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import "./globals.css";
 
@@ -56,6 +55,7 @@ export default function RootLayout({
         {/* Non-blocking async Google Fonts load — avoids render-blocking @import in CSS */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://res.cloudinary.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600;1,700&display=swap"
           rel="stylesheet"
@@ -63,10 +63,8 @@ export default function RootLayout({
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <ReactQueryProvider>
-          <LoadingProvider>
-            <Navbar />
-            {children}
-          </LoadingProvider>
+          <Navbar />
+          {children}
         </ReactQueryProvider>
       </body>
     </html>

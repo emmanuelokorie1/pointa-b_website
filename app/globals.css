@@ -85,9 +85,6 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  /* Promote to its own GPU layer so Chrome doesn't repaint the whole page on scroll */
-  will-change: transform;
-  transform: translateZ(0);
   contain: strict;
   background-image: 
     radial-gradient(circle at 0% 0%, hsla(276, 97%, 45%, 0.15) 0%, transparent 50%),
@@ -186,11 +183,11 @@ a {
 }
 
 .animate-marquee-up {
-  animation: marquee-up 38s linear infinite;
+  animation: marquee-up 55s linear infinite;
 }
 
 .animate-marquee-down {
-  animation: marquee-down 38s linear infinite;
+  animation: marquee-down 55s linear infinite;
 }
 
 @keyframes marquee-horizontal {
@@ -204,6 +201,66 @@ a {
 
 .animate-marquee-horizontal {
   animation: marquee-horizontal 25s linear infinite;
+}
+
+/* Defer off-screen section paint until scrolled near */
+.section-deferred {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}
+
+.testimonial-avatar {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+}
+
+.testimonial-card-enter {
+  animation: testimonialCardIn 0.4s ease-out;
+}
+
+@keyframes testimonialCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.testimonial-progress {
+  animation: testimonialProgress 10s linear forwards;
+}
+
+@keyframes testimonialProgress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+.service-slide-image {
+  animation: serviceSlideFade 0.5s ease-out;
+}
+
+@keyframes serviceSlideFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animations-paused,
+.animations-paused * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-up,
+  .animate-marquee-down,
+  .animate-marquee-horizontal,
+  .float-panel-left,
+  .float-panel-top,
+  .float-panel-bottom,
+  .animate-aurora-1,
+  .animate-aurora-2,
+  .animate-route-travel {
+    animation: none !important;
+  }
 }
 
 

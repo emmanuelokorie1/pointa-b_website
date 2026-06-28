@@ -2,12 +2,12 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { images } from '@/constants';
+import { sharedImages as images } from '@/constants/images/shared';
 import DownloadAppButton from '@/components/ui/DownloadAppButton';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const AppProvides = () => {
+    const [sectionRef, sectionVisible] = useIntersectionObserver<HTMLElement>({ rootMargin: '0px', once: false });
     const [headingRef, headingVisible] = useIntersectionObserver<HTMLHeadingElement>({ rootMargin: '-80px', once: true });
     const [feat1Ref, feat1Visible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-60px', once: true });
     const [feat2Ref, feat2Visible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-60px', once: true });
@@ -17,7 +17,7 @@ const AppProvides = () => {
     const [botPanelRef, botPanelVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-40px', once: true });
 
     return (
-        <section className="relative bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] pt-16 pb-0 sm:pt-24 sm:pb-0 lg:py-0 lg:h-fit overflow-hidden select-none">
+        <section ref={sectionRef} className={`relative bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] pt-16 pb-0 sm:pt-24 sm:pb-0 lg:py-0 lg:h-fit overflow-hidden select-none ${!sectionVisible ? 'animations-paused' : ''}`}>
 
             {/* Ambient Background Spot Lamps */}
             <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full pointer-events-none z-0" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 70%)' }}></div>

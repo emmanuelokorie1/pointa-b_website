@@ -4,10 +4,9 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { routes } from '@/constants/route';
-import { images } from '@/constants';
+import { homeImages as images } from '@/constants/images/home';
 import DownloadAppButton from '@/components/ui/DownloadAppButton';
-
-import { useInView } from 'framer-motion';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const marqueeColumns = [
     {
@@ -83,8 +82,7 @@ const marqueeColumns = [
 
 const HeroSection = () => {
     const router = useRouter();
-    const heroRef = React.useRef(null);
-    const isHeroInView = useInView(heroRef, { margin: "200px" });
+    const [heroRef, isHeroInView] = useIntersectionObserver<HTMLElement>({ rootMargin: '100px', once: false });
 
     const [trackingId, setTrackingId] = React.useState("");
     const [isLoading, setIsLoading] = React.useState(false);
@@ -130,7 +128,7 @@ const HeroSection = () => {
                             <label className="block text-white/70 text-xs font-bold uppercase tracking-wider pl-1">
                                 Track Your Order
                             </label>
-                            <div className="relative flex items-center bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl p-1.5 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20 transition-all duration-300">
+                            <div className="relative flex items-center bg-white/[0.06] border border-white/10 rounded-2xl p-1.5 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20 transition-colors duration-300">
                                 {/* Left Icon (Map pin) */}
                                 <div className="pl-3.5 pr-2 text-white/50">
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -188,10 +186,10 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            {/* Right Column: Staggered Masonry Grid */}
-            <div className="lg:absolute lg:top-0 lg:right-0 lg:bottom-0 lg:w-[40%] xl:w-[45%] w-full h-[380px] sm:h-[480px] lg:h-full select-none overflow-hidden z-10 mt-10 lg:mt-0">
+            {/* Right Column: Staggered Masonry Grid — only mount when hero is visible */}
+            <div className={`lg:absolute lg:top-0 lg:right-0 lg:bottom-0 lg:w-[40%] xl:w-[45%] w-full h-[380px] sm:h-[480px] lg:h-full select-none overflow-hidden z-10 mt-10 lg:mt-0 ${!isHeroInView ? 'animations-paused' : ''}`}>
 
-                {/* Staggered Masonry Flexbox Grid */}
+                {isHeroInView ? (
                 <div className="w-full h-full flex gap-4 md:gap-5 overflow-hidden justify-center relative items-start">
 
                     {/* Fade effect at the bottom of the grid */}
@@ -210,27 +208,18 @@ const HeroSection = () => {
                                     {col.cards.map((card, cardIndex) => (
                                         <div
                                             key={`${copyIndex}-${cardIndex}`}
-                                            className="w-full aspect-[3/4] rounded-[1.8rem] overflow-hidden border border-white/[0.08] shadow-lg shadow-black/10 marquee-card relative group hover:border-purple-500/30 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500"
+                                            className="w-full aspect-[3/4] rounded-[1.8rem] overflow-hidden border border-white/[0.08] shadow-lg shadow-black/10 marquee-card relative"
                                             style={{ position: 'relative' }}
                                         >
-                                            {/* Floating Glass Badge - Removed backdrop-blur-md to fix massive GPU lag while scrolling/animating */}
-                                            {/* {card.badge && (
-                                                <div className={`absolute ${card.badge.positionClass} bg-black/60 border border-white/10 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-md pointer-events-none z-10 group-hover:scale-105 transition-transform duration-300`}>
-                                                    <span className={`w-1.5 h-1.5 rounded-full ${card.badge.dotColor} animate-pulse`}></span>
-                                                    <span className="text-[10px] font-bold text-white/90 uppercase tracking-wider">{card.badge.text}</span>
-                                                </div>
-                                            )} */}
-                                            {/* Glass Specular Reflection Sweep Overlay */}
-                                            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.06] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none z-10"></div>
                                             <Image
                                                 src={card.image}
                                                 alt={card.alt}
                                                 fill
                                                 sizes="(max-width: 640px) 120px, (max-width: 1024px) 200px, 300px"
-                                                className="object-cover object-center group-hover:scale-[1.045] transition-transform duration-700 ease-out"
-                                                decoding="async"
-                                                priority={copyIndex === 0 && cardIndex === 0}
-                                                loading={copyIndex === 0 && cardIndex === 0 ? undefined : "lazy"}
+                                                className="object-cover object-center"
+                                                priority={col.id === 1 && copyIndex === 0 && cardIndex === 0}
+                                                loading={col.id === 1 && copyIndex === 0 && cardIndex === 0 ? 'eager' : 'lazy'}
+                                                fetchPriority={col.id === 1 && copyIndex === 0 && cardIndex === 0 ? 'high' : 'low'}
                                             />
                                         </div>
                                     ))}
@@ -239,6 +228,9 @@ const HeroSection = () => {
                         </div>
                     ))}
                 </div>
+                ) : (
+                    <div className="w-full h-full bg-white/[0.03] rounded-3xl" aria-hidden />
+                )}
             </div>
         </section>
     );
