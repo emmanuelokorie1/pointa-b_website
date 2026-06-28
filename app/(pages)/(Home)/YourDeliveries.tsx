@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { images } from '@/constants';
+import { sharedImages as images } from '@/constants/images/shared';
 import { motion } from 'framer-motion';
 
 const YourDeliveries = () => {

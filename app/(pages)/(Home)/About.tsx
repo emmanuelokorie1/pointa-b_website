@@ -3,7 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Badge from '@/components/ui/Badge';
-import { images } from '@/constants';
+import { homeImages } from '@/constants/images/home';
+import { sharedImages } from '@/constants/images/shared';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 // High-performance animated counter that triggers when in viewport
@@ -164,12 +165,12 @@ const About = () => {
                                 className="absolute bottom-[-12%] xs:bottom-[-16%] sm:bottom-[-20%] right-[-6%] sm:right-[-5%] w-[48%] xs:w-[46%] sm:w-[44%] h-[68%] xs:h-[73%] sm:h-[78%] select-none pointer-events-none group-hover:scale-[1.04] group-hover:translate-x-1 transition-all duration-500 ease-out"
                             >
                                 <Image
-                                    src={images.carPackage}
+                                    src={sharedImages.carPackage}
                                     alt="Delivery van with packages"
                                     fill
                                     className="object-contain object-bottom-right"
                                     sizes="(max-width: 640px) 130px, (max-width: 768px) 180px, 280px"
-                                    priority
+                                    loading="lazy"
                                 />
                             </div>
                         </Card3D>
@@ -186,7 +187,7 @@ const About = () => {
                                     className="relative w-full flex-1 transform group-hover:scale-[1.06] group-hover:rotate-2 transition-all duration-500 ease-out p-4 sm:p-5"
                                 >
                                     <Image
-                                        src={images.box2}
+                                        src={sharedImages.box2}
                                         alt="Illustrated smiling delivery cardboard box"
                                         fill
                                         sizes="(max-width: 640px) 240px, 320px"
@@ -229,12 +230,12 @@ const About = () => {
                                 className="relative w-full flex-1 transform group-hover:scale-[1.04] transition-all duration-500 ease-out p-4 sm:p-5"
                             >
                                 <Image
-                                    src={images.packages}
+                                    src={sharedImages.packages}
                                     alt="Movers relocation delivery helpers carrying box"
                                     fill
                                     sizes="(max-width: 1024px) 350px, 500px"
                                     className="object-cover rounded-[1.5rem]"
-                                    priority
+                                    loading="lazy"
                                 />
                             </div>
                         </Card3D>
@@ -265,7 +266,7 @@ const About = () => {
                                 <div className="flex flex-wrap items-center gap-3 mt-4">
                                     {/* Circular Overlapping Avatar Stack */}
                                     <div className="flex -space-x-3">
-                                        {[images.Landing1, images.Landing2, images.Landing3, images.Landing4].map((avatar, idx) => (
+                                        {[homeImages.Landing1, homeImages.Landing2, homeImages.Landing3, homeImages.Landing4].map((avatar, idx) => (
                                             <div key={idx} className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#120024] shadow-md hover:scale-115 hover:z-20 transition-transform duration-300" style={{ position: 'relative' }}>
                                                 <Image
                                                     src={avatar}

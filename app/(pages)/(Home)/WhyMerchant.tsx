@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { images } from '@/constants';
+import { homeImages as images } from '@/constants/images/home';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const features = [

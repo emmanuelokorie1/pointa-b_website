@@ -32,7 +32,7 @@ const FooterCTA = () => {
         </div>
 
         {/* QR Code and App Download Panel */}
-        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 p-2.5 rounded-2xl flex items-center gap-3 shadow-[0_8px_32px_0_rgba(0,0,0,0.2)]">
+        <div className="bg-white/[0.05] border border-white/10 p-2.5 rounded-2xl flex items-center gap-3 shadow-[0_8px_32px_0_rgba(0,0,0,0.2)]">
           {/* QR Code Block */}
           <div className="bg-[#8E24FF] p-1.5 rounded-xl">
             <div className="bg-white p-1 rounded-lg">

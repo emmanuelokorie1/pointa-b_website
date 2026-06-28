@@ -1,42 +1,45 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
-export default function LoadingProvider({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const [showLoader, setShowLoader] = useState(true);
-  const [fade, setFade] = useState(false);
+const LOADER_SEEN_KEY = 'pointab-loader-seen';
 
-  // Reset loader on page changes (client-side navigation)
+export default function LoadingProvider({ children }: { children: React.ReactNode }) {
+  const [showLoader, setShowLoader] = useState(false);
+  const [fade, setFade] = useState(false);
+  const [ready, setReady] = useState(false);
+
   useEffect(() => {
-    setShowLoader(true);
-    setFade(false);
-  }, [pathname]);
+    const seen = sessionStorage.getItem(LOADER_SEEN_KEY);
+    setShowLoader(!seen);
+    setReady(true);
+  }, []);
 
   const handleComplete = () => {
+    sessionStorage.setItem(LOADER_SEEN_KEY, '1');
     setFade(true);
-    setTimeout(() => {
-      setShowLoader(false);
-    }, 300); // Match the fade-out duration
+    setTimeout(() => setShowLoader(false), 300);
   };
 
-  // Safety fallback: if the loader hasn't dismissed after 5 seconds,
-  // force-dismiss it.
   useEffect(() => {
     if (!showLoader) return;
     const fallback = setTimeout(() => {
+      sessionStorage.setItem(LOADER_SEEN_KEY, '1');
       setFade(true);
       setTimeout(() => setShowLoader(false), 300);
-    }, 5000);
+    }, 3500);
     return () => clearTimeout(fallback);
   }, [showLoader]);
+
+  if (!ready) {
+    return <div className="font-sans">{children}</div>;
+  }
 
   return (
     <>
       {showLoader && (
-        <div 
+        <div
           className={`fixed inset-0 z-[99999] transition-opacity duration-300 ease-out ${
             fade ? 'opacity-0 pointer-events-none' : 'opacity-100'
           }`}
@@ -44,9 +47,9 @@ export default function LoadingProvider({ children }: { children: React.ReactNod
           <LoadingScreen onComplete={handleComplete} />
         </div>
       )}
-      <div 
-        className={`transition-opacity duration-300 ease-out ${
-          fade ? 'opacity-100 font-sans' : 'opacity-0'
+      <div
+        className={`font-sans transition-opacity duration-300 ease-out ${
+          showLoader && !fade ? 'opacity-0' : 'opacity-100'
         }`}
       >
         {children}

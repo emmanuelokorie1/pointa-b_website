@@ -13,7 +13,7 @@ export default function LoadingScreen({ onComplete }: LoadingProps) {
     // The CSS animation runs for 3.2s. Fire onComplete almost immediately after.
     const timer = setTimeout(() => {
       onComplete?.();
-    }, 2000);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

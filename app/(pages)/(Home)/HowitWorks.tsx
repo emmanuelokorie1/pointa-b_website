@@ -2,7 +2,8 @@
 
 import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { images, icons } from '@/constants';
+import { homeImages as images } from '@/constants/images/home';
+import { icons } from '@/constants/icons';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const steps = [
@@ -56,7 +57,7 @@ const StepCard = ({
             >
                 {/* Step Badge */}
                 <div className={`w-full flex justify-center md:justify-start mb-6 md:mb-10 lg:mb-12`}>
-                    <div className="bg-white/80 backdrop-blur-xl border border-white text-[#8E24FF] text-sm lg:text-[14px] font-extrabold px-6 py-2.5 rounded-full flex items-center justify-center gap-3 shadow-[0_8px_30px_rgba(142,36,255,0.12)] uppercase tracking-[0.15em] relative transition-transform hover:-translate-y-0.5">
+                    <div className="bg-white/90 border border-white text-[#8E24FF] text-sm lg:text-[14px] font-extrabold px-6 py-2.5 rounded-full flex items-center justify-center gap-3 shadow-[0_8px_30px_rgba(142,36,255,0.12)] uppercase tracking-[0.15em] relative transition-transform hover:-translate-y-0.5">
                         STEP {step.id}
                     </div>
                 </div>

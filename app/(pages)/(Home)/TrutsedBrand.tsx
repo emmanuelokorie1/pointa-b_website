@@ -2,9 +2,11 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { icons } from '@/constants';
+import { icons } from '@/constants/icons';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const TrutsedBrand = () => {
+    const [sectionRef, isInView] = useIntersectionObserver<HTMLElement>({ rootMargin: '0px', once: false });
     // 8 items (already duplicated in state)
     const baseBrands = [
         { name: "91Pay", logo: icons.Nine1 },
@@ -21,7 +23,7 @@ const TrutsedBrand = () => {
     const brands = [...baseBrands, ...baseBrands];
 
     return (
-        <section className="w-full bg-[#F8F9FA] border-t border-black/[0.03] border-b py-10 sm:py-16 select-none overflow-hidden relative">
+        <section ref={sectionRef} className="w-full bg-[#F8F9FA] border-t border-black/[0.03] border-b py-10 sm:py-16 select-none overflow-hidden relative">
             
             {/* Subtle premium ambient glow in the center background */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[160px] rounded-full pointer-events-none -z-10 animate-pulse" style={{ animationDuration: '6s', background: 'radial-gradient(circle, rgba(233, 213, 255, 0.3) 0%, transparent 70%)' }}></div>
@@ -50,7 +52,7 @@ const TrutsedBrand = () => {
                 <div className="absolute top-0 bottom-0 right-0 w-20 sm:w-44 bg-gradient-to-l from-[#F8F9FA] via-[#F8F9FA]/85 to-transparent z-20 pointer-events-none"></div>
 
                 {/* Infinite Sliding Running Track */}
-                <div className="flex items-center gap-10 sm:gap-14 w-max animate-marquee-horizontal hover:[animation-play-state:paused] cursor-pointer py-2">
+                <div className={`flex items-center gap-10 sm:gap-14 w-max animate-marquee-horizontal hover:[animation-play-state:paused] cursor-pointer py-2 ${!isInView ? 'animations-paused' : ''}`}>
                     {brands.map((brand, index) => (
                         <div 
                             key={index} 
