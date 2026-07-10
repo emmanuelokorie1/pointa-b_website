@@ -3,7 +3,7 @@
 import HeroSection from '@/app/(pages)/(Home)/HeroSection';
 import TrutsedBrand from '@/app/(pages)/(Home)/TrutsedBrand';
 import DeferredSection from '@/components/ui/DeferredSection';
-import Footer from '@/components/layouts/Footer';
+
 
 export default function HomePage() {
   return (
@@ -39,8 +39,6 @@ export default function HomePage() {
         load={() => import('@/app/(pages)/(Home)/YourDeliveries')}
         minHeight={400}
       />
-
-      <Footer />
     </main>
   );
 }

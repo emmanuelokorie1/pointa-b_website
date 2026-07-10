@@ -64,7 +64,7 @@ export default function OngoingDesign({ pageName }: OngoingDesignProps) {
         <div className="relative w-24 h-24 mb-10">
           {/* Animated decorative outer rings */}
           <div className="ptab-spin-contour absolute inset-0 rounded-[2.5rem] border border-dashed border-[#8E24FF]/30 opacity-80" />
-          <div className="absolute inset-2 rounded-[2rem] border border-[#8E24FF]/15 bg-white/95 backdrop-blur-md flex items-center justify-center shadow-[0_12px_32px_rgba(142,36,255,0.08)]">
+          <div className="absolute inset-2 rounded-[2rem] border border-[#8E24FF]/15 bg-white flex items-center justify-center shadow-[0_12px_32px_rgba(142,36,255,0.08)]">
             <Paintbrush className="w-8 h-8 text-[#8E24FF]" />
           </div>
           <span className="absolute top-1 right-1 flex h-3 w-3">
@@ -74,7 +74,7 @@ export default function OngoingDesign({ pageName }: OngoingDesignProps) {
         </div>
 
         {/* Brand Tag */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#8E24FF]/6 border border-[#8E24FF]/12 backdrop-blur-md shadow-sm mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#8E24FF]/10 border border-[#8E24FF]/12 shadow-sm mb-6">
           <Sparkles className="w-3.5 h-3.5 text-[#8E24FF]" />
           <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#8E24FF]">
             Point a2b Studio

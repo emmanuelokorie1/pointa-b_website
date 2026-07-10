@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import Image from 'next/image';
 import { homeImages as images } from '@/constants/images/home';
 import { icons } from '@/constants/icons';
@@ -125,6 +125,10 @@ const StepCard = ({
 
 const HowitWorks = () => {
     const [titleRef, titleVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-40px', once: true });
+    // Section visibility — scroll handler only fires while section is in viewport
+    const [sectionVisRef, isSectionInView] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '200px', once: false });
+    const isSectionInViewRef = useRef(false);
+    useEffect(() => { isSectionInViewRef.current = isSectionInView; }, [isSectionInView]);
 
     // === Bike rotation — native scroll, no React state, no Framer Motion ===
     const containerRef = useRef<HTMLDivElement>(null);
@@ -193,6 +197,8 @@ const HowitWorks = () => {
         measureContainer(); // initial measurement
 
         const onScroll = () => {
+            // Skip frame scheduling entirely when section is off-screen
+            if (!isSectionInViewRef.current) return;
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
             rafRef.current = requestAnimationFrame(updateBike);
         };
@@ -219,6 +225,8 @@ const HowitWorks = () => {
 
     return (
         <section className="relative w-full bg-[#F4EAFF] sm:py-24 py-10 lg:py-32 overflow-clip font-sans">
+            {/* Sentinel for section visibility (throttles the scroll handler) */}
+            <div ref={sectionVisRef} className="absolute top-0 left-0 w-full h-1 pointer-events-none" aria-hidden />
             <div className="w-[95%] sm:w-[90%] md:w-[80%] mx-auto relative z-10">
 
                 {/* Section Title */}

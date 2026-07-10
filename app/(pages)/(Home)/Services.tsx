@@ -39,11 +39,11 @@ const ServiceCard = ({
             style={{
                 clipPath: isMobile ? 'none' : card.clipPathId,
                 transform: isMobile
-                    ? (isHovered ? 'translateY(-6px) scale(1.02)' : 'translateY(0) scale(1)')
+                    ? (isHovered ? 'scaleX(1.02)' : 'scale(1)')
                     : (isHovered
-                        ? 'perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(-8px) translateZ(30px) scale(1.04)'
+                        ? 'scaleX(1.04)'
                         : isAnyHovered
-                            ? `${card.defaultTransform} scale(0.96)`
+                            ? `${card.defaultTransform} scaleX(0.97)`
                             : card.defaultTransform),
                 contain: 'layout paint',
                 transitionDelay: `${index * 150}ms`,
@@ -83,17 +83,17 @@ const Services = () => {
             {
                 slides: slidesLeft,
                 clipPathId: 'url(#clip-left)',
-                defaultTransform: 'perspective(1200px) rotateY(10deg) rotateZ(1.5deg) translateY(4px) translateZ(-10px)',
+                defaultTransform: 'translateZ(0px)',
             },
             {
                 slides: slidesMiddle,
                 clipPathId: 'url(#clip-middle)',
-                defaultTransform: 'perspective(1200px) rotateY(0deg) rotateZ(0deg) translateY(0px) translateZ(10px)',
+                defaultTransform: 'translateZ(0px)',
             },
             {
                 slides: slidesRight,
                 clipPathId: 'url(#clip-right)',
-                defaultTransform: 'perspective(1200px) rotateY(-10deg) rotateZ(-1.5deg) translateY(4px) translateZ(-10px)',
+                defaultTransform: 'translateZ(0px)',
             },
         ];
     }, []);
@@ -137,7 +137,7 @@ const Services = () => {
                 </div>
 
                 <div
-                    className="grid grid-cols-1 md:grid-cols-3 gap-3.5 xs:gap-4 sm:gap-4 md:gap-3 lg:gap-4 xl:gap-5 items-center"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-3.5 xs:gap-4 sm:gap-4 md:gap-3 lg:gap-4 xl:gap-5 items-stretch"
                     style={{ perspective: '1500px' }}
                 >
                     {serviceCards.map((card, index) => (

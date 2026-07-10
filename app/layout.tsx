@@ -3,6 +3,9 @@ import localFont from "next/font/local";
 import Navbar from "@/components/layouts/navbar";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import "./globals.css";
+import Footer from "@/components/layouts/Footer";
+import YourDeliveries from "./(pages)/(Home)/YourDeliveries";
+
 
 const trebuchet = localFont({
   src: [
@@ -65,10 +68,13 @@ export default function RootLayout({
         <ReactQueryProvider>
           <Navbar />
           {children}
+          <YourDeliveries />
+          <Footer />
         </ReactQueryProvider>
       </body>
     </html>
   );
 }
+
 
 

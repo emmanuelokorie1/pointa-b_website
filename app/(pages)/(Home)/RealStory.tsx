@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const desktopPositions = [
@@ -84,7 +85,7 @@ const RealStory = () => {
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -117,9 +118,15 @@ const RealStory = () => {
 
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3 bg-white/90 py-2 px-4 lg:px-5 rounded-full border border-white mx-auto max-w-fit shadow-sm pointer-events-auto">
             <div className="flex -space-x-2">
-              <img className="w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white object-cover relative z-30" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop" alt="Merchant" loading="lazy" />
-              <img className="w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white object-cover relative z-20" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=256&auto=format&fit=crop" alt="Merchant" loading="lazy" />
-              <img className="w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white object-cover relative z-10" src="https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=256&auto=format&fit=crop" alt="Merchant" loading="lazy" />
+              <div className="relative w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white overflow-hidden z-30">
+                <Image src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=64&auto=format&fit=crop" alt="Merchant" fill className="object-cover" sizes="32px" />
+              </div>
+              <div className="relative w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white overflow-hidden z-20">
+                <Image src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=64&auto=format&fit=crop" alt="Merchant" fill className="object-cover" sizes="32px" />
+              </div>
+              <div className="relative w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white overflow-hidden z-10">
+                <Image src="https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=64&auto=format&fit=crop" alt="Merchant" fill className="object-cover" sizes="32px" />
+              </div>
               <div className="w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white bg-[#8E24FF] text-white text-[8px] lg:text-[10px] flex items-center justify-center font-bold relative z-0">
                 +1k
               </div>
@@ -155,7 +162,7 @@ const RealStory = () => {
                   }`}
                   onClick={() => setCurrentIndex(idx)}
                 >
-                  <img src={testimonial.avatar} alt={testimonial.name} className="w-full h-full object-cover" loading="lazy" />
+                  <Image src={testimonial.avatar} alt={testimonial.name} fill className="object-cover" sizes="80px" />
                 </div>
               </div>
             );

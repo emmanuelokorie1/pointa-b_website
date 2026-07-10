@@ -12,7 +12,7 @@ export default function NotFound() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0"></div>
 
       {/* Main Glassmorphic Container */}
-      <div className="relative w-full max-w-lg bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-[2.5rem] p-8 md:p-12 flex flex-col items-center text-center shadow-2xl shadow-black/40 z-10 animate-fade-blur-in">
+      <div className="relative w-full max-w-lg bg-[#1a1028]/95 border border-white/[0.08] rounded-[2.5rem] p-8 md:p-12 flex flex-col items-center text-center shadow-2xl shadow-black/40 z-10 animate-fade-blur-in">
         
         {/* Massive 404 Title */}
         <h1 className="text-[7rem] md:text-[9rem] font-extrabold tracking-tighter leading-none bg-gradient-to-br from-white via-white/80 to-[#D6FF38] bg-clip-text text-transparent select-none relative z-10">
