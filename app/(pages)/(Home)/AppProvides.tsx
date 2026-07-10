@@ -9,12 +9,15 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 const AppProvides = () => {
     const [sectionRef, sectionVisible] = useIntersectionObserver<HTMLElement>({ rootMargin: '0px', once: false });
     const [headingRef, headingVisible] = useIntersectionObserver<HTMLHeadingElement>({ rootMargin: '-80px', once: true });
+    // Single observer covers both feature blocks (adjacent elements)
     const [feat1Ref, feat1Visible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-60px', once: true });
     const [feat2Ref, feat2Visible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-60px', once: true });
-    const [leftPanelRef, leftPanelVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-40px', once: true });
+    // Single observer for the right-column device stage — all panels share same visibility
     const [phoneRef, phoneVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-40px', once: true });
-    const [topPanelRef, topPanelVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-40px', once: true });
-    const [botPanelRef, botPanelVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-40px', once: true });
+    // Reuse phoneVisible for all floating panels (they enter viewport at the same time)
+    const leftPanelRef = React.useRef<HTMLDivElement>(null);
+    const topPanelRef = React.useRef<HTMLDivElement>(null);
+    const botPanelRef = React.useRef<HTMLDivElement>(null);
 
     return (
         <section ref={sectionRef} className={`relative bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] pt-16 pb-0 sm:pt-24 sm:pb-0 lg:py-0 lg:h-fit overflow-hidden select-none ${!sectionVisible ? 'animations-paused' : ''}`}>
@@ -102,7 +105,7 @@ const AppProvides = () => {
                         Float:    CSS @keyframe floatY-8 (6s) — zero JS per frame */}
                     <div
                         ref={leftPanelRef}
-                        className={`absolute left-[-0.75rem] sm:left-0 md:left-4 top-[25%] lg:top-[28%] w-[110px] sm:w-[160px] md:w-[180px] lg:w-[200px] bg-white/[0.03] border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.3)] z-20 fade-in-up ${leftPanelVisible ? 'is-visible' : ''}`}
+                        className={`absolute left-[-0.75rem] sm:left-0 md:left-4 top-[25%] lg:top-[28%] w-[110px] sm:w-[160px] md:w-[180px] lg:w-[200px] bg-white/[0.03] border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.3)] z-20 fade-in-up ${phoneVisible ? 'is-visible' : ''}`}
                         style={{ transitionDelay: '200ms' }}
                     >
                         {/* CSS float — replaces motion.div animate={{ y: [0,-8,0] }} repeat:Infinity */}
@@ -135,7 +138,7 @@ const AppProvides = () => {
                         Float: CSS @keyframe floatY6 (8s) — zero JS per frame */}
                     <div
                         ref={topPanelRef}
-                        className={`absolute right-[-0.25rem] sm:right-4 md:right-8 top-[15%] lg:top-[18%] w-[130px] sm:w-[200px] md:w-[220px] lg:w-[260px] h-[95px] sm:h-[140px] md:h-[150px] lg:h-[180px] bg-purple-950/90 border border-white/[0.15] rounded-[1rem] sm:rounded-[1.75rem] shadow-[0_24px_50px_rgba(0,0,0,0.35)] z-20 pointer-events-none p-2.5 sm:p-5 flex flex-col justify-between fade-in-up ${topPanelVisible ? 'is-visible' : ''}`}
+                        className={`absolute right-[-0.25rem] sm:right-4 md:right-8 top-[15%] lg:top-[18%] w-[130px] sm:w-[200px] md:w-[220px] lg:w-[260px] h-[95px] sm:h-[140px] md:h-[150px] lg:h-[180px] bg-purple-950/90 border border-white/[0.15] rounded-[1rem] sm:rounded-[1.75rem] shadow-[0_24px_50px_rgba(0,0,0,0.35)] z-20 pointer-events-none p-2.5 sm:p-5 flex flex-col justify-between fade-in-up ${phoneVisible ? 'is-visible' : ''}`}
                         style={{ transitionDelay: '300ms' }}
                     >
                         {/* CSS float — replaces motion.div animate={{ y: [0,6,0] }} repeat:Infinity */}
@@ -158,7 +161,7 @@ const AppProvides = () => {
                         Float: CSS @keyframe floatY-6 (7s) — zero JS per frame */}
                     <div
                         ref={botPanelRef}
-                        className={`absolute right-[-0.5rem] sm:right-0 md:right-4 bottom-[15%] lg:bottom-[20%] w-[130px] sm:w-[200px] md:w-[220px] lg:w-[260px] h-[95px] sm:h-[140px] md:h-[150px] lg:h-[180px] bg-purple-950/90 border border-white/[0.15] rounded-[1rem] sm:rounded-[1.75rem] shadow-[0_24px_50px_rgba(0,0,0,0.35)] z-20 pointer-events-none p-2.5 sm:p-5 flex flex-col justify-between fade-in-up ${botPanelVisible ? 'is-visible' : ''}`}
+                        className={`absolute right-[-0.5rem] sm:right-0 md:right-4 bottom-[15%] lg:bottom-[20%] w-[130px] sm:w-[200px] md:w-[220px] lg:w-[260px] h-[95px] sm:h-[140px] md:h-[150px] lg:h-[180px] bg-purple-950/90 border border-white/[0.15] rounded-[1rem] sm:rounded-[1.75rem] shadow-[0_24px_50px_rgba(0,0,0,0.35)] z-20 pointer-events-none p-2.5 sm:p-5 flex flex-col justify-between fade-in-up ${phoneVisible ? 'is-visible' : ''}`}
                         style={{ transitionDelay: '400ms' }}
                     >
                         {/* CSS float — replaces motion.div animate={{ y: [0,-6,0] }} repeat:Infinity */}

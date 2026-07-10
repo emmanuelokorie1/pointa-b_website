@@ -14,10 +14,10 @@ export default function ContactUsPage() {
       <FAQ />
 
       {/* Your Deliveries App Download Section */}
-      <YourDeliveries />
+      {/* <YourDeliveries /> */}
 
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
     </main>
   )
 }

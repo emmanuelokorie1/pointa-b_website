@@ -26,10 +26,10 @@ export default function AboutUsPage() {
       <MeetTheTeam />
       
       {/* Your Deliveries App Download Section */}
-      <YourDeliveries />
+      {/* <YourDeliveries /> */}
 
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }

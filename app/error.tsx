@@ -20,7 +20,7 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
       <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[30rem] h-[30rem] bg-pink-600/15 blur-[120px] rounded-full pointer-events-none"></div>
 
       {/* Main Glass Container */}
-      <div className="relative w-full max-w-lg bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-[2.5rem] p-8 md:p-10 flex flex-col items-center text-center shadow-2xl shadow-black/40 z-10 animate-fade-blur-in">
+      <div className="relative w-full max-w-lg bg-[#1a1028]/95 border border-white/[0.08] rounded-[2.5rem] p-8 md:p-10 flex flex-col items-center text-center shadow-2xl shadow-black/40 z-10 animate-fade-blur-in">
         
         {/* Animated Caution Box Logo */}
         <div className="relative w-24 h-24 mb-6 flex items-center justify-center">

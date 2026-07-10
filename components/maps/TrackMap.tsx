@@ -278,7 +278,7 @@ const TrackMap = ({ progress, points }: TrackMapProps) => {
     return (
         <div className="absolute inset-0 w-full h-full">
             {/* Map Controls Panel */}
-            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-1 bg-white/90 border border-gray-200 backdrop-blur-md p-1.5 rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
+            <div className="absolute bottom-6 right-6 z-20 flex items-center gap-1 bg-white border border-gray-200 p-1.5 rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
                 <button
                     onClick={() => {
                         if (mapRef.current && points[progress]) {
@@ -323,7 +323,7 @@ const TrackMap = ({ progress, points }: TrackMapProps) => {
 
             {/* Point A2B Map Signature / Watermark */}
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 md:left-[calc(50%+200px)] lg:left-[calc(50%+240px)] z-20 pointer-events-none">
-                <div className="bg-white/80 backdrop-blur-xl border border-white border-b-gray-200 shadow-[0_8px_30px_rgba(0,0,0,0.12)] px-6 py-2.5 rounded-full flex items-center gap-2.5 transition-all duration-500">
+                <div className="bg-white border border-white border-b-gray-200 shadow-[0_8px_30px_rgba(0,0,0,0.12)] px-6 py-2.5 rounded-full flex items-center gap-2.5 transition-all duration-500">
                     <span className="w-2 h-2 rounded-full bg-[#8E24FF] animate-pulse" />
                     <span className="text-gray-400 font-bold text-[9px] uppercase tracking-widest border-r border-gray-200 pr-2.5">
                         Live Tracking

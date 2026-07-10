@@ -16,9 +16,9 @@ export default function ServicesPage() {
     <ReadyToExperience />
 
     {/* Your Deliveries App Download Section */}
-    <YourDeliveries />
+    {/* <YourDeliveries /> */}
 
     {/* Footer */}
-    <Footer />
+    {/* <Footer /> */}
   </main>;
 }

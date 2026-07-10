@@ -65,6 +65,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -107,15 +108,13 @@ a {
 }
 
 .glass {
-  background: hsla(0, 0%, 100%, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: hsla(0, 0%, 100%, 0.08);
   border: 1px solid hsla(0, 0%, 100%, 0.08);
   border-radius: var(--radius);
 }
 
 .dark .glass {
-  background: hsla(240, 10%, 10%, 0.7);
+  background: hsla(240, 10%, 10%, 0.92);
   border: 1px solid hsla(0, 0%, 100%, 0.1);
 }
 
@@ -272,6 +271,7 @@ a {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  contain: layout style;
 }
 @keyframes fade-slide-in {
   0% {
@@ -337,6 +337,7 @@ a {
   contain: layout style paint;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 
