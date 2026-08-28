@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { images } from '@/constants';
+import { Globe } from '@/components/ui/globe';
 
 const FoundingStory = () => {
   const milestones = [
@@ -88,22 +89,11 @@ const FoundingStory = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative w-full aspect-[4/3] sm:aspect-video lg:aspect-square p-4 flex items-center justify-center bg-transparent"
-            style={{ position: 'relative' }}
+            className="relative flex w-full aspect-[4/3] sm:aspect-square mx-auto items-center justify-center overflow-hidden bg-transparent"
           >
-            {/* Visual glow ring effect in the background */}
-            {/* <div className="absolute inset-0 bg-gradient-to-tr from-purple-50 via-white to-transparent pointer-events-none z-0" /> */}
-            <Image
-              src={images.world}
-              alt="Point A2B Global Expansion and Coverage Map"
-              fill
-              priority
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 35vw"
-              className="object-contain"
-            />
+            <Globe className="max-w-none" />
           </motion.div>
         </div>
-
       </div>
     </section>
   );
