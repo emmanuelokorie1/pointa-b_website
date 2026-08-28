@@ -18,7 +18,7 @@ const OurMission = () => {
         className="relative z-10 w-full md:w-[50%] lg:w-[55%] flex flex-col justify-center px-6 sm:px-12 md:px-0 sm:pt-16 pt-8 pb-[7.5rem] md:py-0 text-center md:text-left items-center md:items-start"
       >
         {/* Title */}
-        <h2 className="text-[#1A1A1A] md:text-white text-3xl sm:text-4xl md:text-5xl lg:text-[3.7rem] xl:text-[4rem] font-extrabold leading-[1.15] mb-6 tracking-tight text-center md:text-left w-full">
+        <h2 className="text-[#1A1A1A] md:text-white text-3xl sm:text-4xl md:text-5xl xl:text-[3.7rem] 2xl:text-[4rem] font-extrabold leading-[1.15] mb-6 text-center md:text-left w-full">
           To make delivery <br className="hidden md:inline" />
           fast, affordable <br className="hidden md:inline" />
           and <span className="italic text-primary font-bold">accessible..</span> for <br className="hidden md:inline" />
@@ -31,7 +31,7 @@ const OurMission = () => {
         </p>
 
         {/* Mobile Watermark Text Background */}
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-[10px] text-[4rem] sm:text-[5rem] font-bold text-[#5B0097]/30 uppercase select-none pointer-events-none font-sans whitespace-nowrap tracking-tight z-0 leading-none md:hidden">
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-[10px] text-[2.5rem] sm:text-[3.5rem] font-bold text-[#5B0097]/30 uppercase select-none pointer-events-none whitespace-nowrap tracking-tight z-0 leading-none md:hidden">
           Our Mission
         </div>
       </motion.div>
@@ -49,10 +49,9 @@ const OurMission = () => {
       </div>
 
       {/* Desktop Watermark Text Background */}
-      <div className="absolute md:right-20 md:bottom-[-10px] lg:bottom-[-10px] text-[5.5rem] md:text-[9.5rem] lg:text-[11rem] font-bold text-[#E2E3E7]/40 uppercase select-none pointer-events-none font-sans whitespace-nowrap tracking-tight z-[5] leading-none hidden md:block">
+      <div className="absolute md:right-50 md:bottom-[-10px] lg:bottom-[-10px] md:text-[6rem] lg:text-[7rem] xl:text-[8rem] 2xl:text-[9rem] font-bold text-[#E2E3E7]/40 uppercase select-none pointer-events-none font-sans whitespace-nowrap tracking-tight z-[5] leading-none hidden md:block">
         Our Mission
       </div>
-
     </section>
   );
 };

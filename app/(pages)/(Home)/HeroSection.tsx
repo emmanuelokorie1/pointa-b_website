@@ -169,9 +169,9 @@ const HeroSection = () => {
                             {error && (
                                 <p className="text-pink-500 text-xs pl-1 font-semibold">{error}</p>
                             )}
-                            <p className="text-white/40 text-[11px] pl-1 font-medium">
+                            {/* <p className="text-white/40 text-[11px] pl-1 font-medium">
                                 Try entering demo code: <span onClick={() => setTrackingId("3XOXC9545")} className="text-[#D6FF38] underline cursor-pointer hover:text-[#c2e632] transition-colors">3XOXC9545</span>
-                            </p>
+                            </p> */}
                         </form>
 
                         {/* Download App Button — shown on mobile only (md+ shows it in the navbar) */}
