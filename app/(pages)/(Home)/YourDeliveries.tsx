@@ -40,7 +40,7 @@ const YourDeliveries = () => {
               <Image 
                 src={images.iPhone2} 
                 alt="A2B App Interface Background" 
-                className="w-full h-auto object-contain drop-shadow-2xl"
+                className="w-full h-auto object-contain"
               />
             </div>
             
@@ -49,7 +49,7 @@ const YourDeliveries = () => {
               <Image 
                 src={images.iPhone3} 
                 alt="A2B App Interface" 
-                className="w-full h-auto object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+                className="w-full h-auto object-contain"
               />
             </div>
           </div>
@@ -69,9 +69,9 @@ const YourDeliveries = () => {
           </h3>
           
           {/* QR Code Container */}
-          <div className="bg-[#1A1A1A] border-[4px] sm:border-[6px] border-[#333333] p-1.5 sm:p-2 rounded-[2rem] inline-block shadow-2xl">
-            <div className="bg-[#8E24FF] p-3 sm:p-4 rounded-[1.5rem]">
-              <div className="bg-white p-2 rounded-xl">
+          <div className="bg-[#1A1A1A] border-[4px] sm:border-[6px] border-[#333333] p-1.5 sm:p-2 rounded-[1.5rem] inline-block">
+            <div className="bg-[#8E24FF] p-3 sm:p-4 rounded-[1.25rem]">
+              <div className="bg-gray-100 p-2 rounded-xl">
                  <img 
                     src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://swift-sme.com" 
                     alt="Download App QR Code"

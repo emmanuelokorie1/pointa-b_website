@@ -40,7 +40,7 @@ export default function LoadingProvider({ children }: { children: React.ReactNod
     <>
       {showLoader && (
         <div
-          className={`fixed inset-0 z-[99999] transition-opacity duration-300 ease-out ${
+          className={`fixed inset-0 z-[99999] ${
             fade ? 'opacity-0 pointer-events-none' : 'opacity-100'
           }`}
         >
@@ -48,7 +48,7 @@ export default function LoadingProvider({ children }: { children: React.ReactNod
         </div>
       )}
       <div
-        className={`font-sans transition-opacity duration-300 ease-out ${
+        className={`font-sans ${
           showLoader && !fade ? 'opacity-0' : 'opacity-100'
         }`}
       >

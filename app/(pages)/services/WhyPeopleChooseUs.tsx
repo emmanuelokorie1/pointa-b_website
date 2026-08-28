@@ -7,7 +7,7 @@ import { images, icons } from '@/constants';
 
 const WhyPeopleChooseUs = () => {
   return (
-    <section className="w-full bg-white pb-12 sm:pb-20 px-4 sm:px-[10px] sm:w-[85%] mx-auto select-none font-sans">
+    <section className="w-full bg-zinc-50 pb-12 sm:pb-20 px-4 sm:px-[10px] sm:w-[85%] mx-auto select-none font-sans">
       {/* Section Header */}
       <div className="text-center mb-12 sm:mb-16">
         {/* Page Badge */}
@@ -28,7 +28,7 @@ const WhyPeopleChooseUs = () => {
       {/* Main Feature Cards Grid */}
       <div className="flex flex-col gap-6 sm:gap-8 w-full">
         {/* Top Card: Transparency (with text overlaid on whyChoose.svg) */}
-        <div className="relative w-full h-[580px] sm:h-[550px] lg:h-[650px] xl:h-[650px] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden shadow-md">
+        <div className="relative w-full h-[580px] sm:h-[550px] lg:h-[650px] xl:h-[650px] rounded-[2rem] overflow-hidden border border-zinc-200">
           {/* Background Graphic */}
           <Image
             src={images.whyChoose}
@@ -39,7 +39,7 @@ const WhyPeopleChooseUs = () => {
           />
 
           {/* Text and Badges Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent z-10 flex flex-col justify-between p-6 sm:p-10 lg:p-14">
+          <div className="absolute inset-0 bg-black/40 z-10 flex flex-col justify-between p-6 sm:p-10 lg:p-14">
             {/* Header Content */}
             <div className="flex flex-col">
               <h3 className="text-white text-2xl sm:text-3xl lg:text-[2.75rem] font-extrabold mb-4 tracking-tight leading-none">
@@ -60,7 +60,7 @@ const WhyPeopleChooseUs = () => {
                 </span>
 
                 {/* QR Code Icon in a rounded white card */}
-                <div className="w-20 h-20 sm:w-32 sm:h-32 bg-white p-1.5 rounded-xl flex items-center justify-center shadow-md">
+                <div className="w-20 h-20 sm:w-32 sm:h-32 bg-white p-1.5 rounded-[1rem] sm:rounded-[1.5rem] flex items-center justify-center border border-gray-200">
                   <QrCode className="w-full h-full text-black" strokeWidth={1.5} />
                 </div>
               </div>
@@ -68,9 +68,9 @@ const WhyPeopleChooseUs = () => {
               {/* App Download Buttons */}
               <div className="flex flex-col gap-3 items-center sm:items-start">
                 {/* Google Play Badge */}
-                <a href="#" className="bg-black text-white h-[48px] sm:h-[54px] w-[160px] sm:w-[180px] px-3.5 sm:px-4 rounded-xl flex items-center gap-2.5 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl group flex-shrink-0">
+                <a href="#" className="bg-black text-white h-[48px] sm:h-[54px] w-[160px] sm:w-[180px] px-3.5 sm:px-4 rounded-full flex items-center gap-2.5 group flex-shrink-0">
                   <div className="w-6 sm:w-7 flex items-center justify-center">
-                    <Image src={icons.GooglePlay} alt="Google Play Logo" className="w-full h-auto group-hover:scale-105 transition-transform" />
+                    <Image src={icons.GooglePlay} alt="Google Play Logo" className="w-full h-auto" />
                   </div>
                   <div className="flex flex-col items-start pt-0.5">
                     <span className="text-[9px] sm:text-[10px] font-medium opacity-90 leading-none mb-1 uppercase tracking-wide">GET IT ON</span>
@@ -79,9 +79,9 @@ const WhyPeopleChooseUs = () => {
                 </a>
 
                 {/* App Store Badge */}
-                <a href="#" className="bg-black text-white h-[48px] sm:h-[54px] w-[160px] sm:w-[180px] px-3.5 sm:px-4 rounded-xl flex items-center gap-2.5 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl group flex-shrink-0">
+                <a href="#" className="bg-black text-white h-[48px] sm:h-[54px] w-[160px] sm:w-[180px] px-3.5 sm:px-4 rounded-full flex items-center gap-2.5 group flex-shrink-0">
                   <div className="w-6 sm:w-7 flex items-center justify-center">
-                    <Image src={icons.AppStore} alt="Apple Logo" className="w-full h-auto brightness-0 invert group-hover:scale-105 transition-transform" />
+                    <Image src={icons.AppStore} alt="Apple Logo" className="w-full h-auto brightness-0 invert" />
                   </div>
                   <div className="flex flex-col items-start pt-0.5">
                     <span className="text-[9px] sm:text-[10px] font-medium opacity-90 leading-none mb-1">Download on the</span>

@@ -7,7 +7,7 @@ import { footerLinks } from '@/constants/data';
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gradient-to-b from-[rgb(13,17,19)] to-[rgb(12,8,18)] text-white pt-20 sm:pb-12 font-sans">
+    <footer className="w-full bg-[rgb(13,17,19)] text-white pt-20 sm:pb-12 font-sans">
       <div className="w-[90%] sm:w-[85%] md:w-[80%] mx-auto relative z-10 flex flex-col gap-16">
         
         {/* Floating Call to Action Banner */}
@@ -43,9 +43,9 @@ const Footer = () => {
                 <ul className="flex flex-col gap-4 text-sm text-[#D4D4D8]">
                   {column.links.map((link, linkIdx) => (
                     <li key={linkIdx}>
-                      <Link href={link.href} prefetch={false} className="hover:text-white transition-colors flex items-center gap-1 group">
+                      <Link href={link.href} prefetch={false} className="hover:text-white flex items-center gap-1 group">
                         {link.name} 
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className=" transition-all duration-300"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
                       </Link>
                     </li>
                   ))}

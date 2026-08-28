@@ -29,7 +29,7 @@ const PageHero: React.FC<PageHeroProps> = ({
     return (
       <div className="relative w-full h-screen flex flex-col overflow-hidden">
         {/* Purple Background — fills the top ~58% of the screen */}
-        <div className="absolute top-0 left-0 w-full h-[58%] bg-[#5B0097] rounded-b-[40px] md:rounded-b-[80px] shadow-lg z-0" />
+        <div className="absolute top-0 left-0 w-full h-[58%] bg-[#5B0097] rounded-none z-0" />
 
         {/* Text Content */}
         <div className="relative z-10 flex flex-col items-center text-center pt-36 md:pt-44 px-4 pb-14">
@@ -44,7 +44,7 @@ const PageHero: React.FC<PageHeroProps> = ({
 
         {/* Overlapping Image — grows to fill remaining screen space */}
         <div className="relative z-10 flex-1 px-4 md:px-10 lg:px-16 pb-8 md:pb-12 sm:w-[90%] w-full mx-auto">
-          <div className="relative w-full h-full min-h-[260px] rounded-[2rem] overflow-hidden shadow-2xl">
+          <div className="relative w-full h-full min-h-[260px] rounded-t-[2.5rem] overflow-hidden">
             <Image
               src={heroImage}
               alt={imageAlt}
@@ -85,13 +85,12 @@ const PageHero: React.FC<PageHeroProps> = ({
       {/* Staggered Masonry Grid Section */}
       <section className={imageContainerClass || "relative z-10 px-6 sm:px-[10px] sm:w-[85%] mx-auto w-full sm:-mt-24 -mt-32 md:-mt-36 lg:-mt-44 sm:mb-24 mb-16"}>
         <div className={`relative w-full ${aspectRatioClass || 'aspect-[4/3] sm:aspect-[1305/651]'} overflow-hidden group`} style={{ position: 'relative' }}>
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.08] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none z-10"></div>
           <Image
             src={heroImage}
             alt={imageAlt}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 85vw"
-            className="object-cover transition-transform duration-700 ease-out rounded-2xl"
+            className="object-cover rounded-[2.5rem]"
             priority
           />
         </div>

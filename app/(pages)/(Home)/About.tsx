@@ -66,12 +66,6 @@ const Card3D = ({ children, className, delay = 0 }: { children: React.ReactNode;
             className={`${className} relative cursor-pointer fade-in-up ${isVisible ? 'is-visible' : ''}`}
             style={{ transitionDelay: `${delay * 1000}ms` } as React.CSSProperties}
         >
-            {/* Static specular reflection layer on hover */}
-            <div
-                className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-30 opacity-0 group-hover:opacity-100"
-                style={{ background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 70%)' }}
-            />
-
             {/* Inner content container */}
             <div className="w-full h-full flex flex-col">
                 {children}
@@ -119,9 +113,6 @@ const About = () => {
                 </svg>
             </div>
 
-            {/* Subtle premium ambient light glow */}
-            <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(233, 213, 255, 0.2) 0%, transparent 70%)' }}></div>
-
             <div className="max-w-[90%] lg:max-w-[87%] xl:max-w-[87%] mx-auto relative z-10">
 
                 {/* 1. Badge & Headings (Slide up & Fade in via CSS) */}
@@ -135,7 +126,7 @@ const About = () => {
 
                         {/* Card 1: Moves Completed (Pastel Yellow Wide Card) with 3D Hover & Cursor Shine */}
                         <Card3D
-                            className="overflow-hidden rounded-[2rem] bg-[#FFF781] border border-yellow-300/20 p-6 xs:p-8 sm:p-10 flex flex-col justify-between h-[260px] xs:h-[280px] sm:h-[300px] md:h-[320px] group hover:-translate-y-1.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.06)] transition-all duration-500 ease-out"
+                            className="overflow-hidden rounded-[2rem] bg-white border border-gray-200 p-6 xs:p-8 sm:p-10 flex flex-col justify-between h-[260px] xs:h-[280px] sm:h-[300px] md:h-[320px] group"
                             delay={0}
                         >
                             {/* Dotted curve design vector overlay in the background */}
@@ -162,7 +153,7 @@ const About = () => {
 
                             {/* Van stacked with boxes asset */}
                             <div
-                                className="absolute bottom-[-12%] xs:bottom-[-16%] sm:bottom-[-20%] right-[-6%] sm:right-[-5%] w-[48%] xs:w-[46%] sm:w-[44%] h-[68%] xs:h-[73%] sm:h-[78%] select-none pointer-events-none group-hover:scale-[1.04] group-hover:translate-x-1 transition-all duration-500 ease-out"
+                                className="absolute bottom-[-12%] xs:bottom-[-16%] sm:bottom-[-20%] right-[-6%] sm:right-[-5%] w-[48%] xs:w-[46%] sm:w-[44%] h-[68%] xs:h-[73%] sm:h-[78%] select-none pointer-events-none"
                             >
                                 <Image
                                     src={sharedImages.carPackage}
@@ -178,27 +169,27 @@ const About = () => {
                         {/* Bottom Row under Left side: Card 3 & Card 4 */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:flex-1">
 
-                            {/* Card 3: Illustrated Smiley Cardboard Box with 3D Hover & Cursor Shine */}
+                            {/* Card 3: Illustrated Smiley Cardboard Box */}
                             <Card3D
-                                className="overflow-hidden rounded-[2rem] bg-[#FAF7F2] border border-[#120024]/[0.02] flex items-center justify-center min-h-[300px] lg:h-full group hover:-translate-y-1.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.06)] transition-all duration-500 ease-out"
+                                className="overflow-hidden rounded-3xl bg-[#FAF7F2] border border-gray-200 flex items-center justify-center min-h-[300px] lg:h-full group"
                                 delay={0.1}
                             >
                                 <div
-                                    className="relative w-full flex-1 transform group-hover:scale-[1.06] group-hover:rotate-2 transition-all duration-500 ease-out p-4 sm:p-5"
+                                    className="relative w-full flex-1 p-4 sm:p-5"
                                 >
                                     <Image
                                         src={sharedImages.box2}
                                         alt="Illustrated smiling delivery cardboard box"
                                         fill
                                         sizes="(max-width: 640px) 240px, 320px"
-                                        className="object-cover rounded-[1.5rem]"
+                                        className="object-cover rounded-none"
                                     />
                                 </div>
                             </Card3D>
 
-                            {/* Card 4: Industry Experience (Square White Card) with 3D Hover & Cursor Shine */}
+                            {/* Card 4: Industry Experience (Square White Card) */}
                             <Card3D
-                                className="overflow-hidden rounded-[2rem] bg-white border border-[#120024]/[0.04] p-8 flex flex-col justify-between min-h-[300px] lg:h-full group hover:-translate-y-1.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.06)] transition-all duration-500 ease-out shadow-[0_8px_32px_rgba(0,0,0,0.01)]"
+                                className="overflow-hidden rounded-3xl bg-white border border-gray-200 p-8 flex flex-col justify-between min-h-[300px] lg:h-full group"
                                 delay={0.2}
                             >
                                 <div>
@@ -223,26 +214,26 @@ const About = () => {
 
                         {/* Card 2: Movers Carrying Boxes (Tall grey/off-white card) with 3D Hover & Cursor Shine */}
                         <Card3D
-                            className="overflow-hidden rounded-[2rem] bg-[#EBECEC] border border-black/[0.02] flex items-center justify-center min-h-[360px] sm:min-h-[400px] lg:flex-1 group hover:-translate-y-1.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.06)] transition-all duration-500 ease-out"
+                            className="overflow-hidden rounded-[2rem] bg-[#EBECEC] border border-gray-200 flex items-center justify-center min-h-[360px] sm:min-h-[400px] lg:flex-1 group"
                             delay={0.15}
                         >
                             <div
-                                className="relative w-full flex-1 transform group-hover:scale-[1.04] transition-all duration-500 ease-out p-4 sm:p-5"
+                                className="relative w-full flex-1 p-4 sm:p-5"
                             >
                                 <Image
                                     src={sharedImages.packages}
                                     alt="Movers relocation delivery helpers carrying box"
                                     fill
                                     sizes="(max-width: 1024px) 350px, 500px"
-                                    className="object-cover rounded-[1.5rem]"
+                                    className="object-cover rounded-none"
                                     loading="lazy"
                                 />
                             </div>
                         </Card3D>
 
-                        {/* Card 5: Customer Satisfaction (Dark Charcoal Card) with 3D Hover & Cursor Shine */}
+                        {/* Card 5: Customer Satisfaction (Dark Charcoal Card) */}
                         <Card3D
-                            className="overflow-hidden rounded-[2rem] bg-[#120024] p-8 flex flex-col justify-between h-[240px] sm:h-[260px] group hover:-translate-y-1.5 hover:shadow-[0_24px_48px_hsla(var(--primary)/0.12)] transition-all duration-500 ease-out border border-white/[0.04]"
+                            className="overflow-hidden rounded-[2rem] bg-[#120024] p-8 flex flex-col justify-between h-[240px] sm:h-[260px] group border border-white/[0.04]"
                             delay={0.25}
                         >
                             {/* Subtle dark ambient glow inside card */}
@@ -267,7 +258,7 @@ const About = () => {
                                     {/* Circular Overlapping Avatar Stack */}
                                     <div className="flex -space-x-3">
                                         {[homeImages.Landing1, homeImages.Landing2, homeImages.Landing3, homeImages.Landing4].map((avatar, idx) => (
-                                            <div key={idx} className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#120024] shadow-md hover:scale-115 hover:z-20 transition-transform duration-300" style={{ position: 'relative' }}>
+                                            <div key={idx} className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#120024]" style={{ position: 'relative' }}>
                                                 <Image
                                                     src={avatar}
                                                     alt={`Satisfied customer testimonial avatar ${idx + 1}`}
@@ -278,7 +269,7 @@ const About = () => {
                                             </div>
                                         ))}
                                         {/* Extra count pill */}
-                                        <div className="relative w-10 h-10 rounded-full bg-primary border-2 border-[#120024] flex items-center justify-center shadow-md text-[9px] font-extrabold text-white select-none transform hover:scale-110 transition-transform duration-300">
+                                        <div className="relative w-10 h-10 rounded-full bg-primary border-2 border-[#120024] flex items-center justify-center text-[9px] font-extrabold text-white select-none">
                                             +12k
                                         </div>
                                     </div>

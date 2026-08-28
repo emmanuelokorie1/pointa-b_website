@@ -83,7 +83,7 @@ const WhatWeOffer = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="w-full bg-white py-16 sm:py-24 px-4 sm:px-[10px] sm:w-[85%] mx-auto select-none font-sans">
+    <section className="w-full bg-zinc-50 py-16 sm:py-24 px-4 sm:px-[10px] sm:w-[85%] mx-auto select-none font-sans">
       {/* Heading Group */}
       <div className="text-center mb-12 sm:mb-16">
         <h2 className="text-[#1E1B29] text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
@@ -96,9 +96,9 @@ const WhatWeOffer = () => {
       </div>
 
       {/* Interactive Segment Card */}
-      <div className="bg-[#F9F9F9] rounded-[.5rem] sm:rounded-[1rem] p-2 sm:p-4 lg:p-6 flex flex-col lg:flex-row gap-4 lg:gap-4 shadow-sm">
+      <div className="bg-white rounded-3xl p-2 sm:p-4 lg:p-6 flex flex-col lg:flex-row gap-4 lg:gap-4 border border-zinc-200">
         {/* Left column: Tabs List */}
-        <div className="w-full lg:w-[38%] rounded-[.5rem] sm:rounded-[1rem] overflow-hidden divide-y divide-black/10 flex flex-col">
+        <div className="w-full lg:w-[38%] rounded-2xl overflow-hidden divide-y divide-black/10 flex flex-col">
           {services.map((service, index) => {
             const isActive = index === activeIndex;
 
@@ -111,7 +111,7 @@ const WhatWeOffer = () => {
                 >
                   <div className="flex items-start justify-between w-full">
                     {/* Rounded Image Container with position relative to avoid NextJS fill shifts */}
-                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shadow-md border border-[#EBE8F3]">
+                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-[#EBE8F3]">
                       <Image
                         src={service.image}
                         alt={service.alt}
@@ -143,11 +143,11 @@ const WhatWeOffer = () => {
               <div
                 key={service.id}
                 onClick={() => setActiveIndex(index)}
-                className="w-full py-4 sm:py-6 px-5 sm:px-6 flex items-center justify-between text-left transition-all duration-300 hover:bg-black/[0.01] cursor-pointer"
+                className="w-full py-4 sm:py-6 px-5 sm:px-6 flex items-center justify-between text-left hover:bg-black/[0.01] cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   {/* Small inactive number badge */}
-                  <div className="w-10 h-10 border border-black/[0.05] rounded-xl flex items-center justify-center text-sm font-bold text-gray-500 shadow-sm select-none">
+                  <div className="w-10 h-10 border border-black/[0.05] rounded-xl flex items-center justify-center text-sm font-bold text-gray-500 select-none">
                     {service.num}
                   </div>
                   {/* Label */}
@@ -162,7 +162,7 @@ const WhatWeOffer = () => {
         </div>
 
         {/* Right column: Content Panel */}
-        <div className="flex-1 bg-white p-2 sm:p-4 lg:p-6 rounded-[.5rem] sm:rounded-[1rem] border border-black/[0.02] shadow-sm flex flex-col justify-center min-h-[380px] sm:min-h-[420px]">
+        <div className="flex-1 bg-zinc-50 p-2 sm:p-4 lg:p-6 rounded-2xl border border-zinc-200 flex flex-col justify-center min-h-[380px] sm:min-h-[420px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -187,9 +187,7 @@ const WhatWeOffer = () => {
                     transition={{ duration: 0.3, delay: idx * 0.06 }}
                     className="flex items-center gap-3 bg-[#F8EEFF] px-4 py-3 sm:py-5 rounded-2xl border border-purple-50/20"
                   >
-                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary flex items-center justify-center text-white flex-shrink-0 shadow-sm shadow-purple-200">
-                      <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[3]" />
-                    </div>
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-primary flex-shrink-0" />
                     <span className="text-[#1E1B29] text-sm sm:text-[1rem] tracking-wide">
                       {feature}
                     </span>

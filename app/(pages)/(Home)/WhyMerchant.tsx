@@ -51,7 +51,7 @@ const MerchantCard = ({
       }}
     >
       <div
-        className={`group flex flex-col lg:flex-row rounded-[2rem] p-8 sm:p-10 lg:p-12 gap-10 lg:gap-16 items-center shadow-[0_12px_32px_rgba(39,11,75,0.08)] border-[3px] border-white fade-in-up ${isVisible ? 'is-visible' : ''}`}
+        className={`group flex flex-col lg:flex-row rounded-[2rem] p-8 sm:p-10 lg:p-12 gap-10 lg:gap-16 items-center border-[3px] border-white fade-in-up ${isVisible ? 'is-visible' : ''}`}
         style={{
           backgroundColor: feature.bg,
           // Stagger each card slightly
@@ -61,7 +61,7 @@ const MerchantCard = ({
         {/* Text Side */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center">
           {/* Target Icon */}
-          <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#8E24FF] shadow-[0_8px_20px_rgba(142,36,255,0.3)] flex items-center justify-center mb-6 lg:mb-8 transform group-hover:-translate-y-1 group-hover:scale-105 transition-all duration-500">
+          <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-[#8E24FF] flex items-center justify-center mb-6 lg:mb-8">
             <div className="w-3.5 h-3.5 lg:w-4 lg:h-4 rounded-full bg-[#270B4B]"></div>
           </div>
 
@@ -75,14 +75,13 @@ const MerchantCard = ({
 
         {/* Image Side */}
         <div className="w-full lg:w-1/2 h-[350px] sm:h-[400px] lg:h-[500px] relative">
-          <div className="absolute inset-0 bg-[#8E24FF]/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none rounded-2xl"></div>
+          <div className="absolute inset-0 bg-[#8E24FF]/5 z-10 pointer-events-none rounded-2xl"></div>
           <Image
             src={feature.image}
             alt={feature.title}
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover rounded-2xl transition-transform duration-700 ease-out group-hover:scale-105"
-            style={{ willChange: 'transform' }}
+            className="object-cover rounded-2xl"
           />
         </div>
       </div>
@@ -106,7 +105,7 @@ const WhyMerchant = () => {
 
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 lg:mb-24 gap-6 relative">
-          <h2 className="text-white text-[2.5rem] sm:text-4xl lg:text-[3.2rem] font-bold leading-[1.15] max-w-2xl tracking-tight drop-shadow-lg">
+          <h2 className="text-white text-[2.5rem] sm:text-4xl lg:text-[3.2rem] font-bold leading-[1.15] max-w-2xl tracking-tight">
             Why Merchants & Business owners Trust <span className="font-['Playfair_Display'] italic text-[#A655FF] font-medium">Point A2B</span>
           </h2>
           <p className="text-white/70 text-base md:text-lg max-w-sm leading-relaxed mb-2 font-medium">

@@ -116,7 +116,7 @@ const RealStory = () => {
             <span className="font-['Playfair_Display'] italic text-white pl-4">Results</span>
           </h2>
 
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 bg-white/90 py-2 px-4 lg:px-5 rounded-full border border-white mx-auto max-w-fit shadow-sm pointer-events-auto">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 bg-white/90 py-2 px-4 lg:px-5 rounded-full border border-white mx-auto max-w-fit pointer-events-auto">
             <div className="flex -space-x-2">
               <div className="relative w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white overflow-hidden z-30">
                 <Image src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=64&auto=format&fit=crop" alt="Merchant" fill className="object-cover" sizes="32px" />
@@ -157,8 +157,8 @@ const RealStory = () => {
                 <div
                   className={`relative w-full h-full rounded-full overflow-hidden border-[3px] flex items-center justify-center bg-white cursor-pointer transition-opacity duration-300 ${
                     pos.glow
-                      ? 'shadow-[0_0_30px_rgba(142,36,255,0.4)] border-white ring-4 ring-white/40'
-                      : 'shadow-md border-white/60 hover:opacity-100 hover:border-white'
+                      ? 'border-white ring-4 ring-white/40'
+                      : 'border-white/60 hover:opacity-100 hover:border-white'
                   }`}
                   onClick={() => setCurrentIndex(idx)}
                 >
@@ -172,7 +172,7 @@ const RealStory = () => {
         <div className="w-[90%] sm:w-[80%] max-w-[700px] relative z-10 min-h-[220px] pointer-events-none mt-4">
           <div
             key={currentIndex}
-            className="w-full bg-white border border-purple-50 rounded-[2rem] p-6 lg:p-10 shadow-[0_20px_40px_-15px_rgba(142,36,255,0.1)] pointer-events-auto relative mt-2 testimonial-card-enter"
+            className="w-full bg-white border border-purple-50 rounded-[2rem] p-6 lg:p-10 pointer-events-auto relative mt-2 testimonial-card-enter"
           >
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 bg-white border-t border-l border-purple-50 transform rotate-45 rounded-tl-md pointer-events-none z-0" />
 
@@ -209,7 +209,7 @@ const RealStory = () => {
         <div className="flex items-center gap-6 z-20 mt-5">
           <button
             onClick={() => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
-            className="w-14 h-14 lg:w-16 lg:h-16 bg-white rounded-full shadow-[0_10px_30px_rgba(142,36,255,0.15)] flex items-center justify-center text-[#8E24FF] hover:bg-[#8E24FF] hover:text-white transition-all duration-300 active:scale-95 group border border-purple-100"
+            className="w-14 h-14 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center text-[#8E24FF] hover:bg-[#8E24FF] hover:text-white transition-all duration-300 active:scale-95 group border border-purple-100"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform">
               <path d="M15 18l-6-6 6-6" />
@@ -237,7 +237,7 @@ const RealStory = () => {
 
           <button
             onClick={() => setCurrentIndex((prev) => (prev + 1) % testimonials.length)}
-            className="w-14 h-14 lg:w-16 lg:h-16 bg-white rounded-full shadow-[0_10px_30px_rgba(142,36,255,0.15)] flex items-center justify-center text-[#8E24FF] hover:bg-[#8E24FF] hover:text-white transition-all duration-300 active:scale-95 group border border-purple-100"
+            className="w-14 h-14 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center text-[#8E24FF] hover:bg-[#8E24FF] hover:text-white transition-all duration-300 active:scale-95 group border border-purple-100"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform">
               <path d="M9 18l6-6-6-6" />

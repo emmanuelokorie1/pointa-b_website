@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { icons, images } from '@/constants';
 import { MessageSquare, Send, ChevronDown } from 'lucide-react';
-
 const COUNTRY_CODES = [
   { code: '+234', flag: '🇳🇬', name: 'Nigeria' },
   { code: '+1', flag: '🇺🇸', name: 'USA' },
@@ -40,7 +39,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="bg-[#F7F7F7] px-4 sm:px-6 relative z-10 pt-16 md:pt-20 sm:pb-24 pb-14">
+    <section className="bg-zinc-50 px-4 sm:px-6 relative z-10 pt-16 md:pt-20 sm:pb-24 pb-14">
       <div className="grid lg:grid-cols-12 gap-8 sm:w-[85%] w-full mx-auto items-stretch">
 
         {/* Contact Card Column — outer relative wrapper */}
@@ -49,8 +48,7 @@ export default function ContactForm() {
           {/* Dark tilted card — floats above, overlaps white card */}
           <div className="relative z-20 flex justify-start px-4">
             <div
-              className="w-full max-w-[450px] h-[250px] rounded-[1.5rem] -rotate-6 overflow-hidden shadow-2xl"
-              style={{ background: 'linear-gradient(145deg, #7B00DD 0%, #4a007a 30%, #1a1a1a 70%, #0d0d0d 100%)' }}
+              className="w-full max-w-[450px] h-[250px] rounded-[1.5rem] -rotate-6 overflow-hidden bg-[#1a1a1a]"
             >
               {/* Scattered dots — top right */}
               <div className="absolute top-4 right-4 w-40 h-36 opacity-60">
@@ -100,10 +98,10 @@ export default function ContactForm() {
           </div>
 
           {/* White card — sits below, pill + email inside */}
-          <div className="relative mt-[-14rem] pt-[20rem] z-10 bg-white sm:rounded-[2rem] rounded-[1rem] border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)] pb-8 px-8 flex flex-col gap-6">
+          <div className="relative mt-[-14rem] pt-[20rem] z-10 bg-white sm:rounded-[2rem] rounded-[1rem] border border-gray-100 pb-8 px-8 flex flex-col gap-6">
 
             {/* Pill badge */}
-            <div className="bg-gradient-to-r from-primary/10 to-white rounded-full px-6 py-3 text-center">
+            <div className="bg-zinc-100 border border-gray-200 rounded-full px-6 py-3 text-center">
               <p className="text-sm font-bold text-black tracking-wide">Fill out the form by your right</p>
             </div>
 
@@ -120,7 +118,7 @@ export default function ContactForm() {
               </div>
               <a
                 href="mailto:hello@pointA2B.co"
-                className="w-10 h-10 rounded-full bg-[#8E24FF] flex items-center justify-center flex-shrink-0 hover:bg-[#7a1ddb] transition-colors"
+                className="w-10 h-10 rounded-full bg-[#8E24FF] flex items-center justify-center flex-shrink-0"
               >
                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
@@ -131,7 +129,7 @@ export default function ContactForm() {
         </div>
 
         {/* Form Card */}
-        <div className="lg:col-span-7 bg-white border border-gray-100 sm:p-8 p-6 md:p-10 sm:rounded-[2rem] rounded-[1rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+        <div className="lg:col-span-7 bg-white border border-gray-200 sm:p-8 p-6 md:p-10 sm:rounded-[2rem] rounded-[1rem]">
           <form onSubmit={handleSubmit} className="space-y-6">
 
             {/* First name + Last name */}
@@ -173,7 +171,7 @@ export default function ContactForm() {
                     onChange={(e) =>
                       setCountryCode(COUNTRY_CODES.find((c) => c.code === e.target.value) ?? COUNTRY_CODES[0])
                     }
-                    className="appearance-none bg-gray-50 border border-gray-200 rounded-2xl pl-4 pr-10 py-4 text-base text-[#0B0F19] focus:outline-none focus:border-[#8E24FF] focus:bg-white transition-all duration-200 cursor-pointer"
+                    className="appearance-none bg-gray-50 border border-gray-200 rounded-2xl pl-4 pr-10 py-4 text-base text-[#0B0F19] focus:outline-none focus:border-[#8E24FF] focus:bg-white cursor-pointer"
                   >
                     {COUNTRY_CODES.map((c) => (
                       <option key={c.code} value={c.code}>
@@ -225,7 +223,7 @@ export default function ContactForm() {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-[#8E24FF] hover:bg-[#7a1ddb] text-white font-semibold py-4 rounded-full shadow-lg shadow-[#8E24FF]/30 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 group"
+              className="w-full bg-[#8E24FF] hover:bg-[#7a1ddb] text-white font-semibold py-4 rounded-full flex items-center justify-center gap-2 group"
             >
               {submitted ? (
                 <>

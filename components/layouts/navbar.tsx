@@ -51,12 +51,10 @@ const Navbar = () => {
     return (
         <>
             <nav className="fixed top-6 left-0 right-0 w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] md:max-w-[95%] lg:max-w-[90%] xl:max-w-[85%] 2xl:max-w-[75%] mx-auto z-50">
-                <div className={`relative group/nav rounded-[1rem] px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all duration-500 ${isScrolledOrLight
-                        ? 'bg-white/95 border border-[#120024]/10 shadow-[0_12px_32px_rgba(18,0,36,0.05),inset_0_1px_0_0_rgba(255,255,255,0.8)] hover:border-primary/20 hover:shadow-[0_16px_40px_hsla(var(--primary)/0.1)]'
-                        : 'bg-[#1a0038]/75 border border-white/[0.12] shadow-[0_16px_40px_0_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.1)] hover:border-white/[0.2] hover:shadow-[0_20px_50px_hsla(var(--primary)/0.15)]'
+                <div className={`relative group/nav rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between transition-colors duration-300 ${isScrolledOrLight
+                        ? 'bg-gray-100 border border-[#120024]/10 hover:border-primary/20'
+                        : 'bg-[#1a0038]/75 border border-white/[0.12] hover:border-white/[0.2]'
                     }`}>
-
-                    <div className="absolute inset-0 rounded-[1rem] bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-purple-500/10 opacity-0 group-hover/nav:opacity-100 transition-opacity duration-700 pointer-events-none -z-10" />
 
                     <div
                         onClick={() => {
@@ -65,7 +63,7 @@ const Navbar = () => {
                         }}
                         className="flex items-center gap-2.5 group cursor-pointer select-none"
                     >
-                        <div className="relative w-9 h-9 rounded-full bg-gradient-to-tr from-[#9B51E0] via-primary to-pink-500 flex items-center justify-center shadow-md shadow-purple-500/20 group-hover:scale-105 group-hover:rotate-12 transition-all duration-300">
+                        <div className="relative w-9 h-9 rounded-full bg-primary flex items-center justify-center">
                             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="relative z-10">
                                 <circle cx="12" cy="5" r="1.5" fill="white" />
                                 <circle cx="5" cy="12" r="1.5" fill="white" />
@@ -78,8 +76,8 @@ const Navbar = () => {
                                 <line x1="14" y1="12" x2="17.5" y2="12" />
                             </svg>
                         </div>
-                        <span className={`text-lg font-bold tracking-tight transition-colors font-sans ${isScrolledOrLight ? 'text-[#120024]' : 'text-white'}`}>
-                            Point <span className={`font-['Playfair_Display'] italic font-medium lowercase transition-colors duration-300 ${isScrolledOrLight ? 'text-primary' : 'text-[#D6FF38]'}`}>a2b</span>
+                        <span className={`text-lg font-bold tracking-tight font-sans ${isScrolledOrLight ? 'text-[#120024]' : 'text-white'}`}>
+                            Point <span className={`font-['Playfair_Display'] italic font-medium lowercase ${isScrolledOrLight ? 'text-primary' : 'text-[#D6FF38]'}`}>a2b</span>
                         </span>
                     </div>
 
@@ -93,15 +91,15 @@ const Navbar = () => {
                                     onClick={() => router.push(item.href)}
                                     onMouseEnter={() => setHoveredIndex(index)}
                                     onMouseLeave={() => setHoveredIndex(null)}
-                                    className={`relative px-4 xl:px-6 py-3 rounded-full cursor-pointer text-sm font-semibold tracking-wide transition-all duration-200 select-none whitespace-nowrap hover:-translate-y-px active:scale-95 ${isActive
+                                    className={`relative px-4 xl:px-6 py-3 rounded-full cursor-pointer text-sm font-semibold tracking-wide select-none whitespace-nowrap transition-colors duration-200 ${isActive
                                         ? (isScrolledOrLight ? 'text-primary' : 'text-white')
                                         : (isScrolledOrLight ? 'text-[#120024]/60 hover:text-[#120024]' : 'text-white/60 hover:text-white')
                                         }`}
                                 >
                                     {isActive && (
                                         <span className={`absolute inset-0 rounded-full -z-10 transition-colors duration-200 ${isScrolledOrLight
-                                                ? 'bg-primary/8 border border-primary/12 shadow-[0_2px_8px_hsla(var(--primary)/0.04)]'
-                                                : 'bg-white/20 border border-white/24 shadow-[0_8px_32px_0_rgba(0,0,0,0.25),inset_0_1px_0_0_rgba(255,255,255,0.25)]'
+                                                ? 'bg-primary/8 border border-primary/12'
+                                                : 'bg-white/20 border border-white/24'
                                             }`} />
                                     )}
                                     {!isActive && isHovered && (
@@ -123,8 +121,8 @@ const Navbar = () => {
                         <button
                             onClick={() => router.push(routes.CONTACTUS)}
                             className={`hidden md:flex text-sm font-semibold px-4 xl:px-5 py-[12px] xl:py-[14px] rounded-full hover:scale-102 active:scale-98 transition-all duration-300 items-center justify-center cursor-pointer whitespace-nowrap ${isScrolledOrLight
-                                    ? 'bg-primary hover:bg-primary/90 text-white shadow-[0_8px_24px_hsla(var(--primary)/0.25)] border border-primary/10'
-                                    : 'bg-primary hover:bg-primary/25 text-white border border-primary/30 hover:border-primary/50 shadow-[0_8px_32px_0_hsla(var(--primary)/0.15)]'
+                                    ? 'bg-primary hover:bg-primary/90 text-white border border-primary/10'
+                                    : 'bg-primary hover:bg-primary/25 text-white border border-primary/30 hover:border-primary/50'
                                 }`}
                         >
                             Get started as Merchant
@@ -164,11 +162,10 @@ const Navbar = () => {
             />
 
             <div
-                className={`fixed top-0 right-0 bottom-0 w-full bg-gradient-to-b from-[#120024] to-[#110026] border-l border-white/[0.08] shadow-[0_0_60px_rgba(0,0,0,0.6)] z-[100] flex flex-col p-6 sm:p-8 lg:hidden overflow-hidden transition-transform duration-300 ease-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+                className={`fixed top-0 right-0 bottom-0 w-full bg-[#120024] border-l border-white/[0.08] z-[100] flex flex-col p-6 sm:p-8 lg:hidden overflow-hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
                 aria-hidden={!isOpen}
             >
-                <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-[#8E24FF]/15 pointer-events-none -z-10" />
-                <div className="absolute bottom-1/3 -left-16 w-52 h-52 rounded-full bg-[#D6FF38]/5 pointer-events-none -z-10" />
+
 
                 <div className="flex items-center justify-between pb-4 border-b border-white/[0.06] shrink-0">
                     <div
@@ -178,7 +175,7 @@ const Navbar = () => {
                         }}
                         className="flex items-center gap-2.5 cursor-pointer select-none"
                     >
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#9B51E0] via-primary to-pink-500 flex items-center justify-center shadow-md shadow-purple-500/20">
+                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <circle cx="12" cy="5" r="1.5" fill="white" />
                                 <circle cx="5" cy="12" r="1.5" fill="white" />
@@ -233,7 +230,7 @@ const Navbar = () => {
                             router.push(routes.CONTACTUS);
                             setIsOpen(false);
                         }}
-                        className="bg-gradient-to-r from-primary to-[#9B51E0] hover:from-primary/95 hover:to-[#9B51E0]/95 text-white text-base font-extrabold py-4 rounded-2xl shadow-[0_8px_32px_0_hsla(var(--primary)/0.3)] border border-primary/50 w-full text-center cursor-pointer hover:scale-[1.02] active:scale-98 transition-transform duration-200"
+                        className="bg-primary hover:bg-primary/95 text-white text-base font-extrabold py-4 rounded-2xl border border-primary/50 w-full text-center cursor-pointer hover:scale-[1.02] active:scale-98 transition-transform duration-200"
                     >
                         Get started as Merchant
                     </button>

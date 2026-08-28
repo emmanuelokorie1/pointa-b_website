@@ -5,8 +5,6 @@ import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import "./globals.css";
 import Footer from "@/components/layouts/Footer";
 import YourDeliveries from "./(pages)/(Home)/YourDeliveries";
-
-
 const trebuchet = localFont({
   src: [
     {
@@ -21,9 +19,8 @@ const trebuchet = localFont({
     },
   ],
   variable: "--font-trebuchet",
-  preload: false,
+  display: "swap",
 });
-
 export const metadata: Metadata = {
   title: {
     default: "Point A2B | On-Demand Delivery & Logistics Platform",
@@ -55,14 +52,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${trebuchet.variable}`} suppressHydrationWarning>
       <head>
-        {/* Non-blocking async Google Fonts load — avoids render-blocking @import in CSS */}
+        {/* Non-blocking async Google Fonts load */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,600;1,700&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <ReactQueryProvider>

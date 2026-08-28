@@ -55,7 +55,6 @@ const FooterCTA = () => {
             </button>
           </div>
         </div>
-
       </div>
     </div>
   );
