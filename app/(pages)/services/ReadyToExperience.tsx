@@ -10,16 +10,13 @@ const ReadyToExperience = () => {
 
   return (
     <section className="w-full bg-[#F4E9FF] py-14 sm:py-20 px-4 sm:px-[10px] select-none font-sans">
-      <div className="w-full bg-gradient-to-br from-[#7C00D6]  sm:w-[85%] mx-auto to-[#3B007A] rounded-[2rem] sm:rounded-[2.5rem] py-16 sm:py-20 px-6 sm:px-12 md:px-20 flex flex-col items-center justify-center text-center shadow-xl relative overflow-hidden">
-        {/* Ambient light glow overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.06),transparent_60%)] pointer-events-none" />
+      <div className="w-full bg-primary sm:w-[85%] mx-auto rounded-none py-16 sm:py-20 px-6 sm:px-12 md:px-20 flex flex-col items-center justify-center text-center relative overflow-hidden">
 
         {/* 3 Overlapping Avatars */}
         <div className="flex -space-x-3 items-center justify-center mb-6 relative z-10">
           {avatars.map((avatar, idx) => (
             <div
-              key={idx}
-              className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white/20 shadow-md hover:scale-110 transition-transform duration-300"
+              className="relative w-16 h-16 rounded-none overflow-hidden border-2 border-white/20"
             >
               <Image
                 src={avatar}
@@ -47,16 +44,14 @@ const ReadyToExperience = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10 w-full">
           {/* Get Started as Merchant Button */}
           <a
-            href="#"
-            className="w-full sm:w-auto bg-white text-primary hover:bg-white/95 font-bold px-6 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base flex items-center justify-center active:scale-95"
+            className="w-full sm:w-auto bg-[#F4F4F5] text-primary font-bold px-6 py-4 rounded-none text-sm sm:text-base flex items-center justify-center"
           >
             Get started as Merchant
           </a>
 
           {/* Download App Button with customized high-fidelity side-by-side design */}
           <a
-            href="#"
-            className="w-full sm:w-auto bg-primary hover:bg-white/15 border border-white/20 text-white font-bold px-5 py-4 rounded-full shadow-lg transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-3 active:scale-95"
+            className="w-full sm:w-auto bg-primary hover:bg-white/15 border border-white/20 text-white font-bold px-5 py-4 rounded-none text-sm sm:text-base flex items-center justify-center gap-3"
           >
             <div className="flex items-center gap-1.5 opacity-90 flex-shrink-0">
               <Image src={icons.GooglePlay} alt="Google Play" className="w-6 h-6 object-contain" />

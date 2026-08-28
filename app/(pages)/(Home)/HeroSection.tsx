@@ -103,7 +103,7 @@ const HeroSection = () => {
     };
 
     return (
-        <section ref={heroRef} className="relative min-h-screen bg-[#3B007A] bg-gradient-to-br from-[#270054] via-[#3B007A] to-[#5100A8] overflow-hidden flex flex-col lg:justify-center sm:pt-28 pt-[8rem] pb-12 lg:py-0">
+        <section ref={heroRef} className="relative min-h-screen bg-[#3B007A] overflow-hidden flex flex-col lg:justify-center sm:pt-28 pt-[8rem] pb-12 lg:py-0">
 
 
             <div className="px-6 sm:px-8 lg:pl-[4rem] md:pl-[2rem] xl:pl-[6rem] 2xl:pl-[8rem] w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -128,7 +128,7 @@ const HeroSection = () => {
                             <label className="block text-white/70 text-xs font-bold uppercase tracking-wider pl-1">
                                 Track Your Order
                             </label>
-                            <div className="relative flex items-center bg-white/[0.06] border border-white/10 rounded-2xl p-1.5 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20 transition-colors duration-300">
+                            <div className="relative flex items-center bg-white/[0.06] border border-white/10 rounded-full p-1.5">
                                 {/* Left Icon (Map pin) */}
                                 <div className="pl-3.5 pr-2 text-white/50">
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -151,7 +151,7 @@ const HeroSection = () => {
                                 <button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="bg-[#D6FF38] hover:bg-[#c2e632] text-[#3B007A] text-sm font-extrabold px-5 py-2.5 rounded-xl hover:scale-102 active:scale-98 transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed shadow-[0_4px_16px_rgba(214,255,56,0.2)]"
+                                    className="bg-[#D6FF38] hover:bg-[#c2e632] text-[#3B007A] text-sm font-extrabold px-5 py-2.5 rounded-full flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed"
                                 >
                                     {isLoading ? (
                                         <>
@@ -192,10 +192,7 @@ const HeroSection = () => {
                 {isHeroInView ? (
                 <div className="w-full h-full flex gap-4 md:gap-5 overflow-hidden justify-center relative items-start">
 
-                    {/* Fade effect at the bottom of the grid */}
-                    <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#3B007A] via-[#3B007A]/80 to-transparent z-20 pointer-events-none"></div>
-                    {/* Fade effect at the top of the grid */}
-                    <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#3B007A] via-[#3B007A]/80 to-transparent z-20 pointer-events-none"></div>
+
 
                     {marqueeColumns.map((col) => (
                         <div
@@ -208,7 +205,7 @@ const HeroSection = () => {
                                     {col.cards.map((card, cardIndex) => (
                                         <div
                                             key={`${copyIndex}-${cardIndex}`}
-                                            className="w-full aspect-[3/4] rounded-[1.8rem] overflow-hidden border border-white/[0.08] shadow-lg shadow-black/10 marquee-card relative"
+                                            className="w-full aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.08] marquee-card relative"
                                             style={{ position: 'relative' }}
                                         >
                                             <Image

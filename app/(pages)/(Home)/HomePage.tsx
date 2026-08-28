@@ -35,10 +35,6 @@ export default function HomePage() {
         load={() => import('@/app/(pages)/(Home)/RealStory')}
         minHeight={640}
       />
-      <DeferredSection
-        load={() => import('@/app/(pages)/(Home)/YourDeliveries')}
-        minHeight={400}
-      />
     </main>
   );
 }

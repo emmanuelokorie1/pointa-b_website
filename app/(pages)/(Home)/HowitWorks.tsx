@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import Image from 'next/image';
+import { motion, useScroll, useSpring, useMotionValueEvent, useMotionValue } from 'framer-motion';
 import { homeImages as images } from '@/constants/images/home';
 import { icons } from '@/constants/icons';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
@@ -57,7 +58,7 @@ const StepCard = ({
             >
                 {/* Step Badge */}
                 <div className={`w-full flex justify-center md:justify-start mb-6 md:mb-10 lg:mb-12`}>
-                    <div className="bg-white/90 border border-white text-[#8E24FF] text-sm lg:text-[14px] font-extrabold px-6 py-2.5 rounded-full flex items-center justify-center gap-3 shadow-[0_8px_30px_rgba(142,36,255,0.12)] uppercase tracking-[0.15em] relative transition-transform hover:-translate-y-0.5">
+                    <div className="bg-stone-50 border border-stone-200 text-[#8E24FF] text-sm lg:text-[14px] font-extrabold px-6 py-2.5 rounded-full flex items-center justify-center gap-3 uppercase tracking-[0.15em] relative">
                         STEP {step.id}
                     </div>
                 </div>
@@ -76,9 +77,9 @@ const StepCard = ({
                                 Get the <span className="text-[#8E24FF] font-black italic">Point A2B</span> app on:
                             </p>
                             <div className={`flex flex-wrap items-center gap-3 sm:gap-4 mt-2 ${isEven ? 'justify-center md:justify-end' : 'justify-center md:justify-start'}`}>
-                                <button className="bg-black text-white h-[48px] sm:h-[54px] px-3.5 sm:px-4 rounded-xl flex items-center gap-2.5 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl group">
+                                <button className="bg-black text-white h-[48px] sm:h-[54px] px-3.5 sm:px-4 rounded-xl flex items-center gap-2.5 group">
                                     <div className="w-6 sm:w-7 flex items-center justify-center">
-                                        <Image src={icons.AppStore} alt="Apple Logo" className="w-full h-auto brightness-0 invert group-hover:scale-105 transition-transform" />
+                                        <Image src={icons.AppStore} alt="Apple Logo" className="w-full h-auto brightness-0 invert" />
                                     </div>
                                     <div className="flex flex-col items-start pt-0.5">
                                         <span className="text-[9px] sm:text-[10px] font-medium opacity-90 leading-none mb-1">Download on the</span>
@@ -86,9 +87,9 @@ const StepCard = ({
                                     </div>
                                 </button>
 
-                                <button className="bg-black text-white h-[48px] sm:h-[54px] px-3.5 sm:px-4 rounded-xl flex items-center gap-2.5 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl group">
+                                <button className="bg-black text-white h-[48px] sm:h-[54px] px-3.5 sm:px-4 rounded-xl flex items-center gap-2.5 group">
                                     <div className="w-6 sm:w-7 flex items-center justify-center">
-                                        <Image src={icons.GooglePlay} alt="Google Play Logo" className="w-full h-auto group-hover:scale-105 transition-transform" />
+                                        <Image src={icons.GooglePlay} alt="Google Play Logo" className="w-full h-auto" />
                                     </div>
                                     <div className="flex flex-col items-start pt-0.5">
                                         <span className="text-[9px] sm:text-[10px] font-medium opacity-90 leading-none mb-1 uppercase tracking-wide">GET IT ON</span>
@@ -107,8 +108,7 @@ const StepCard = ({
                 className={`w-full md:w-1/2 flex justify-center mt-4 md:mt-0 px-6 md:px-0 ${isEven ? 'md:pr-10 lg:pr-20 xl:pr-[120px] md:justify-end' : 'md:pl-10 lg:pl-20 xl:pl-[120px] md:justify-start'} ${isEven ? 'fade-in-left' : 'fade-in-right'} ${imgVisible ? 'is-visible' : ''}`}
                 style={{ '--stagger-delay': '300ms' } as React.CSSProperties}
             >
-                <div className="relative w-full max-w-[400px] lg:max-w-[500px] drop-shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-transform duration-500 ease-out group">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[#8E24FF]/30 to-transparent blur-3xl -z-10 rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative w-full max-w-[400px] lg:max-w-[500px] group">
                     <Image
                         src={step.image}
                         alt={`Step ${step.id} visual`}
@@ -125,108 +125,31 @@ const StepCard = ({
 
 const HowitWorks = () => {
     const [titleRef, titleVisible] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '-40px', once: true });
-    // Section visibility — scroll handler only fires while section is in viewport
-    const [sectionVisRef, isSectionInView] = useIntersectionObserver<HTMLDivElement>({ rootMargin: '200px', once: false });
-    const isSectionInViewRef = useRef(false);
-    useEffect(() => { isSectionInViewRef.current = isSectionInView; }, [isSectionInView]);
-
-    // === Bike rotation — native scroll, no React state, no Framer Motion ===
     const containerRef = useRef<HTMLDivElement>(null);
-    const bikeRef = useRef<HTMLDivElement>(null);
-    const trackFillRef = useRef<HTMLDivElement>(null);
-    const rafRef = useRef<number | null>(null);
-    const lastScrollY = useRef(0);
-    const currentRotation = useRef(160);
-    const targetRotation = useRef(160);
 
-    // Cached layout values — measured once on mount/resize instead of read
-    // synchronously on every scroll frame. getBoundingClientRect() forces
-    // the browser to flush layout before returning a value; calling it
-    // inside a scroll-driven rAF loop means forcing a layout recalculation
-    // up to 60 times per second while the user scrolls. Storing document-
-    // relative top + height instead lets the per-frame math be pure
-    // arithmetic against window.scrollY, which is already known for free.
-    const containerTop = useRef(0);
-    const containerHeight = useRef(0);
+    const { scrollYProgress, scrollY } = useScroll({
+        target: containerRef,
+        offset: ["start center", "end center"]
+    });
 
-    const measureContainer = useCallback(() => {
-        const container = containerRef.current;
-        if (!container) return;
-        const rect = container.getBoundingClientRect();
-        containerTop.current = rect.top + window.scrollY;
-        containerHeight.current = rect.height;
-    }, []);
+    const trackHeight = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
-    const updateBike = useCallback(() => {
-        const bike = bikeRef.current;
-        const track = trackFillRef.current;
-        if (!bike) return;
+    const bikeRotation = useMotionValue(50);
+    const smoothRotation = useSpring(bikeRotation, { damping: 20, stiffness: 150 });
+    const lastY = useRef(0);
 
-        const viewportH = window.innerHeight;
-        const scrollY = window.scrollY;
-
-        // Match original Framer Motion useScroll offset: ["start end", "start 40vh"]
-        // "start end" = container top is at viewport bottom (scrollY = containerTop - viewportH)
-        // "start 40vh" = container top is at 40vh from top (scrollY = containerTop - viewportH * 0.4)
-        const startScroll = containerTop.current - viewportH;        // container top enters viewport bottom
-        const endScroll = containerTop.current - viewportH * 0.4;    // container top reaches 40vh
-        const range = endScroll - startScroll;
-        const rawProgress = range > 0 ? (scrollY - startScroll) / range : 0;
-        const progress = Math.max(0, Math.min(1, rawProgress));
-
-        if (track) {
-            track.style.setProperty('--scroll-progress', String(progress));
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        const delta = latest - lastY.current;
+        if (delta > 2) {
+            bikeRotation.set(-40); // Going down
+        } else if (delta < -2) {
+            bikeRotation.set(160); // Going up
         }
-
-        const scrollDelta = scrollY - lastScrollY.current;
-        lastScrollY.current = scrollY;
-
-        if (progress < 1) {
-            targetRotation.current = 140 - progress * 180;
-        } else {
-            if (scrollDelta > 5) targetRotation.current = -40;
-            else if (scrollDelta < -5) targetRotation.current = 140;
-        }
-
-        // Lerp toward target — 0.18 approximates the original useSpring damping/stiffness feel
-        currentRotation.current += (targetRotation.current - currentRotation.current) * 0.18;
-        bike.style.transform = `rotate(${currentRotation.current}deg)`;
-    }, []);
-
-    useEffect(() => {
-        measureContainer(); // initial measurement
-
-        const onScroll = () => {
-            // Skip frame scheduling entirely when section is off-screen
-            if (!isSectionInViewRef.current) return;
-            if (rafRef.current) cancelAnimationFrame(rafRef.current);
-            rafRef.current = requestAnimationFrame(updateBike);
-        };
-
-        // Re-measure only when layout might actually have changed —
-        // not on every scroll frame.
-        const onResize = () => {
-            measureContainer();
-            if (rafRef.current) cancelAnimationFrame(rafRef.current);
-            rafRef.current = requestAnimationFrame(updateBike);
-        };
-
-        window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onResize, { passive: true });
-        // Initial paint
-        updateBike();
-
-        return () => {
-            window.removeEventListener('scroll', onScroll);
-            window.removeEventListener('resize', onResize);
-            if (rafRef.current) cancelAnimationFrame(rafRef.current);
-        };
-    }, [updateBike, measureContainer]);
+        lastY.current = latest;
+    });
 
     return (
         <section className="relative w-full bg-[#F4EAFF] sm:py-24 py-10 lg:py-32 overflow-clip font-sans">
-            {/* Sentinel for section visibility (throttles the scroll handler) */}
-            <div ref={sectionVisRef} className="absolute top-0 left-0 w-full h-1 pointer-events-none" aria-hidden />
             <div className="w-[95%] sm:w-[90%] md:w-[80%] mx-auto relative z-10">
 
                 {/* Section Title */}
@@ -234,8 +157,7 @@ const HowitWorks = () => {
                     ref={titleRef}
                     className={`text-center relative fade-in-up ${titleVisible ? 'is-visible' : ''}`}
                 >
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[100px] bg-[#8E24FF]/10 blur-3xl rounded-full pointer-events-none"></div>
-                    <h2 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[4.2rem] font-bold text-[#8E24FF] tracking-tight leading-tight relative drop-shadow-sm">
+                    <h2 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[4.2rem] font-bold text-[#8E24FF] tracking-tight leading-tight relative">
                         <span className="font-['Playfair_Display'] font-normal">How </span>
                         <span className="font-['Playfair_Display'] italic font-medium">it </span>
                         <span className="font-['Playfair_Display'] font-normal">Works</span>
@@ -251,22 +173,22 @@ const HowitWorks = () => {
                     {/* Vertical Dashed Line Base (Desktop) */}
                     <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[2px] bg-[#E8D4FF] -translate-x-1/2 opacity-60"></div>
 
-                    {/* Glowing Track Fill — driven by CSS custom property --scroll-progress */}
-                    <div
-                        ref={trackFillRef}
-                        className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[4px] bg-gradient-to-b from-[#8E24FF] via-[#D1B3FF] to-[#8E24FF] shadow-[0_0_15px_rgba(142,36,255,0.7)] -translate-x-1/2 origin-top rounded-full scroll-track-fill"
-                    ></div>
+                    {/* Glowing Track Fill */}
+                    <motion.div
+                        className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[4px] bg-gradient-to-b from-[#8E24FF] via-[#D1B3FF] to-[#8E24FF] -translate-x-1/2 origin-top rounded-full"
+                        style={{ scaleY: trackHeight }}
+                    />
 
-                    {/* Single Sticky Bike tracking down the timeline — rotated via direct DOM mutation */}
+                    {/* Single Sticky Bike tracking down the timeline */}
                     <div ref={containerRef} className="hidden md:block absolute left-1/2 top-32 bottom-[20vh] w-16 -translate-x-1/2 z-20 pointer-events-none">
-                        <div className="sticky top-[30vh] w-[72px] h-[72px] flex items-center justify-center drop-shadow-[0_12px_24px_rgba(142,36,255,0.4)]">
-                            <div ref={bikeRef} className="w-full h-full flex items-center justify-center" style={{ transform: 'rotate(160deg)' }}>
+                        <div className="sticky top-[30vh] w-[72px] h-[72px] flex items-center justify-center">
+                            <motion.div className="w-full h-full flex items-center justify-center" style={{ rotate: smoothRotation }}>
                                 <Image
                                     src={images.DeliveryBike1}
                                     alt="Delivery Bike tracking progress"
                                     className="w-full h-full object-contain"
                                 />
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
 
@@ -279,7 +201,7 @@ const HowitWorks = () => {
             </div>
 
             {/* Decorative Gradients */}
-            <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-white/30 to-transparent pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-stone-50/30 to-transparent pointer-events-none"></div>
         </section>
     );
 };
