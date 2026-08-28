@@ -126,7 +126,7 @@ const About = () => {
 
                         {/* Card 1: Moves Completed (Pastel Yellow Wide Card) with 3D Hover & Cursor Shine */}
                         <Card3D
-                            className="overflow-hidden rounded-[2rem] bg-white border border-gray-200 p-6 xs:p-8 sm:p-10 flex flex-col justify-between h-[260px] xs:h-[280px] sm:h-[300px] md:h-[320px] group"
+                            className="overflow-hidden rounded-[2rem] bg-[#FFF86F] p-6 xs:p-8 sm:p-10 flex flex-col justify-between h-[260px] xs:h-[280px] sm:h-[300px] md:h-[320px] group"
                             delay={0}
                         >
                             {/* Dotted curve design vector overlay in the background */}
