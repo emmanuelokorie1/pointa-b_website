@@ -30,35 +30,35 @@ const testimonials = [
     quote: "A2B has completely changed how I send packages to my family. The tracking is so accurate, and the riders are always polite and on time.",
     name: "Amaka Omah",
     role: "Regular User",
-    avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=256&auto=format&fit=crop",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop",
   },
   {
     id: 2,
     quote: "I use A2B every week to send documents across the city. It's incredibly fast, reliable, and gives me total peace of mind.",
     name: "David Adeleke",
     role: "Frequent Sender",
-    avatar: "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?q=80&w=256&auto=format&fit=crop",
+    avatar: "https://images.unsplash.com/photo-1522529599102-1322a5f08cb3?q=80&w=256&auto=format&fit=crop",
   },
   {
     id: 3,
     quote: "Joining A2B as a rider has been fantastic. The app gives me consistent delivery requests and the payout system is very transparent.",
     name: "Sarah Ibrahim",
     role: "Verified Rider",
-    avatar: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=256&auto=format&fit=crop",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=256&auto=format&fit=crop",
   },
   {
     id: 4,
     quote: "The best logistics app I've ever used. The support team is incredibly responsive and the app is so easy to navigate.",
     name: "Chukwudi Eze",
     role: "Regular User",
-    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=256&auto=format&fit=crop",
+    avatar: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=256&auto=format&fit=crop",
   },
   {
     id: 5,
     quote: "I was skeptical at first, but A2B proved me wrong. My packages are always delivered safely without any hassle or delays.",
     name: "Aisha Bello",
     role: "Frequent Sender",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=256&auto=format&fit=crop",
+    avatar: "https://images.unsplash.com/photo-1506277886164-e5b38d00ceac?q=80&w=256&auto=format&fit=crop",
   },
   {
     id: 6,
@@ -122,10 +122,10 @@ const RealStory = () => {
                 <Image src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=64&auto=format&fit=crop" alt="Merchant" fill className="object-cover" sizes="32px" />
               </div>
               <div className="relative w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white overflow-hidden z-20">
-                <Image src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=64&auto=format&fit=crop" alt="Merchant" fill className="object-cover" sizes="32px" />
+                <Image src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=64&auto=format&fit=crop" alt="User" fill className="object-cover" sizes="32px" />
               </div>
               <div className="relative w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white overflow-hidden z-10">
-                <Image src="https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=64&auto=format&fit=crop" alt="Merchant" fill className="object-cover" sizes="32px" />
+                <Image src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=64&auto=format&fit=crop" alt="Rider" fill className="object-cover" sizes="32px" />
               </div>
               <div className="w-6 h-6 lg:w-8 lg:h-8 rounded-full border-2 border-white bg-[#8E24FF] text-white text-[8px] lg:text-[10px] flex items-center justify-center font-bold relative z-0">
                 +1k
